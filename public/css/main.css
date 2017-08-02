@@ -1,0 +1,170 @@
+/*Side Nav*/
+header, main, footer {
+	padding-left: 250px;
+}
+
+@media only screen and (max-width : 992px) {
+	header, main, footer {
+		padding-left: 0;
+	}
+}
+
+.margen-dere {
+	margin-left: 5%
+}
+
+/*--------------------vista Login----------------------------*/
+
+.contenedor-login {
+    margin-top: 7%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+.margen-superior{
+	margin-top: 5%;
+}
+
+.sombra-abajo {
+	-webkit-box-shadow: 5px 6px 10px grey;
+	-moz-box-shadow: 5px 6px 10px grey;
+	box-shadow: 5px 6px 10px grey;
+}
+.sombra-arriba {
+	-webkit-box-shadow: -5px -6px 10px grey;
+	-moz-box-shadow: -5px -6px 10px grey;
+	box-shadow: -5px -5px 10px grey;
+}
+
+
+/*-----------------Vista de inicio-------------------------*/
+
+.img-user {
+	width: 50px;
+	margin-top: 5px;
+
+}
+
+/*tipo de letra*/
+.Oswald{
+	font-family: 'Oswald', sans-serif;
+}
+/*Eliminar bordes*/
+.deleteBorder{
+	border-style: none !important;
+}
+/*Margen superior*/
+.margen-sup{
+	margin-top: 5%;
+}
+/*------------Colores de los inputs de tipo text-------*/
+
+/* label color */
+.input-field label {
+ color: #bdbdbd ;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+ color:#3f51b5;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+ border-bottom: 1px solid #3f51b5;
+ box-shadow: 0 1px 0 0 #3f51b5;
+}
+/* valid color */
+.input-field input[type=text].valid {
+ border-bottom: 1px solid #4caf50;
+ box-shadow: 0 1px 0 0 #4caf50;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+ border-bottom: 1px solid #f44336;
+ box-shadow: 0 1px 0 0 #f44336;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+ color: #000;
+}
+
+   /*Colores inputs de tipo password*/
+
+/* label focus color */
+.input-field input[type=password]:focus + label {
+ color: #3f51b5;
+}
+/* label underline focus color */
+.input-field input[type=password]:focus {
+ border-bottom: 1px solid #3f51b5;
+ box-shadow: 0 1px 0 0 #3f51b5;
+}
+/* valid color */
+.input-field input[type=password].valid {
+ border-bottom: 1px solid #4caf50;
+ box-shadow: 0 1px 0 0 #4caf50;
+}
+/* invalid color */
+.input-field input[type=password].invalid {
+ border-bottom: 1px solid #f44336;
+ box-shadow: 0 1px 0 0 #f44336;
+}
+
+/*---Colores de los inputs de tipo de tipo email---------*/
+
+/* label focus color */
+.input-field input[type=email]:focus + label {
+ color: #3f51b5;
+}
+/* label underline focus color */
+.input-field input[type=email]:focus {
+ border-bottom: 1px solid #3f51b5;
+ box-shadow: 0 1px 0 0 #3f51b5;
+}
+/* valid color */
+.input-field input[type=email].valid {
+ border-bottom: 1px solid #4caf50;
+ box-shadow: 0 1px 0 0 #4caf50;
+}
+/* invalid color */
+.input-field input[type=email].invalid {
+ border-bottom: 1px solid #f44336;
+ box-shadow: 0 1px 0 0 #f44336;
+}
+
+
+/*Colores de los inputs de tipo number*/
+
+.input-field input[type=number]:focus + label {
+ color: #3f51b5;
+}
+/* label underline focus color */
+.input-field input[type=number]:focus {
+ border-bottom: 1px solid #3f51b5;
+ box-shadow: 0 1px 0 0 #3f51b5;
+}
+/* valid color */
+.input-field input[type=number].valid {
+ border-bottom: 1px solid #4caf50;
+ box-shadow: 0 1px 0 0 #4caf50;
+}
+/* invalid color */
+.input-field input[type=number].invalid {
+ border-bottom: 1px solid #f44336;
+ box-shadow: 0 1px 0 0 #f44336;
+
+}
+/*------------------Colores de los textarea------------*/
+.input-field textarea[type=textarea]:focus + label {
+ color:#3f51b5;
+}
+/* label underline focus color */
+.input-field textarea[type=textarea]:focus {
+ border-bottom: 1px solid #3f51b5;
+ box-shadow: 0 1px 0 0 #3f51b5;
+}
+
+/*--------------------Vista Agregar ganados------------------*/
+.contenedor-form {
+	margin-top: 5%;
+	margin-left: 10%;
+	margin-right: 10%;
+}

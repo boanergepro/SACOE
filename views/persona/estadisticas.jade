@@ -1,0 +1,229 @@
+doctype html
+
+html(lang='en')
+	
+head
+
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../css/materialize.css')
+	link(rel="stylesheet" href='../css/main.css')
+	link(rel="stylesheet" href='../css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	link(rel="icon" type="image/png" href="../img/users.png")
+	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../js/materialize.min.js")
+	
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+
+				ul
+					li(class="hide-on-large-only")
+
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				a(href="../inicio" class="brand-logo Oswald margen-dere") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					li
+						a(href="/salida")
+							i(class="material-icons") exit_to_app
+
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../img/cac.jpg")
+
+			li(class="search")
+
+				div(class="row center")
+			
+				form(method="post" action="/buscar" class="col s12")
+
+					div(class="row")
+
+						div(class="col s1")
+
+						div(class="input-field col s10 card")
+
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+				
+						div(class="col s1")
+
+			li(class="bold")
+				a(href="../inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons") home
+
+			li(class="bold")
+				a(href="./nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons") person_add
+			li(class="bold")
+				a(href="./" class="waves-effect waves-red") Ganados
+					i(class="material-icons") people
+
+			li(class="bold")
+				a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons") equalizer
+
+
+		div.row
+			h4.center.margen-sup Estadisticas
+
+			div.row
+				div(class="col s12 m4")
+
+					div(class="card small")
+						div(class="card-image waves-effect waves-block waves-light")
+							img(class="activator" src="../img/congre.jpg" alt="Imagen alusiva a la heredad")
+
+						div(class="card-content")
+							span(class="card-title activator grey-text text-darken-4") Heredad 1
+								
+								i(class="material-icons right") more_vert
+							p
+								a(href="#" class="grey-text text-darken-4") Mas información
+
+						div(class="card-reveal")
+
+							span(class="card-title grey-text text-darken-4") Heredad 1
+								i(class="material-icons right") close
+
+							div(class="collection")
+								a(href="#!" class="collection-item black-text")  Niños
+									span(class="badge") 1
+								a(href="#!" class="collection-item black-text") Pre-jovenes
+									span(class="badge") 4 
+								a(href="#!" class="collection-item black-text") Jovenes
+									span(class="badge") 3 
+								a(href="#!" class="collection-item black-text") Mujeres
+									span(class="badge") 14 
+								a(href="#!" class="collection-item black-text") Hombres
+									span(class="badge") 10 
+
+							
+
+				div(class="col s12 m4")
+
+					div(class="card small")
+						div(class="card-image waves-effect waves-block waves-light")
+							img(class="activator" src="../img/congregacion.jpg" alt="Imagen alusiva a la heredad")
+
+						div(class="card-content")
+							span(class="card-title activator grey-text text-darken-4") Heredad 2
+								
+								i(class="material-icons right") more_vert
+							p
+								a(href="#" class="grey-text text-darken-4") Mas información
+
+						div(class="card-reveal")
+
+							span(class="card-title grey-text text-darken-4") Heredad 2
+								i(class="material-icons right") close
+
+							div(class="collection")
+								a(href="#!" class="collection-item black-text")  Niños
+									span(class="badge") 1
+								a(href="#!" class="collection-item black-text") Pre-jovenes
+									span(class="badge") 4 
+								a(href="#!" class="collection-item black-text") Jovenes
+									span(class="badge") 3 
+								a(href="#!" class="collection-item black-text") Mujeres
+									span(class="badge") 14 
+								a(href="#!" class="collection-item black-text") Hombres
+									span(class="badge") 10
+
+
+				div(class="col s12 m4")
+
+					div(class="card small")
+						div(class="card-image waves-effect waves-block waves-light")
+							img(class="activator" src="../img/congre2.jpg" alt="Imagen alusiva a la heredad")
+
+						div(class="card-content")
+							span(class="card-title activator grey-text text-darken-4") Heredad 3
+								
+								i(class="material-icons right") more_vert
+							p
+								a(href="#" class="grey-text text-darken-4") Mas información
+
+						div(class="card-reveal")
+
+							span(class="card-title grey-text text-darken-4") Heredad 3
+								i(class="material-icons right") close
+
+							div(class="collection")
+								a(href="#!" class="collection-item black-text")  Niños
+									span(class="badge") 1
+								a(href="#!" class="collection-item black-text") Pre-jovenes
+									span(class="badge") 4 
+								a(href="#!" class="collection-item black-text") Jovenes
+									span(class="badge") 3 
+								a(href="#!" class="collection-item black-text") Mujeres
+									span(class="badge") 14 
+								a(href="#!" class="collection-item black-text") Hombres
+									span(class="badge") 10
+
+		div.row
+			div(class="col s12 m6 l3")
+				div(class="card")
+					div(class="card-content green white-text")
+						p(class="card-stats-title") Total
+
+						h4(class="card-stats-number") 505
+
+					div(class="card-action  green darken-2")
+
+						div(id="clients-bar" class="center-align")
+		
+	footer(class="page-footer grey lighten-3")
+		
+		div(class="container")
+			div(div class="row")
+
+				div(class="col s12 m6 l6")
+					h5(class=" blue-grey-text") SACOE Links
+					p(class=" blue-grey-text") Podras encontrar mas infomarión sobre nosotros e incluso contactarnos en nuestras redes sociales en los links proporsionados.
+
+				div(class="col s12 m4 l4")
+
+					h5(class=" blue-grey-text") Redes
+					div.row
+
+						ul
+							div(class="col s4 m12")
+
+								li
+									a(href="#")
+										svg(style="width:24px;height:24px" viewBox="0 0 24 24")
+											path(fill="#3b5998" d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z")
+
+							div(class="col s4 m12")
+
+								li
+									a(href="#")
+										svg(style="width:24px;height:24px" viewBox="0 0 24 24")
+											path(fill="#00aced" d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z")
+
+							div(class="col s4 m12")
+								li
+									a(href="#")
+										svg style="width:24px;height:24px" viewBox="0 0 24 24")
+											path(fill="#bc2a8d" d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z")
+
+
+		div(class="footer-copyright")
+			div(class="container  blue-grey-text")
+				© 2017 Todos los derechos reservados para Casa de Adoración Cristiana
+
+	
+	script(type="text/javascript" src="../js/componentsMaterialize.js")

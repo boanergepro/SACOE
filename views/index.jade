@@ -1,0 +1,49 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='css/materialize.css')
+	link(rel="stylesheet" href='css/main.css')
+	link(rel="stylesheet" href='css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="js/materialize.min.js")
+	
+	
+body(class="Oswald")
+
+	div(class="row margen-superior")
+
+		div(class="col s1 m3 l4")
+		
+		div(class="col s10 m7 l4 card-panel center")
+		
+			div(class="row center")
+
+				i(class="large material-icons indigo-text") account_circle
+				
+				form(method="post" action="/login" class="col s12")
+
+					div(class="row")
+
+						div(class="input-field col s12")
+							i(class="material-icons prefix") perm_identity
+							input(id="nombre" type="text" name="nombre" class="validate")
+							label(for="nombre") Usuario
+
+					div(class="row")
+
+						div(class="input-field col s12")
+							i(class="material-icons prefix") vpn_key
+							input(id="password" type="password" name="password" class="validate")
+							label(for="password") Contraseña
+
+					div(class="row")
+						button(class="btn waves-effect indigo waves-light" type="submit" onclick="validar()" name="action") Iniciar
+		div(class="col s1 m3 l4")
+					
+	script(type="text/javascript" src="js/valid.js")

@@ -1,0 +1,110 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../css/materialize.css')
+	link(rel="stylesheet" href='../css/main.css')
+	link(rel="stylesheet" href='../css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../js/materialize.min.js")
+	
+
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+				ul
+					li(class="hide-on-large-only")
+
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				a(href="../inicio" class="brand-logo Oswald margen-dere") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					li
+						a(href="/salida")
+							i(class="material-icons") exit_to_app
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../img/cac.jpg")
+
+			li(class="search")
+
+				div(class="row center")
+			
+				form(method="post" action="/buscar" class="col s12")
+
+					div(class="row")
+
+						div(class="col s1")
+
+						div(class="input-field col s10 card")
+
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+				
+						div(class="col s1")
+
+			li(class="bold")
+				a(href="../inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons") home
+
+			li(class="bold")
+				a(href="./nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons") person_ad
+
+			li(class="bold")
+				a(href="./" class="waves-effect waves-red") Ganados
+					i(class="material-icons") people
+
+			li(class="bold")
+				a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons") equalizer
+		
+		div(class="row center")
+			
+			div(class="col s12")
+
+				h4.center Redes
+
+				div.row
+
+					div(class="col s12 m6")
+						div(class="col s2")
+						a(href="/red/ninos" class="waves-effect hoverable waves-light btn-large light-green accent-3 black-text col s8 tooltipped" data-position="right" data-delay="50" data-tooltip="#{dato.red_ninos} Personas") Red de Niños
+					div(class="col s12 m6")
+						div(class="col s2")
+						a(href="/red/pre-jovenes" class="waves-effect hoverable waves-light btn-large red black-text col s8 tooltipped" data-position="left" data-delay="50" data-tooltip="#{dato.red_prejovenes} Personas") Red de Pre-joneves
+
+				div.row
+					div(class="col s12 m6")
+						div(class="col s2")
+						a(href="/red/jovenes" class="waves-effect hoverable waves-light btn-large orange black-text col s8 tooltipped" data-position="right" data-delay="50" data-tooltip="#{dato.red_jovenes} Personas") Red de Jovenes
+
+					div(class="col s12 m6")
+						div(class="col s2")
+						a(href="/red/mujeres" class="waves-effect hoverable white waves-light btn-large pink lighten-3 black-text col s8 tooltipped" data-position="left" data-delay="50" data-tooltip="#{dato.red_mujeres} Personas") Red de Mujeres
+				div.row
+					div(class="col s12 m6")
+						div(class="col s2")
+						a(href="/red/hombres" class="waves-effect hoverable  waves-light btn-large blue black-text col s8 tooltipped" data-position="right" data-delay="50" data-tooltip="#{dato.red_hombres} Personas") Red de Hombres
+
+					div(class="col s12 m6")
+						div(class="col s2")
+						a(href="/red/todos" class="waves-effect hoverable  waves-light btn-large black-text col s8") Todos
+	footer
+
+	script(type="text/javascript" src="../js/componentsMaterialize.js")
+				

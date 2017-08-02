@@ -1,0 +1,217 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../css/materialize.css')
+	link(rel="stylesheet" href='../css/main.css')
+	link(rel="stylesheet" href='../css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../js/materialize.min.js")
+	
+
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+				ul
+					li(class="hide-on-large-only")
+
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				a(href="../inicio" class="brand-logo Oswald margen-dere") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					li
+						a(href="/salida")
+							i(class="material-icons") exit_to_app
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../img/cac.jpg")
+
+			li(class="search")
+
+				div(class="row center")
+			
+				form(method="post" action="/buscar" class="col s12")
+
+					div(class="row")
+
+						div(class="col s1")
+
+						div(class="input-field col s10 card")
+
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+				
+						div(class="col s1")
+
+			li(class="bold")
+				a(href="../inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons") home
+
+				a(href="./nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons") person_ad
+
+			li(class="bold")
+				a(href="./" class="waves-effect waves-red") Ganados
+					i(class="material-icons") people
+
+			li(class="bold")
+				a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons") equalizer
+
+
+		h4.center Agregar persona ganada
+
+		div(class="contenedor-form card-panel")
+
+			div(class="row center")
+
+				form(method="post" action="/nuevo" class="col s12")
+
+					div(class="row")
+
+						div(class="input-field col s12 m4")
+
+							input(id="fechaGanado" type="date" placeholder="Fecha al ser ganado" name="fechaGanado" class="datepicker")
+
+
+						div(class="input-field col s12 m4")
+							
+							input(id="fechaNacimiento" type="date"  placeholder="Fecha de nacimiento" name="fechaNacimiento" class="datepicker")
+							
+						div(class="input-field col s12 m4")
+
+							input(id="nombre" type="text" name="nombre" class="validate")
+							label(for="nombre") Nombre
+
+					div(class="row")
+
+						div(class="input-field col s12 m4")
+
+							input(id="apellido" type="text" name="apellido" class="validate")
+							label(for="apellido") Apellido
+
+						div(class="input-field col s12 m4")
+
+							select(name="sexo" id="sexo")
+								option(value="" disabled selected) Selecciona el sexo
+								option(value="m") Masculino
+								option(value="f") Femenino
+
+						div(class="input-field col s12 m4")
+
+							select(name="heredad" id="heredad")
+								option(value="" disabled selected) Selecciona la heredad
+								option(value="1") H1
+								option(value="2") H2
+								option(value="3") H3
+								option(value="4") H4
+								option(value="5") H5
+								option(value="6") H6
+								option(value="7") H7
+								option(value="8") H8
+								option(value="9") H9
+								option(value="10") H10
+								option(value="11") H11
+								option(value="12") H12
+
+
+							label Heredad
+
+					div(class="row")
+
+						div(class="input-field col s12 m4")
+							
+							select(name="nacionalidad" id="nacionalidad")
+								option(value="" disabled selected) Selecciona la nacionalidad
+								option(value="v") Venezolano
+								option(value="e") Extranjero
+
+
+						div(class="input-field col s12 m4")
+							
+
+							input(id="ocupacion" type="text" name="ocupacion" class="validate")
+							label(for="ocupacion") Ocupación
+							
+						div(class="input-field col s12 m4")
+
+							input(id="ciudad" type="text" name="ciudad" class="validate")
+							label(for="ciudad") Ciudad
+
+					div(class="row")
+
+						div(class="input-field col s12 m4")
+
+							input(id="telefono" type="text" name="telefono" class="validate")
+							label(for="telefono") Telefono
+
+						div(class="input-field col s12 m4")
+							
+							input(id="invitadoPor" type="text" name="invitadoPor" class="validate")
+							label(for="invitadoPor") Invitado por
+						
+
+						div(class="input-field col s12 m4")
+
+							input(id="correo" type="email" name="correo" class="validate")
+							label(for="correo") Correo
+
+					div(class="row")
+
+						div(class="input-field col s12")
+
+							textarea(id="fechaVisitar" type="textarea" name="fechaVisitar" class="materialize-textarea")
+							label(for="fechaVisitar") Dia y hora para visitar
+					
+					div(class="row")
+						
+						div(class="input-field col s12")
+
+							textarea(id="direccion" type="textarea" name="direccion" class="materialize-textarea")
+							label(for="direccion") Dirección
+
+					div(class="row")
+						
+						div(class="input-field col s12")
+
+							textarea(id="celula-insertar" type="textarea" name="celulaInsertar" class="materialize-textarea")
+							label(for="celula-insertar") Celula a insertar
+
+					div(class="row")
+						
+						div(class="input-field col s12")
+
+							textarea(id="peticionOracion" type="textarea" name="peticionOracion" class="materialize-textarea")
+							label(for="peticionOracion") Peticion de oración
+
+					div(class="row")
+
+						div(class="input-field col s12")
+
+							input(id="lugar" type="text" name="lugar" class="validate")
+							label(for="lugar") Lugar
+
+					div(class="row")
+
+						div(class="col s12")
+
+							button(class="btn waves-effect indigo waves-light" type="submit" name="action") Guardar
+
+	footer
+
+
+	script(type="text/javascript" src="../js/componentsMaterialize.js")

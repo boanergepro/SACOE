@@ -1,0 +1,144 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../css/materialize.css')
+	link(rel="stylesheet" href='../css/main.css')
+	link(rel="stylesheet" href='../css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../js/materialize.min.js")
+	
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+
+				ul
+					li(class="hide-on-large-only")
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				a(href="../inicio" class="brand-logo Oswald margen-dere") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					li
+						a(href="/salida")
+							i(class="material-icons") exit_to_app
+
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../img/cac.jpg")
+
+			li(class="search")
+
+				div(class="row center")
+			
+				form(method="post" action="/buscar" class="col s12")
+
+					div(class="row")
+
+						div(class="col s1")
+
+						div(class="input-field col s10 card")
+
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+				
+						div(class="col s1")
+
+			li(class="bold")
+				a(href="../inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons") home
+
+			li(class="bold")
+				a(href="./nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons") person_add
+
+			li(class="bold")
+				a(href="./" class="waves-effect waves-red") Ganados
+					i(class="material-icons") people
+
+			li(class="bold")
+				a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons") equalizer
+
+
+		div(class="row center")
+			
+			div(class="col s12")
+
+				h4.center.margen-sup Todos sin heredad
+					
+
+				table(class="bordered highlight")
+
+					thead
+						tr
+							th.center Nombre
+							th.center Apellido
+							th.center Telefono
+							th.center Edad
+							th.center Actiones
+					tbody
+						each campo in persona
+							tr
+								td(class="center")= campo.nombre
+								td(class="center")= campo.apellido
+								td(class="center")= campo.telefono
+								td(class="center")= campo.date_part
+								td(class="center")
+
+									ul(class="center")
+
+										div.row
+
+											div(class="col s12 m4")
+												li
+													a(href="#")
+														i(class="material-icons orange-text") border_color
+												li
+													a(href="/ver/#{campo.id}")
+														i(class="material-icons green-text") visibility
+
+											div(class="col s12 m4")
+												li
+													a(href="#")
+														i(class="material-icons") email
+												li
+													a(href="#")
+														i(class="material-icons red-text") picture_as_pdf
+											
+
+											div(class="col s12 m4")
+												li
+
+													a(href="#modal#{campo.id}")
+						
+														i(class="material-icons pink-text") delete_forever
+
+											div(id="modal#{campo.id}" class="modal")
+												div(class="modal-content")
+													i(class="material-icons medium red-text") warning
+													h5 Esta seguro que desea eliminar a esta persona.
+													p Al presionar en el boton Si ya no podra recuperar los datos de esta persona.
+
+												div(class="row")
+								
+													div(class="col s6")
+														a(href="/borrar/#{campo.id}" class="modal-action modal-close waves-effect waves-light btn green") Si
+													div(class="col s6")
+														a(class="modal-action modal-close waves-effect waves-light btn red") No
+	footer
+												
+	script(type="text/javascript" src="../js/componentsMaterialize.js")

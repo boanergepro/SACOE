@@ -1,0 +1,210 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../css/materialize.css')
+	link(rel="stylesheet" href='../css/main.css')
+	link(rel="stylesheet" href='../css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../js/materialize.min.js")
+	
+
+body(class="Oswald")
+
+	nav(class="indigo top-nav")
+
+		div(class="nav-wrapper")
+			ul
+				li
+					a(class="sideNav" data-activates="slide-out")
+						i(class="material-icons left") menu
+
+			a(href="../inicio" class="brand-logo Oswald center") SACOE
+
+			ul(id="nav-mobile" class="right")
+
+				li
+					a(href="/salida")
+						i(class="material-icons") exit_to_app
+
+	ul(id="slide-out" class="side-nav")
+		
+		li(class="logo")
+			img(class="responsive-img" src="../img/cac.jpg")
+
+		li(class="search")
+
+			div(class="row center")
+		
+			form(method="post" action="/buscar" class="col s12")
+
+				div(class="row")
+
+					div(class="col s1")
+
+					div(class="input-field col s10 card")
+
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+			
+					div(class="col s1")
+
+		li(class="bold")
+			a(href="../inicio" class="waves-effect waves-red") Inicio
+				i(class="material-icons") home
+
+			a(href="./nuevo" class="waves-effect waves-red") Agregar
+				i(class="material-icons") person_ad
+
+		li(class="bold")
+			a(href="./" class="waves-effect waves-red") Ganados
+				i(class="material-icons") people
+
+		li(class="bold")
+			a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+				i(class="material-icons") equalizer
+
+
+	h4.center Editar datos de #{persona.nombre} #{persona.apellido}
+
+	div(class="contenedor-form card-panel")
+
+		div(class="row center")
+
+			form(method="post" action="/editarSave" class="col s12")
+
+				div(class="row")
+
+					div(class="input-field col s12 m4")
+
+						input(id="fechaGanado" type="text" value="#{persona.fecha}" placeholder="Fecha al ser ganado" name="fechaGanado" class="validate")
+						label(for="nombre") Fecha al ser ganado
+
+					div(class="input-field col s12 m4")
+						
+						input(id="fechaNacimiento" type="text" value="#{persona.fecha_nacimiento}" placeholder="Fecha de nacimiento" name="fechaNacimiento" class="validate")
+						label(for="nombre") Fecha de nacimiento
+						
+					div(class="input-field col s12 m4")
+
+						input(id="nombre" type="text" value="#{persona.nombre}" name="nombre" class="validate")
+						label(for="nombre") Nombre
+
+				div(class="row")
+
+					div(class="input-field col s12 m4")
+
+						input(id="apellido" type="text" value="#{persona.apellido}" name="apellido" class="validate")
+						label(for="apellido") Apellido
+
+					div(class="input-field col s12 m4")
+						select(name="sexo" id="sexo")
+							option(value="" disabled selected) Selecciona el sexo
+							option(value="m", selected=(persona.sexo == "m")) Masculino
+							option(value="f", selected=(persona.sexo == "f")) Femenino
+
+					div(class="input-field col s12 m4")
+
+						select(name="heredad" id="heredad")
+							option(value="" disabled selected) Selecciona la heredad
+							option(value="1", selected=(persona.heredad == "1")) H1
+							option(value="2", selected=(persona.heredad == "2")) H2
+							option(value="3", selected=(persona.heredad == "3")) H3
+							option(value="4", selected=(persona.heredad == "4")) H4
+							option(value="5", selected=(persona.heredad == "5")) H5
+							option(value="6", selected=(persona.heredad == "6")) H6
+							option(value="7", selected=(persona.heredad == "7")) H7
+							option(value="8", selected=(persona.heredad == "8")) H8
+							option(value="9", selected=(persona.heredad == "9")) H9
+							option(value="10", selected=(persona.heredad == "10")) H10
+							option(value="11", selected=(persona.heredad == "11")) H11
+							option(value="12", selected=(persona.heredad == "12")) H12
+
+
+						label Heredad
+
+				div(class="row")
+
+					div(class="input-field col s12 m4")
+						
+						select(name="nacionalidad" id="nacionalidad")
+							option(value="" disabled selected) Selecciona la nacionalidad
+							option(value="v", selected=(persona.nacionalidad == "v")) Venezolano
+							option(value="e", selected=(persona.nacionalidad == "e")) Extranjero
+
+
+					div(class="input-field col s12 m4")
+						
+
+						input(id="ocupacion" type="text" value="#{persona.ocupacion}" name="ocupacion" class="validate")
+						label(for="ocupacion") Ocupación
+						
+					div(class="input-field col s12 m4")
+
+						input(id="ciudad" type="text" value="#{persona.ciudad}" name="ciudad" class="validate")
+						label(for="ciudad") Ciudad
+
+				div(class="row")
+
+					div(class="input-field col s12 m4")
+
+						input(id="telefono" type="text" value="#{persona.telefono}" name="telefono" class="validate")
+						label(for="telefono") Telefono
+
+					div(class="input-field col s12 m4")
+						
+						input(id="invitadoPor" type="text" value="#{persona.invitado_por}" name="invitadoPor" class="validate")
+						label(for="invitadoPor") Invitado por
+					
+
+					div(class="input-field col s12 m4")
+
+						input(id="correo" type="email" value="#{persona.correo}" name="correo" class="validate")
+						label(for="correo") Correo
+
+				div(class="row")
+
+					div(class="input-field col s12")
+
+						input(id="fechaVisitar" type="text" value="#{persona.fecha_visitar}" name="fechaVisitar" class="validate")
+						label(for="fechaVisitar") Dia y hora para visitar
+				
+				div(class="row")
+					
+					div(class="input-field col s12")
+
+						input(id="direccion" type="text" value="#{persona.direccion}" name="direccion" class="validate")
+						label(for="direccion") Dirección
+
+				div(class="row")
+					
+					div(class="input-field col s12")
+
+						input(id="celula-insertar" type="text" value="#{persona.celula_insertar}" name="celulaInsertar" class="validate")
+						label(for="celula-insertar") Celula a insertar
+
+				div(class="row")
+					
+					div(class="input-field col s12")
+
+						input(id="peticionOracion" type="text" value="#{persona.peticion_oracion}" name="peticionOracion" class="validate")
+						label(for="peticionOracion") Peticion de oración
+
+				div(class="row")
+
+					div(class="input-field col s12")
+
+						input(id="lugar" type="text" value="#{persona.lugar}" name="lugar" class="validate")
+						label(for="lugar") Lugar
+
+				div(class="row")
+
+					div(class="col s12")
+
+						button(class="btn waves-effect indigo waves-light" type="submit" name="action") Guardar
+
+	script(type="text/javascript" src="../js/componentsMaterialize.js")

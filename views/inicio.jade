@@ -1,0 +1,105 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='css/materialize.css')
+	link(rel="stylesheet" href='css/main.css')
+	link(rel="stylesheet" href='css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="js/materialize.min.js")
+	
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+
+				ul
+					li(class="hide-on-large-only")
+
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				a(href="/inicio" class="brand-logo Oswald margen-dere") SACOE
+
+				
+				ul(id="nav-mobile" class="right")
+
+					li
+						a(href="./salida")
+							i(class="material-icons") exit_to_app
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="img/cac.jpg")
+
+			li(class="search")
+
+				div(class="row center")
+			
+				form(method="post" action="/buscar" class="col s12")
+
+					div(class="row")
+
+						div(class="col s1")
+
+						div(class="input-field col s10 card")
+
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+				
+						div(class="col s1")
+
+			li(class="bold")
+				a(href="./inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons") home 
+
+			li(class="bold")
+				a(href="persona/nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons") person_add
+
+			li(class="bold")
+				a(href="persona/" class="waves-effect waves-red") Ganados
+					i(class="material-icons") people
+
+			li(class="bold")
+				a(href="persona/estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons") equalizer
+
+		div(class="slider")
+			ul(class="slides")
+				li
+					img(src="img/congre.jpg")
+					div(class="caption center-align")
+					
+
+				li
+					img(src="img/equipoCAC.jpg")
+					div(class="caption left-align")
+						
+				li
+					img(src="img/congre2.jpg") 
+					div(class="caption right-align")
+						
+
+				li
+					img(src="img/caminata.jpg")
+					div class="caption center-align")
+
+		div(class="section white")
+			div(class="row container")
+				h2(class="header blue-text") Fase ganar
+				p(class="grey-text text-darken-3 lighten-3") Nuestro trabajo como primer peldaño de la escalera del exito la cual esta compuesta por las fases ganar, consolidar, discipular y enviar. Es conectar a esa alma que esta perdida, con el Amor de Dios el Amor Agape, ese amor incondicionla.Por eso te inivitamos a ser esa persona que conecte multitudes con ese Amor, es muuy sencillo conectar a uno mas, tan solo con  compartir tu experiencia podras unir a esa persona con el Amor de Dios.
+	footer  
+					
+        
+
+	script(type="text/javascript" src="js/componentsMaterialize.js") 

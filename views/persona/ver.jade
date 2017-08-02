@@ -1,0 +1,174 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../css/materialize.css')
+	link(rel="stylesheet" href='../css/main.css')
+	link(rel="stylesheet" href='../css/icon.css')
+	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../js/materialize.min.js")
+	
+body(class="Oswald")
+
+	nav(class="indigo top-nav")
+
+		div(class="nav-wrapper")
+
+			ul
+				li
+					a(class="sideNav" data-activates="slide-out")
+						i(class="material-icons left") menu
+
+			a(href="./inicio" class="brand-logo Oswald center") SACOE
+
+			ul(id="nav-mobile" class="right")
+
+				li
+					a(href="/salida")
+						i(class="material-icons") exit_to_app
+
+	ul(id="slide-out" class="side-nav")
+		
+		li(class="logo")
+			img(class="responsive-img" src="../img/cac.jpg")
+
+		li(class="search")
+
+			div(class="row center")
+		
+			form(method="post" action="/buscar" class="col s12")
+
+				div(class="row")
+
+					div(class="col s1")
+
+					div(class="input-field col s10 card")
+
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+			
+					div(class="col s1")
+
+		li(class="bold")
+			a(href="../inicio" class="waves-effect waves-red") Inicio
+				i(class="material-icons") home
+
+		li(class="bold")
+			a(href="../persona/nuevo" class="waves-effect waves-red") Agregar
+				i(class="material-icons") person_add
+
+		li(class="bold")
+			a(href="../persona/" class="waves-effect waves-red") Ganados
+				i(class="material-icons") people
+
+		li(class="bold")
+			a(href="../persona/estadisticas" class="waves-effect waves-red") Estadisticas
+				i(class="material-icons") equalizer
+
+
+	div(class="row center")
+
+		div(class="col s12")
+
+			h4.center.margen-sup Datos de #{persona.nombre} #{persona.apellido}
+
+			div(class="fixed-action-btn horizontal click-to-toggle")
+				a(class="btn-floating btn-large red")
+					i(class="large material-icons") menu
+				ul
+					li
+						a(href="/editar/#{persona.id}" class="btn-floating orange")
+							i(class="material-icons") border_color
+					li
+						a(class="btn-floating blue")
+							i(class="material-icons") email
+					li
+						a(class="btn-floating red")
+							i(class="material-icons") picture_as_pdf
+					li
+						a(href="/borrar/#{persona.id}" class="btn-floating pink")
+							i(class="material-icons") delete_forever
+
+			
+			div.row
+
+				div(class="col s12 m6")
+					table(class="z-depth-4 centered")
+						thead
+							tr
+								th.center Nombre
+								th.center Apellido
+								th.center Edad
+								th.center Telefono
+						tbody
+							tr
+								td.center= persona.nombre
+								td.center= persona.apellido
+								td.center 
+								td.center= persona.telefono 
+
+				div(class="col s12 m6")
+					table(class="z-depth-4")
+						thead
+							tr
+								th.center Lugar 
+								th.center Sexo
+								th.center Nacionalidad
+								th.center Ocupacion
+						tbody
+							tr
+								td.center= persona.lugar
+								td.center= persona.sexo
+								td.center= persona.nacionalidad
+								td.center= persona.ocupacion
+			div.row
+				div(class="col s12 m6")
+					table(class="z-depth-4 centered")
+						thead
+							tr
+								th.center Fecha
+								th.center Fecha de nacimiento
+								th.center Fecha para visitar
+								th.center Ciudad
+						tbody
+							tr
+								td.center= persona.fecha
+								td.center= persona.fecha_nacimiento
+								td.center= persona.fecha_visitar
+								td.center= persona.ciudad 
+
+				div(class="col s12 m6")
+					table(class="z-depth-4")
+						thead
+							tr
+								th.center invitado por 
+								th.center Heredad
+								th.center Correo
+								th.center Peticion de Oracion
+						tbody
+							tr
+								td.center= persona.invitado_por
+								td.center= persona.heredad
+								td.center= persona.correo
+								td.center= persona.peticion_oracion
+			div.row
+
+				div(class="col s12 m12")
+					table(class="z-depth-4")
+						thead
+							tr
+								th.center Dirección 
+								
+						tbody
+							tr
+								td.center= persona.direccion
+
+
+
+
+
+	script(type="text/javascript" src="../js/componentsMaterialize.js")
