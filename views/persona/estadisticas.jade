@@ -10,7 +10,7 @@ head
 	link(rel="stylesheet" href='../css/materialize.css')
 	link(rel="stylesheet" href='../css/main.css')
 	link(rel="stylesheet" href='../css/icon.css')
-	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
+	link(rel="stylesheet" href='../css/fuente.css')
 	link(rel="icon" type="image/png" href="../img/users.png")
 	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
 	script(type="text/javascript" src="../js/materialize.min.js")
@@ -79,114 +79,58 @@ body(class="Oswald")
 		div.row
 			h4.center.margen-sup Estadisticas
 
-			div.row
-				div(class="col s12 m4")
-
-					div(class="card small")
-						div(class="card-image waves-effect waves-block waves-light")
-							img(class="activator" src="../img/congre.jpg" alt="Imagen alusiva a la heredad")
-
-						div(class="card-content")
-							span(class="card-title activator grey-text text-darken-4") Heredad 1
-								
-								i(class="material-icons right") more_vert
-							p
-								a(href="#" class="grey-text text-darken-4") Mas información
-
-						div(class="card-reveal")
-
-							span(class="card-title grey-text text-darken-4") Heredad 1
-								i(class="material-icons right") close
-
-							div(class="collection")
-								a(href="#!" class="collection-item black-text")  Niños
-									span(class="badge") 1
-								a(href="#!" class="collection-item black-text") Pre-jovenes
-									span(class="badge") 4 
-								a(href="#!" class="collection-item black-text") Jovenes
-									span(class="badge") 3 
-								a(href="#!" class="collection-item black-text") Mujeres
-									span(class="badge") 14 
-								a(href="#!" class="collection-item black-text") Hombres
-									span(class="badge") 10 
-
-							
-
-				div(class="col s12 m4")
-
-					div(class="card small")
-						div(class="card-image waves-effect waves-block waves-light")
-							img(class="activator" src="../img/congregacion.jpg" alt="Imagen alusiva a la heredad")
-
-						div(class="card-content")
-							span(class="card-title activator grey-text text-darken-4") Heredad 2
-								
-								i(class="material-icons right") more_vert
-							p
-								a(href="#" class="grey-text text-darken-4") Mas información
-
-						div(class="card-reveal")
-
-							span(class="card-title grey-text text-darken-4") Heredad 2
-								i(class="material-icons right") close
-
-							div(class="collection")
-								a(href="#!" class="collection-item black-text")  Niños
-									span(class="badge") 1
-								a(href="#!" class="collection-item black-text") Pre-jovenes
-									span(class="badge") 4 
-								a(href="#!" class="collection-item black-text") Jovenes
-									span(class="badge") 3 
-								a(href="#!" class="collection-item black-text") Mujeres
-									span(class="badge") 14 
-								a(href="#!" class="collection-item black-text") Hombres
-									span(class="badge") 10
-
-
-				div(class="col s12 m4")
-
-					div(class="card small")
-						div(class="card-image waves-effect waves-block waves-light")
-							img(class="activator" src="../img/congre2.jpg" alt="Imagen alusiva a la heredad")
-
-						div(class="card-content")
-							span(class="card-title activator grey-text text-darken-4") Heredad 3
-								
-								i(class="material-icons right") more_vert
-							p
-								a(href="#" class="grey-text text-darken-4") Mas información
-
-						div(class="card-reveal")
-
-							span(class="card-title grey-text text-darken-4") Heredad 3
-								i(class="material-icons right") close
-
-							div(class="collection")
-								a(href="#!" class="collection-item black-text")  Niños
-									span(class="badge") 1
-								a(href="#!" class="collection-item black-text") Pre-jovenes
-									span(class="badge") 4 
-								a(href="#!" class="collection-item black-text") Jovenes
-									span(class="badge") 3 
-								a(href="#!" class="collection-item black-text") Mujeres
-									span(class="badge") 14 
-								a(href="#!" class="collection-item black-text") Hombres
-									span(class="badge") 10
-
-		div.row
 			div(class="col s12 m6 l3")
+
 				div(class="card")
 					div(class="card-content green white-text")
-						p(class="card-stats-title") Total
+						p(class="card-stats-title center") Total
 
-						h4(class="card-stats-number") 505
+						h4(class="card-stats-number center") 505
 
 					div(class="card-action  green darken-2")
 
 						div(id="clients-bar" class="center-align")
+
+			div(class="col s12 m6 l3")
+
+				div(class="card")
+					div(class="card-content purple white-text")
+						p(class="card-stats-title center") Total
+
+						h4(class="card-stats-number center") 302
+
+					div(class="card-action  purple darken-2")
+
+						div(id="clients-bar" class="center-align")
+
+			div(class="col s12 m6 l3")
+
+				div(class="card")
+					div(class="card-content red white-text")
+						p(class="card-stats-title center") Total
+
+						h4(class="card-stats-number center") 9.200
+
+					div(class="card-action  red darken-2")
+
+						div(id="clients-bar" class="center-align")
+
+			div(class="col s12 m6 l3")
+
+				div(class="card")
+					div(class="card-content teal white-text")
+						p(class="card-stats-title center") Total
+
+						h4(class="card-stats-number center") 1.000
+
+					div(class="card-action  teal darken-2")
+
+						div(id="clients-bar" class="center-align")
+
+
 		
 	footer(class="page-footer grey lighten-3")
-		
+
 		div(class="container")
 			div(div class="row")
 

@@ -14,6 +14,33 @@ const db = require('./db')
 //Conexion
 const conexionDB = db.getConecctionDb();
 
+const pg = require('pg')
+  , session = require('express-session')
+  , pgSession = require('connect-pg-simple')(session);
+ 
+var pgPool = new pg.Pool({
+
+    host: 'localhost',
+    database:'sacoeDB',
+  	user: 'postgres',
+  	password: '123456',
+  	max: 20,
+  	idleTimeoutMillis: 30000,
+  	connectionTimeoutMillis: 2000, 
+});
+ 
+app.use(session({
+
+  store: new pgSession({
+    pool : pgPool,    // Connection pool 
+    tableName : 'session'   // Use another table-name than the default "session" one 
+  }),
+  secret: 'sacoe-Evangelismo' || process.env.FOO_COOKIE_SECRET,
+  resave: false,
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+  
+}));
+
 
 
 //modelos
@@ -21,7 +48,8 @@ const Personas = require('./modelos/persona')
 
 const Sequelize = require('sequelize')
 
-//Transformar los datos a json
+//middleware Transformar los datos a json
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 

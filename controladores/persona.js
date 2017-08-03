@@ -19,6 +19,8 @@ function verLogin (req, res) {
 }
 function inicioSecion (req, res) {
 
+	console.log(req.session)
+	
 	let user = req.body.nombre
 	let pass = req.body.password
 
@@ -212,27 +214,27 @@ function verVistaRedes (req, res) {
 
 			              sum( 
 			                CASE WHEN (
-			                  date_part BETWEEN 6 AND 12
+			                  edad BETWEEN 6 AND 12
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_ninos,
 			              sum( 
 			                CASE WHEN (
-			                  date_part BETWEEN 13 AND 17
+			                  edad BETWEEN 13 AND 17
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_prejovenes,
 			              sum( 
 			                CASE WHEN (
-			                  date_part BETWEEN 18 AND 24
+			                  edad BETWEEN 18 AND 24
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_jovenes,
 			              sum( 
 			                CASE WHEN (
-			                  (date_part BETWEEN 25 AND 100) AND (sexo = 'f')
+			                  (edad BETWEEN 25 AND 100) AND (sexo = 'f')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_mujeres,
 			                sum( 
 			                CASE WHEN (
-			                  (date_part BETWEEN 25 AND 100) AND (sexo = 'm')
+			                  (edad BETWEEN 25 AND 100) AND (sexo = 'm')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_hombres
 		          
@@ -258,6 +260,7 @@ function verVistaFiltrado (req, res) {
 	res.redirect('/persona/verFiltrado')
 
 }
+
 function verFitradoFinal (req, res) {
 
 	let min = 0
@@ -302,7 +305,7 @@ function verFitradoFinal (req, res) {
 	/*Si sexo = null la red seleccionada en ! hombres && mujeres*/
 	else if (sexo == null){
 
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND date_part BETWEEN :min AND :max', 
+		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND edad BETWEEN :min AND :max', 
 				{ replacements: { heredad: numHeredad, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Personas}).then((personas) => {
   					console.log(personas)
@@ -313,7 +316,7 @@ function verFitradoFinal (req, res) {
 
 	/*Si sexo != null entonces la red es = hombres || mujeres*/
 	else{
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND sexo = :sexo AND date_part BETWEEN :min AND :max', 
+		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
 				{ replacements: { heredad: numHeredad, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Personas}).then((personas) => {
   					console.log(personas)

@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
   "author": "boanergepro",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "connect-pg-simple": "^4.2.0",
     "express": "^4.15.3",
+    "express-session": "^1.15.4",
     "jade": "^1.11.0",
     "moment": "^2.18.1",
     "nodemon": "^1.11.0",
