@@ -31,13 +31,13 @@ var pgPool = new pg.Pool({
  
 app.use(session({
 
-  store: new pgSession({
-    pool : pgPool,    // Connection pool 
-    tableName : 'session'   // Use another table-name than the default "session" one 
-  }),
-  secret: 'sacoe-Evangelismo' || process.env.FOO_COOKIE_SECRET,
-  resave: false,
-  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+	store: new pgSession({
+	pool : pgPool,    // Connection pool 
+	tableName : 'session'   // Use another table-name than the default "session" one 
+	}),
+	secret: 'sacoe-Evangelismo' || process.env.FOO_COOKIE_SECRET,
+	resave: false,
+	cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
   
 }));
 
@@ -45,6 +45,7 @@ app.use(session({
 
 //modelos
 const Personas = require('./modelos/persona')
+const FaseGanar = require('./modelos/fase_ganar')
 
 const Sequelize = require('sequelize')
 

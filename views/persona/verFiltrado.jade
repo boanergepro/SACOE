@@ -78,38 +78,36 @@ body(class="Oswald")
 
 				h4.center Todos los ganados
 				
+				div#contenedor-boton-acciones
+				
 				table(class="bordered highlight")
 
 					thead
 						tr
+							th.center Marcar
 							th.center Nombre
 							th.center Apellido
 							th.center Telefono
 							th.center Edad
-							th.center Actiones
+							th.center Direccion
 					tbody
 						each campo in persona
 							tr
-								td(class="center")= campo.nombre
-								td(class="center")= campo.apellido
-								td(class="center")= campo.telefono
-								td(class="center")= campo.edad
-								td(class="center")
+								td.center
+									-// checked="checked"
+									input(type="checkbox" class="filled-in" id="checkId-#{campo.persona_id}" data-persona_id="#{campo.persona_id}")
+									label(for="checkId-#{campo.persona_id}")
+							
+								td.center= campo.nombre
+								td.center= campo.apellido
+								td.center= campo.telefono
+								td.center= campo.edad
+								td.center= campo.direccion
 
-									ul(class="center")
-
-										div.row
-
-											div(class="col s12 m4")
-												li
-													a(href="/editar/#{campo.id}")
-														i(class="material-icons orange-text") border_color
-												li
-													a(href="#modal1#{campo.id}")
-														i(class="material-icons green-text") visibility
+					
 
 												-//Este es el modal de la vista ver
-												div(id="modal1#{campo.id}" class="modal")
+												div(id="modals#{campo.persona_id}" class="modal")
 
 													div(class="modal-content")
 														h4.center.margen-sup Datos de #{campo.nombre} #{campo.apellido}
@@ -141,27 +139,12 @@ body(class="Oswald")
 																		th.center Ocupacion
 																tbody
 																	tr
-																		td.center= campo.lugar
+																		td.center= campo.lugar_contacto
 																		td.center= campo.sexo
 																		td.center= campo.nacionalidad
 																		td.center= campo.ocupacion
 															hr
-														div(class="col s12 margen-sup")
-															table(class="centered")
-																thead
-																	tr
-																		th.center Lugar 
-																		th.center Sexo
-																		th.center Nacionalidad
-																		th.center Ocupacion
-																tbody
-																	tr
-																		td.center= campo.lugar
-																		td.center= campo.sexo
-																		td.center= campo.nacionalidad
-																		td.center= campo.ocupacion
-															hr
-
+											
 														div(class="col s12 margen-sup")
 															h6 Fechas
 															table(class="centered")
@@ -173,7 +156,7 @@ body(class="Oswald")
 																		th.center Ciudad
 																tbody
 																	tr
-																		td.center= campo.fecha
+																		td.center= campo.fecha_nacimiento
 																		td.center= campo.fecha_nacimiento
 																		td.center= campo.fecha_visitar
 																		td.center= campo.ciudad
@@ -199,11 +182,13 @@ body(class="Oswald")
 															table(class="centered")
 																thead
 																	tr
-																		th.center Dirección 
+																		th.center Dirección
+																		th.center Celula a insersertar
 																		
 																tbody
 																	tr
 																		td.center= campo.direccion
+																		td.center= campo.celula_insertar
 														
 													div(class="row")
 									
@@ -211,24 +196,9 @@ body(class="Oswald")
 														
 									
 
-											div(class="col s12 m4")
-												li
-													a(href="#" class="")
-														i(class="material-icons") email
-												li
-													a(href="#")
-														i(class="material-icons red-text") picture_as_pdf
 											
-
-											div(class="col s12 m4")
-												li
-
-													a(href="#modal#{campo.id}")
-						
-														i(class="material-icons pink-text") delete_forever
-
 												-//Este es el modal para eliminar
-												div(id="modal#{campo.id}" class="modal")
+												div(id="modal#{campo.persona_id}" class="modal")
 
 													div(class="modal-content")
 														i(class="material-icons medium red-text") warning
@@ -237,10 +207,11 @@ body(class="Oswald")
 													div(class="row")
 									
 														div(class="col s6")
-															a(href="/borrar/#{campo.id}" class="modal-action modal-close waves-effect waves-light btn green") Si
+															a(href="/borrar/#{campo.persona_id}" class="modal-action modal-close waves-effect waves-light btn green") Si
 														div(class="col s6")
 															a(class="modal-action modal-close waves-effect waves-light btn red") No
 	footer
 
 
 	script(type="text/javascript" src="../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../js/seleccionador.js")

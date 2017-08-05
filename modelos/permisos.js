@@ -28,6 +28,4 @@ const Permiso = conexionDB.define('permisos', {
 
 })
 
-Permiso.belongsTo(Usuario)
-
 module.exports = Permiso

@@ -57,15 +57,15 @@ body(class="Oswald")
 			a(href="../inicio" class="waves-effect waves-red") Inicio
 				i(class="material-icons") home
 
-			a(href="./nuevo" class="waves-effect waves-red") Agregar
+			a(href="../persona/nuevo" class="waves-effect waves-red") Agregar
 				i(class="material-icons") person_ad
 
 		li(class="bold")
-			a(href="./" class="waves-effect waves-red") Ganados
+			a(href="../persona/" class="waves-effect waves-red") Ganados
 				i(class="material-icons") people
 
 		li(class="bold")
-			a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+			a(href="../persona/estadisticas" class="waves-effect waves-red") Estadisticas
 				i(class="material-icons") equalizer
 
 
@@ -81,13 +81,13 @@ body(class="Oswald")
 
 					div(class="input-field col s12 m4")
 
-						input(id="fechaGanado" type="text" value="#{persona.fecha}" placeholder="Fecha al ser ganado" name="fechaGanado" class="validate")
-						label(for="nombre") Fecha al ser ganado
+						input(id="fecha_contactado" type="text" value="#{personaGanar.fecha_contactado}" placeholder="Fecha al ser ganado" name="fecha_contactado" class="validate")
+						label(for="fecha_contactado") Fecha al ser ganado
 
 					div(class="input-field col s12 m4")
 						
-						input(id="fechaNacimiento" type="text" value="#{persona.fecha_nacimiento}" placeholder="Fecha de nacimiento" name="fechaNacimiento" class="validate")
-						label(for="nombre") Fecha de nacimiento
+						input(id="fecha_nacimiento" type="text" value="#{persona.fecha_nacimiento}" placeholder="Fecha de nacimiento" name="fecha_nacimiento" class="validate")
+						label(for="fecha_nacimiento") Fecha de nacimiento
 						
 					div(class="input-field col s12 m4")
 
@@ -157,8 +157,8 @@ body(class="Oswald")
 
 					div(class="input-field col s12 m4")
 						
-						input(id="invitadoPor" type="text" value="#{persona.invitado_por}" name="invitadoPor" class="validate")
-						label(for="invitadoPor") Invitado por
+						input(id="invitado_por" type="text" value="#{personaGanar.invitado_por}" name="invitado_por" class="validate")
+						label(for="invitado_por") Invitado por
 					
 
 					div(class="input-field col s12 m4")
@@ -170,7 +170,7 @@ body(class="Oswald")
 
 					div(class="input-field col s12")
 
-						input(id="fechaVisitar" type="text" value="#{persona.fecha_visitar}" name="fechaVisitar" class="validate")
+						input(id="fechaVisitar" type="text" value="#{personaGanar.fecha_visitar}" name="fecha_visitar" class="validate")
 						label(for="fechaVisitar") Dia y hora para visitar
 				
 				div(class="row")
@@ -184,22 +184,22 @@ body(class="Oswald")
 					
 					div(class="input-field col s12")
 
-						input(id="celula-insertar" type="text" value="#{persona.celula_insertar}" name="celulaInsertar" class="validate")
-						label(for="celula-insertar") Celula a insertar
+						input(id="celula_insertar" type="text" value="#{personaGanar.celula_insertar}" name="celula_insertar" class="validate")
+						label(for="celula_insertar") Celula a insertar
 
 				div(class="row")
 					
 					div(class="input-field col s12")
 
-						input(id="peticionOracion" type="text" value="#{persona.peticion_oracion}" name="peticionOracion" class="validate")
-						label(for="peticionOracion") Peticion de oración
+						input(id="peticion_oracion" type="text" value="#{personaGanar.peticion_oracion}" name="peticion_oracion" class="validate")
+						label(for="peticion_oracion") Peticion de oración
 
 				div(class="row")
 
 					div(class="input-field col s12")
 
-						input(id="lugar" type="text" value="#{persona.lugar}" name="lugar" class="validate")
-						label(for="lugar") Lugar
+						input(id="lugar_contacto" type="text" value="#{personaGanar.lugar_contacto}" name="lugar_contacto" class="validate")
+						label(for="lugar_contacto") Lugar
 
 				div(class="row")
 

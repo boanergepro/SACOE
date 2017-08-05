@@ -1,4 +1,9 @@
-const Personas = require('../modelos/persona')
+//Modelos
+
+const Persona = require('../modelos/persona')
+const FaseGanar = require('../modelos/fase_ganar')
+
+//Configuraciones
 const config = require('../config')
 
 const moment = require('moment')
@@ -15,8 +20,10 @@ var auth = false
 
 //Renderizar login
 function verLogin (req, res) {
-	 res.render('index') 
+	console.log(req.method)
+	res.render('index')
 }
+
 function inicioSecion (req, res) {
 
 	console.log(req.session)
@@ -61,15 +68,13 @@ function verFormReg (req, res) {
 //Agregar la persona ganada
 function agregarReg(req, res) {
 
-	let fechaNacimiento = new Date(req.body.fechaNacimiento)
+	let fechaNacimiento = new Date(req.body.fecha_nacimiento)
 
-	let fechaGanado = new Date(req.body.fechaGanado)
+	let fechaGanado = new Date(req.body.fecha_contactado)
 	
 	
-	let data = {
+	let dataTablaPersona = {
 
-		fecha: fechaGanado,
-		lugar: req.body.lugar,
 		nombre: req.body.nombre,
 		apellido: req.body.apellido,
 		sexo: req.body.sexo,
@@ -77,31 +82,48 @@ function agregarReg(req, res) {
 		ocupacion: req.body.ocupacion,
 		ciudad: req.body.ciudad,
 		telefono: req.body.telefono,
-		invitado_por: req.body.invitadoPor,
 		correo: req.body.correo,
-		fecha_visitar: req.body.fechaVisitar,
 		direccion: req.body.direccion,
-		celula_insertar: req.body.celulaInsertar,
-		peticion_oracion: req.body.peticionOracion,
-		fecha_registro: req.body.fechaRegistro,
 		fecha_nacimiento: fechaNacimiento,
-		heredad: req.body.heredad
+		heredad: req.body.heredad,
+		estado_personas: 'a'
 	}
 
-	Personas.create(data);
+	let dataTablaFaseGanar = {
+		
+		fecha_contactado: fechaGanado,
+		lugar_contacto: req.body.lugar_contacto,
+		invitado_por: req.body.invitado_por,
+		fecha_visitar: req.body.fecha_visitar,
+		celula_insertar: req.body.celula_insertar,
+		peticion_oracion: req.body.peticion_oracion,
+		estado_fase_ganar: 'a'
+	}
+	
+	Persona.create(dataTablaPersona).then((per) => {
+		//Asignamiento del campo persona_id de la relacion
+		Object.assign(dataTablaFaseGanar,{
+
+			persona_id: per.id
+
+		})
+
+		return FaseGanar.create(dataTablaFaseGanar)
+
+	}).then(() => res.redirect('inicio') )
 
 	console.log({persona: req.body})
 	
-	res.redirect('inicio')
 }
 
 //ver todas las personas  del base de datos sin heredad
 function verTodo (req, res) {
 	if(auth) {
 		
-		Personas.findAll({
+		Persona.findAll({
 			where: {
-				heredad: ''
+				heredad: '',
+				estado_personas: 'a'
 			}
 		}).then(doc => {
 			//Si hay personas en la base de datos...
@@ -134,48 +156,48 @@ function ganados (req, res) {
 	conexionDB.query(`SELECT
 
 							sum( 
-							  CASE WHEN heredad = '1' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '1' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad1,
 							sum( 
-							  CASE WHEN heredad = '2' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '2' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad2,
 							sum( 
-							  CASE WHEN heredad = '3' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '3' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad3,
 							sum( 
-							  CASE WHEN heredad = '4' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '4' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad4,
 							  sum( 
-							  CASE WHEN heredad = '5' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '5' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad5,
 							sum( 
-							  CASE WHEN heredad = '6' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '6' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad6,
 							  sum( 
-							  CASE WHEN heredad = '7' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '7' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad7,
 							sum( 
-							  CASE WHEN heredad = '8' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '8' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad8,
 							  sum( 
-							  CASE WHEN heredad = '9' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '9' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad9,
 							sum( 
-							  CASE WHEN heredad = '10' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '10' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad10,
 							  sum( 
-							  CASE WHEN heredad = '11' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '11' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad11,
 							sum( 
-							  CASE WHEN heredad = '12' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '12' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as heredad12,
 							  sum( 
-							  CASE WHEN heredad = '' THEN 1 ELSE 0 END
+							  CASE WHEN heredad = '' AND estado_personas = 'a' THEN 1 ELSE 0 END
 							  ) as todos
 							  
 						FROM personas`,
 
-				{model: Personas}).then((results) => {
+				{model: Persona}).then((results) => {
 
   					console.log(results[0])
   					res.render('persona/', {dato: results[0].dataValues})
@@ -188,7 +210,7 @@ function ganados (req, res) {
 function verRegById (req, res) {
 	let id = req.params.id
 
-	Personas.findById(id).then(doc => {
+	Persona.findById(id).then(doc => {
 		
 		res.render('persona/ver', { persona: doc })
 
@@ -214,27 +236,27 @@ function verVistaRedes (req, res) {
 
 			              sum( 
 			                CASE WHEN (
-			                  edad BETWEEN 6 AND 12
+			                  (edad BETWEEN 6 AND 12) AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_ninos,
 			              sum( 
 			                CASE WHEN (
-			                  edad BETWEEN 13 AND 17
+			                  (edad BETWEEN 13 AND 17) AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_prejovenes,
 			              sum( 
 			                CASE WHEN (
-			                  edad BETWEEN 18 AND 24
+			                  (edad BETWEEN 18 AND 24) AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_jovenes,
 			              sum( 
 			                CASE WHEN (
-			                  (edad BETWEEN 25 AND 100) AND (sexo = 'f')
+			                  (edad BETWEEN 25 AND 100) AND (sexo = 'f') AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_mujeres,
 			                sum( 
 			                CASE WHEN (
-			                  (edad BETWEEN 25 AND 100) AND (sexo = 'm')
+			                  (edad BETWEEN 25 AND 100) AND (sexo = 'm') AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
 			                  ) THEN 1 ELSE 0 END
 			                ) as red_hombres
 		          
@@ -242,7 +264,7 @@ function verVistaRedes (req, res) {
 		            FROM vista_datos_completos
 		            WHERE heredad = :heredad`, 
 				{ replacements: { heredad: numHeredad}, type: conexionDB.QueryTypes.SELECT},
-				{model: Personas}).then((results) => {
+				{model: Persona}).then((results) => {
 
   					console.log(results[0].red_ninos)
   					res.render('persona/redes', {dato: results[0]})
@@ -294,9 +316,9 @@ function verFitradoFinal (req, res) {
 	}
 
 	if (red == "todos"){
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad', 
-				{ replacements: { heredad: numHeredad }, type: conexionDB.QueryTypes.SELECT},
-				{model: Personas}).then((personas) => {
+		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado', 
+				{ replacements: { heredad: numHeredad, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
+				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/verFiltrado', {persona: personas})
 		})
@@ -305,9 +327,9 @@ function verFitradoFinal (req, res) {
 	/*Si sexo = null la red seleccionada en ! hombres && mujeres*/
 	else if (sexo == null){
 
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND edad BETWEEN :min AND :max', 
-				{ replacements: { heredad: numHeredad, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
-				{model: Personas}).then((personas) => {
+		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado AND edad BETWEEN :min AND :max', 
+				{ replacements: { heredad: numHeredad, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
+				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/verFiltrado', {persona: personas})
 		})
@@ -318,7 +340,7 @@ function verFitradoFinal (req, res) {
 	else{
 		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
 				{ replacements: { heredad: numHeredad, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
-				{model: Personas}).then((personas) => {
+				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/verFiltrado', {persona: personas})
 		})
@@ -332,27 +354,42 @@ function vistaEditar (req, res) {
 	let id = req.params.id
 	idEditar = id
 
-	Personas.find({
+	let datosPersona = {}
+
+	Persona.find({
 		where: {
 			id: id
 		}
 	}).then(persona => {
-		res.render('persona/editar',{persona: persona})
-		console.log(persona)
+
+		datosPersona = persona
+
+		FaseGanar.find({
+
+			where: {
+				persona_id: id
+			}
+
+		}).then(persona_fase_ganar => {
+
+			res.render('persona/editar',{persona: datosPersona, personaGanar: persona_fase_ganar})
+			console.log(persona_fase_ganar)
+
+		}).catch(err => {
+			if (err) return console.log(`Ha ocurrido el siguiente error al editar la persona ${err}`)
+		})
 
 	}).catch(err => {
-		if (err) return console.log(`Ha ocurrido el siguiente error al editar la persona ${err}`)
+		if (err) return console.log(err)
 	})
-
 }
+
 //Guardar cambios luego de haber editado el documento
 let idEditar = ""
 function saveEditar (req, res) {
 
-	data = {
+	let dataTablaPersona = {
 
-		fecha: req.body.fechaGanado,
-		lugar: req.body.lugar,
 		nombre: req.body.nombre,
 		apellido: req.body.apellido,
 		sexo: req.body.sexo,
@@ -360,53 +397,78 @@ function saveEditar (req, res) {
 		ocupacion: req.body.ocupacion,
 		ciudad: req.body.ciudad,
 		telefono: req.body.telefono,
-		invitado_por: req.body.invitadoPor,
 		correo: req.body.correo,
-		fecha_visitar: req.body.fechaVisitar,
 		direccion: req.body.direccion,
-		celula_insertar: req.body.celulaInsertar,
-		peticion_oracion: req.body.peticionOracion,
-		fecha_registro: req.body.fechaRegistro,
-		fecha_nacimiento: req.body.fechaNacimiento,
+		fecha_nacimiento: req.body.fecha_nacimiento,
 		heredad: req.body.heredad
 	}
 
-	Personas.update(data, {
+	let dataTablaFaseGanar = {
+		
+		fecha_contactado: req.body.fecha_contactado,
+		lugar_contacto: req.body.lugar_contacto,
+		invitado_por: req.body.invitado_por,
+		fecha_visitar: req.body.fecha_visitar,
+		celula_insertar: req.body.celula_insertar,
+		peticion_oracion: req.body.peticion_oracion,
+	}
+
+	Persona.update(dataTablaPersona, {
 		where:{
 			id: idEditar
 		}
-	}).then(persona => {
-		res.redirect('persona/')
-		console.log(persona)
+	}).then(() => {
 
+		FaseGanar.update(dataTablaFaseGanar, {
+			where:{
+				persona_id: idEditar
+			}
+		}).then(() => {
+			res.redirect('persona/')
+
+		}).catch(err => {
+			if (err) return console.log(`Ha ocurrido este error al guardar los datos de la fase ganar: ${err}`)
+		})
 	}).catch(err => {
-		if (err) return console.log(`Ha ocurrido el siguiente error al editar la persona ${err}`)
+		if (err) return console.log(`Ha ocurrido este error al editar la persona ${err}`)
 	})
-
-	//res.send({persona: data})
 }
 
 //Eliminar registros
  function borrarUno (req, res) {
-
+ 	/*
+		La accion eliminar no se llevara a cabo debido a la cantidad de
+		relaciones entre tablas, tan solo se cambiara el valor de un campo
+		en las tablas donde exista dicho registro, esta campo tiene por nombre
+		estado_ + el nombre de la tabla, dicho campo solo puede tener dos valores
+		'a' si el resgistro esta activo y puede ser objeto interaccion por parte 
+		del usuario, e 'i' si esta inactivo, en este estado no se podra tener 
+		control del registro con dicho estado.
+ 	*/
  	let id = req.params.id
 
-	Personas.destroy({
-		where: {
-			id: id
-		}
-	}).then(doc => {
+ 	Persona.update({
+ 		estado_personas : 'i'
+ 	},{
+ 		where: {
+ 			id: id
+ 		}
+ 	}).then(() => {
+ 		FaseGanar.update({
+ 			estado_fase_ganar: 'i'
+ 		},{
+ 			where: {
+ 				persona_id: id
+ 			}
+ 		})
 
-		console.log(doc)
-		res.redirect('/persona/')
+ 		res.redirect('/persona/')
 
-	}).catch(err => {
-
-		if (err) return console.log(`Ha ocurrido el siguiente error al borrar el registro: ${err}`)
-
-	})
-
+ 	}).catch(err => {
+ 		console.log(`Ha ocurrido el siguiente error al intentar borrar el registro: ${err}`)
+ 	})
  }
+
  function vistaEstadisticas (req, res) {
  	res.render('persona/estadisticas')
  }

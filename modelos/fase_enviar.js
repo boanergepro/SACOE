@@ -20,6 +20,8 @@ const FaseEnviar = conexionDB.define('fase_enviar', {
 	persona_id:{
 
 	   type: Sequelize.INTEGER,
+	   /*Agrega un not null a este campo*/
+	   allowNull: false,
 
 	   references: {
 	     // This is a reference to another model

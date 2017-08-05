@@ -13,6 +13,10 @@ header, main, footer {
 	margin-left: 5%
 }
 
+.azul-telegram{
+	background: #0088cc;
+	color: #0088cc;
+}
 /*--------------------vista Login----------------------------*/
 
 .contenedor-login {

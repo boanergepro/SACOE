@@ -41,8 +41,15 @@ const FaseGanarVisitas = conexionDB.define('fase_ganar_visitas', {
 		set(val) {
 	  		this.setDataValue('operador', val.toLowerCase());
 		}
+	},
+
+	//Este campo solo podra tener dos valores 'a' o 'i', 'a' si el registro esta acctivo e 'i' si esta inactivo
+	estado_fase_ganar_visitas: {
+		type: Sequelize.STRING,
+		set(val) {
+			this.setDataValue('estado_fase_ganar_visitas', val.toLowerCase());
+		}
 	}
-	//Agregar los demas campos alusivos a esta fase
 
 })
 

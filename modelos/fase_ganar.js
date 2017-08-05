@@ -20,6 +20,8 @@ const FaseGanar = conexionDB.define('fase_ganar', {
 	persona_id:{
 
 	   type: Sequelize.INTEGER,
+	   /*Agrega un not null a este campo*/
+	   allowNull: false,
 
 	   references: {
 	     // This is a reference to another model
@@ -37,10 +39,7 @@ const FaseGanar = conexionDB.define('fase_ganar', {
 		defaultValue: Sequelize.NOW
 	},
 	lugar_contacto: {
-		type: Sequelize.STRING,
-		set(val) {
-		  this.setDataValue('lugar', val.toLowerCase());
-		}
+		type: Sequelize.STRING
 	},
 	invitado_por: {
 		type: Sequelize.STRING,
@@ -50,20 +49,25 @@ const FaseGanar = conexionDB.define('fase_ganar', {
 	},
 	fecha_visitar: {
 		type: Sequelize.STRING
-		
 	},
 	celula_insertar: {
-		type: Sequelize.STRING,
-		set(val) {
-		 	this.setDataValue('celula_insertar', val.toLowerCase());
-		}
+		type: Sequelize.STRING
 	},	
 	peticion_oracion: {
+		type: Sequelize.STRING
+	},
+	//Este campo solo podra tener dos valores 'a' o 'i', 'a' si el registro esta acctivo e 'i' si esta inactivo
+	estado_fase_ganar: {
 		type: Sequelize.STRING,
 		set(val) {
-		 	this.setDataValue('peticion_oracion', val.toLowerCase());
+			this.setDataValue('estado_fase_ganar', val.toLowerCase());
 		}
 	}
+},{
+	//Configuracion
+
+	//congela el nombre de la tabla(elimina la pluralizacion automatica)
+	freezeTableName: true
 })
 
 

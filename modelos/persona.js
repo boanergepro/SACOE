@@ -6,6 +6,7 @@ const config = require('../config')
 
 const db = require('../db')
 
+const FaseGanar = require('../modelos/fase_ganar')
 
 //Conexion
 const conexionDB = db.getConecctionDb();
@@ -75,7 +76,14 @@ const Persona = conexionDB.define('personas', {
 		set(val) {
 			this.setDataValue('heredad', val.toLowerCase());
 		}
+	},
+	//Este campo solo podra tener dos valores 'a' o 'i', 'a' si el registro esta acctivo e 'i' si esta inactivo
+	estado_personas: {
+		type: Sequelize.STRING,
+		set(val) {
+			this.setDataValue('estado_personas', val.toLowerCase());
+		}
 	}
-});
+})	
 
 module.exports = Persona
