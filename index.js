@@ -62,6 +62,65 @@ app.use(express.static('public'))
 
 //Controladores
 const Ctrlpersona = require('./controladores/persona')
+const CtrlMail = require('./controladores/mailCtrl')
+
+//Enviando el email
+var nodemailer = require('nodemailer');
+
+app.get('/enviarMail', (req, res) => {
+
+	//Alternativa mailgun-js
+	var api_key = 'key-e18f9eb10b56bbcc49c2fa4b674b8dc9';
+	var domain = 'sandbox3365c16f5d71480b8835f07c0d9e28ad.mailgun.org';
+	var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+	 
+	var data = {
+		//De quien
+	  	from: 'Sacoe <antonycarrizo96@gmail.com>',
+	  	//Para quien
+	  	to: 'antonycarrizo96@gmail.com',
+	  	//Asunto
+	  	subject: 'Hola sacoe',
+	  	//Contenido
+	  	text: 'Este es un mensaje envia por sacoe'
+	};
+	 
+	mailgun.messages().send(data, function (error, body) {
+	  console.log(body);
+	});
+
+
+
+	/* Alternativa node mailer
+	// Definimos el transporter
+	var transporte = nodemailer.createTransport({
+	    service: 'Gmail',
+	    auth: {
+	        user: 'boanergepro@gmail.com',
+	        pass: 'parangaturimicuaro'
+	    }
+	})
+
+	// Definimos el email
+	var mailOpciones = {
+	    from: 'Sistema sacoe',
+	    to: 'antonycarrizo96@gmail.com',
+	    subject: 'Sacoe mensaje',
+	    text: 'Este es un mensaje enviado desde sacoe ;)'
+	}
+
+	// Enviamos el email
+	transporte.sendMail(mailOpciones, function(error, info){
+	    if (error){
+	        console.log(error);
+	        res.send(500, error.message);
+	    } else {
+	        console.log("Email enviado");
+	        res.status(200).jsonp(req.body);
+	    }
+	})
+	*/
+})
 
 //Vista de error
 app.get('/errores/vista403', (req, res) => {
