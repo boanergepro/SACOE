@@ -52,7 +52,7 @@ $('.modal').modal();
 
 $(document).ready(function(){
 
-    $('form').submit((envent) => {
+    $('.form').submit((envent) => {
 		if (campoNombre == null && campoPass == null) {
 			event.preventDefault()
 			$('#modal1').modal('open');

@@ -1,14 +1,6 @@
-/*
-$(document).ready(function(){
-	$.each($("input[type='checkbox']"),function(){
-	    if($(this).attr("checked","true")){
-			console.log(this)
-	    }
-	})
-})
-*/
-
 let idPersona = null
+//Quitar ckeck
+$("input[type='checkbox']").prop("checked", false)
 
 //Urls de las acciones
 let urlEditar = null
@@ -26,7 +18,7 @@ $("input[type='checkbox']").click(function(event){
 
 		idPersona = valorAtributoId
 		urlVer = "#modals" + idPersona
-		urlEditar ="/editar/" + idPersona
+		urlEditar ="/persona/editar/" + idPersona
 		urlEliminar = "#modal" + idPersona
 
 		//Detectar el ancho de la pantalla

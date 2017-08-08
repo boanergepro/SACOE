@@ -12,6 +12,7 @@ head
 	link(rel="stylesheet" href='css/fuente.css')
 	script(type="text/javascript" src="js/jquery-2.1.1.min.js")
 	script(type="text/javascript" src="js/materialize.min.js")
+
 	
 	
 body(class="Oswald")
@@ -36,36 +37,85 @@ body(class="Oswald")
 					a(href="#!" class="col s6 modal-action modal-close btn green large") Entendido
 					.col.s3
 			
-
-
-	div(class="row margen-superior")
+	-//Login
+	
+	div(class="row margen-superior" id="login")
 
 		div(class="col s1 m3 l4")
 		
-		div(class="col s10 m7 l4 card-panel center")
+		div(class="col s10 m7 l4 center")
+
+			div.card-panel
 		
-			div(class="row center")
+				div(class="row center")
 
-				i(class="large material-icons indigo-text") account_circle
-				
-				form(method="post" action="/login" class="col s12")
-
-					div(class="row")
-
-						div(class="input-field col s12")
-							i(class="material-icons prefix") perm_identity
-							input(id="nombre" type="text" name="nombre" class="validate")
-							label(for="nombre" data-error="Usuario incorrecto!" data-success="Usuario correcto!") Usuario
-
-					div(class="row")
-
-						div(class="input-field col s12")
-							i(class="material-icons prefix") vpn_key
-							input(id="password" type="password" name="password" class="validate")
-							label(for="password" data-error="Contraseña incorrecta!" data-success="Contraseña correcta!") Contraseña
-
-					div(class="row")
-						button(class="btn waves-effect indigo waves-light" type="submit" name="action") Iniciar
-		div(class="col s1 m3 l4")
+					i(class="large material-icons indigo-text") account_circle
 					
-	script(type="text/javascript" src="js/valid.js")
+					form(method="post" action="/login" class="col s12 form")
+
+						div(class="row")
+
+							div(class="input-field col s12")
+								-//i(class="material-icons prefix") perm_identity
+								input(id="nombre" type="text" name="nombre" class="validate")
+								label(for="nombre") Usuario
+
+						div(class="row")
+
+							div(class="input-field col s12")
+								-//i(class="material-icons prefix") vpn_key
+								input(id="password" type="password" name="password" class="validate")
+								label(for="password") Contraseña
+
+						div(class="row")
+							button(class="btn waves-effect indigo waves-light btn-large col s12" type="submit" name="action") Iniciar
+			div.row
+				a(class="indigo-text" id="enlaceRegistro")  Crear cuenta
+				
+		div(class="col s1 m3 l4 cneter")
+
+	-//Registro
+	div(class="row margen-superior ocultar" id="resgistro")
+
+		div.row
+			div(class="col s2 m3")
+			div(class="col s8 m6 center")
+				div.card-panel
+
+					div.row.center
+						h4 Registro de usuarios
+
+						form(method="post" action="/registro")
+
+							div.row
+
+								div(class="input-field col s6")
+									
+									input(id="nombre" type="text" name="nombre" class="validate")
+									label(for="nombre" ) Nombre
+									
+								div(class="input-field col s6")
+									
+									input(id="apellido" type="text" name="apellido" class="validate")
+									label(for="apellido" ) Apellido
+							div.row
+
+								div(class="input-field col s6")
+									
+									input(id="username" type="text" name="username" class="validate")
+									label(for="username" ) Usuario
+									
+								div(class="input-field col s6")
+									
+									input(id="password" type="password" name="password" class="validate")
+									label(for="password" ) Contraseña
+							div(class="row")
+								button(class="btn waves-effect indigo waves-light btn-large col s12" type="submit" name="action") Registrar
+				div.row
+					a(class="indigo-text" id="enlaceLogin")  Iniciar seción
+
+			div(class="col s2 m3")
+
+					
+	script(type="text/javascript" src="js/val.js")
+	script(type="text/javascript" src="js/login.js")

@@ -1,4 +1,4 @@
-CREATE VIEW vista_datos_completos as 
+CREATE VIEW vista_datos_personas as 
 SELECT 
 	personas.id AS personas_id,
 	personas.nombre,
@@ -12,7 +12,7 @@ SELECT
 	personas.direccion,
 	personas.fecha_nacimiento,
 	personas.fecha_registro,
-	personas.heredad,
+	personas.heredad_id,
 	personas.estado_personas
 
  ,
@@ -26,10 +26,15 @@ SELECT
 	fase_ganar.celula_insertar,
 	fase_ganar.peticion_oracion,
 	fase_ganar.estado_fase_ganar
-, 
+,
+	heredades.id AS heredades_id,
+	heredades.nombre AS nombre_heredad,
+	heredades.codigo
+,
 	date_part('year', age(fecha_nacimiento)) AS edad FROM personas
 	
 INNER JOIN fase_ganar ON personas.id = fase_ganar.persona_id
+INNER JOIN heredades ON heredades.id = personas.heredad_id
 
 
-SELECT * FROM vista_datos_completos
+SELECT * FROM vista_datos_personas

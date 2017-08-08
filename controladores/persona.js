@@ -1,7 +1,9 @@
 //Modelos
 
 const Persona = require('../modelos/persona')
+const Heredad = require('../modelos/heredad')
 const FaseGanar = require('../modelos/fase_ganar')
+const Usuario = require('../modelos/usuario')
 
 //Configuraciones
 const config = require('../config')
@@ -11,6 +13,7 @@ const moment = require('moment')
 
 //Base de datos
 const db = require('../db')
+
 const conexionDB = db.getConecctionDb();
 
 const Sequelize = require('sequelize')
@@ -20,49 +23,67 @@ var auth = false
 
 //Renderizar login
 function verLogin (req, res) {
-	console.log(req.method)
+	
 	res.render('index')
 }
 
-function inicioSecion (req, res) {
+function inicioSesion (req, res) {
 
 	console.log(req.session)
-	
+
 	let user = req.body.nombre
 	let pass = req.body.password
 
-	if (user == config.user && pass == config.pass) {
-		auth = true
-		if(auth) {
-			res.redirect('inicio')
+	Usuario.find({
+		where: {
+			username: user
 		}
+	}).then(usuario => {
+
+		if (usuario){
+
+			let datos_usuario ={
+				username: usuario.username,
+				rol_id: usuario.rol_id
+			}
+			if (usuario.password == pass){
+				req.session.datos_usuario = datos_usuario
+
+				res.redirect('/inicio')
+			}else{
+				
+				//Dotos incorrectos
+				res.redirect('/')
+
+			}
+		}
+
+		res.redirect('/')
+
+	})
+
 	
-	}else{
-		auth = false
-		res.render('index')
-	}
 }
 
 //Ver la vista inicio
 function verInicio (req, res) {
 	
-	if(auth) {
-		
-		res.render('inicio')
+	res.render('inicio')
 	
-	}else{
-
-		res.redirect('errores/vista403')
-	}
 }
 
 //Vista del formulario para crear registros
 function verFormReg (req, res) {
-	if (auth) {
-		res.render('persona/nuevo')
-	}else{
-		res.redirect('../errores/vista403')
-	}
+
+	//Consulta a la tabla heredad pra renderizar
+	Heredad.findAll().then(heredades => {
+
+		res.render('persona/nuevo', { datos: heredades })
+
+	}).catch(err => {
+
+		console.log(`Ha ocurrido un error  en la consulta de las heredades ${err}`)
+	})
 }
 
 //Agregar la persona ganada
@@ -85,10 +106,10 @@ function agregarReg(req, res) {
 		correo: req.body.correo,
 		direccion: req.body.direccion,
 		fecha_nacimiento: fechaNacimiento,
-		heredad: req.body.heredad,
+		heredad_id: req.body.heredad,
 		estado_personas: 'a'
 	}
-
+	
 	let dataTablaFaseGanar = {
 		
 		fecha_contactado: fechaGanado,
@@ -100,17 +121,18 @@ function agregarReg(req, res) {
 		estado_fase_ganar: 'a'
 	}
 	
-	Persona.create(dataTablaPersona).then((per) => {
-		//Asignamiento del campo persona_id de la relacion
+
+	Persona.create(dataTablaPersona).then((persona) => {
 		Object.assign(dataTablaFaseGanar,{
-
-			persona_id: per.id
-
+			persona_id: persona.id
 		})
+		FaseGanar.create(dataTablaFaseGanar).then(() => {
+			res.redirect('inicio')
 
-		return FaseGanar.create(dataTablaFaseGanar)
-
-	}).then(() => res.redirect('inicio') )
+		}).catch((err) => {
+			console.log(`No se pudo crear la persona porque: ${err}`)
+		})
+	})
 
 	console.log({persona: req.body})
 	
@@ -155,52 +177,17 @@ function ganados (req, res) {
 	//Consultar la cantidad de personas en cada heredad
 	conexionDB.query(`SELECT
 
-							sum( 
-							  CASE WHEN heredad = '1' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad1,
-							sum( 
-							  CASE WHEN heredad = '2' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad2,
-							sum( 
-							  CASE WHEN heredad = '3' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad3,
-							sum( 
-							  CASE WHEN heredad = '4' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad4,
-							  sum( 
-							  CASE WHEN heredad = '5' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad5,
-							sum( 
-							  CASE WHEN heredad = '6' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad6,
-							  sum( 
-							  CASE WHEN heredad = '7' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad7,
-							sum( 
-							  CASE WHEN heredad = '8' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad8,
-							  sum( 
-							  CASE WHEN heredad = '9' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad9,
-							sum( 
-							  CASE WHEN heredad = '10' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad10,
-							  sum( 
-							  CASE WHEN heredad = '11' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad11,
-							sum( 
-							  CASE WHEN heredad = '12' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as heredad12,
-							  sum( 
-							  CASE WHEN heredad = '' AND estado_personas = 'a' THEN 1 ELSE 0 END
-							  ) as todos
-							  
-						FROM personas`,
+						heredades.nombre,heredades.codigo, count(personas.id) AS total
+						FROM personas 
+						RIGHT JOIN heredades ON heredades.id = personas.heredad_id AND personas.estado_personas = 'a'
+						GROUP BY heredades.nombre, heredades.codigo,heredades.id
+						ORDER by heredades.id
+					`,
 
 				{model: Persona}).then((results) => {
 
-  					console.log(results[0])
-  					res.render('persona/', {dato: results[0].dataValues})
+  					console.log(results)
+  					res.render('persona/', {datos: results})
   					
 				}).catch(err => {
 					if (err) return console.log(err)
@@ -221,13 +208,13 @@ function verRegById (req, res) {
 	})
 }
 
-var numHeredad = ""
+var codigoHeredad = ""
 var red = ""
 
 function verVistaHeredad (req, res) {
-	numHeredad = req.params.num
-
-	res.redirect('/persona/redes')
+	codigoHeredad = req.params.num
+	let url = `/persona/heredad/${codigoHeredad}/red`
+	res.redirect(url)
 }
 
 function verVistaRedes (req, res) {
@@ -261,30 +248,30 @@ function verVistaRedes (req, res) {
 			                ) as red_hombres
 		          
 		                
-		            FROM vista_datos_completos
-		            WHERE heredad = :heredad`, 
-				{ replacements: { heredad: numHeredad}, type: conexionDB.QueryTypes.SELECT},
+		            FROM vista_datos_personas
+		            WHERE codigo = :heredad`, 
+				{ replacements: { heredad: codigoHeredad}, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((results) => {
 
   					console.log(results[0].red_ninos)
-  					res.render('persona/redes', {dato: results[0]})
+  					res.render('persona/redes', {dato: results[0], codigoHeredad})
   					
 				}).catch(err => {
 					if (err) return console.log(err)
 				})
 
 }
-
+/*
 function verVistaFiltrado (req, res) {
 
 	red = req.params.red
 	
-	res.redirect('/persona/verFiltrado')
+	//res.redirect('/persona/heredad/:codigoHeredad/red/:red/todos')
 
-}
+}*/
 
 function verFitradoFinal (req, res) {
-
+	red = req.params.red
 	let min = 0
 	let max = 0
 	let sexo = null
@@ -314,10 +301,10 @@ function verFitradoFinal (req, res) {
 		max = 100
 		sexo = "m"
 	}
-
+	console.log(`min ${min} y max ${max}`)
 	if (red == "todos"){
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado', 
-				{ replacements: { heredad: numHeredad, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
+		conexionDB.query('SELECT * FROM vista_datos_personas WHERE codigo = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado', 
+				{ replacements: { heredad: codigoHeredad, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/verFiltrado', {persona: personas})
@@ -327,8 +314,8 @@ function verFitradoFinal (req, res) {
 	/*Si sexo = null la red seleccionada en ! hombres && mujeres*/
 	else if (sexo == null){
 
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado AND edad BETWEEN :min AND :max', 
-				{ replacements: { heredad: numHeredad, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
+		conexionDB.query('SELECT * FROM vista_datos_personas WHERE codigo = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado AND edad BETWEEN :min AND :max', 
+				{ replacements: { heredad: codigoHeredad, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/verFiltrado', {persona: personas})
@@ -347,14 +334,18 @@ function verFitradoFinal (req, res) {
 	}
 	
 }
+let idEditar = ""
+
 
 //Vistar formulario editar Editar 
 function vistaEditar (req, res) {
 
 	let id = req.params.id
+	console.log(id)
 	idEditar = id
 
 	let datosPersona = {}
+	let datos_fase_ganar = {}
 
 	Persona.find({
 		where: {
@@ -372,8 +363,15 @@ function vistaEditar (req, res) {
 
 		}).then(persona_fase_ganar => {
 
-			res.render('persona/editar',{persona: datosPersona, personaGanar: persona_fase_ganar})
-			console.log(persona_fase_ganar)
+			datos_fase_ganar = persona_fase_ganar
+
+			Heredad.findAll().then(heredades => {
+
+				res.render('persona/editar',{persona: datosPersona, personaGanar: datos_fase_ganar, data_heredades: heredades})
+			})
+
+			
+			
 
 		}).catch(err => {
 			if (err) return console.log(`Ha ocurrido el siguiente error al editar la persona ${err}`)
@@ -385,7 +383,6 @@ function vistaEditar (req, res) {
 }
 
 //Guardar cambios luego de haber editado el documento
-let idEditar = ""
 function saveEditar (req, res) {
 
 	let dataTablaPersona = {
@@ -402,7 +399,7 @@ function saveEditar (req, res) {
 		fecha_nacimiento: req.body.fecha_nacimiento,
 		heredad: req.body.heredad
 	}
-
+	
 	let dataTablaFaseGanar = {
 		
 		fecha_contactado: req.body.fecha_contactado,
@@ -417,6 +414,7 @@ function saveEditar (req, res) {
 		where:{
 			id: idEditar
 		}
+
 	}).then(() => {
 
 		FaseGanar.update(dataTablaFaseGanar, {
@@ -424,7 +422,7 @@ function saveEditar (req, res) {
 				persona_id: idEditar
 			}
 		}).then(() => {
-			res.redirect('persona/')
+			res.redirect('/persona/')
 
 		}).catch(err => {
 			if (err) return console.log(`Ha ocurrido este error al guardar los datos de la fase ganar: ${err}`)
@@ -483,7 +481,7 @@ function cerrarSecion (req, res) {
 module.exports = {
 
 	verLogin,
-	inicioSecion,
+	inicioSesion,
 	verInicio,
 	verFormReg,
 	agregarReg,
@@ -492,7 +490,7 @@ module.exports = {
 	verRegById,
 	verVistaHeredad,
 	verVistaRedes,
-	verVistaFiltrado,
+	//verVistaFiltrado,
 	verFitradoFinal,
 	vistaEditar,
 	saveEditar,

@@ -58,18 +58,18 @@ body(class="Oswald")
 						div(class="col s1")
 
 			li(class="bold")
-				a(href="../inicio" class="waves-effect waves-red") Inicio
+				a(href="/inicio" class="waves-effect waves-red") Inicio
 					i(class="material-icons") home
 
-				a(href="./nuevo" class="waves-effect waves-red") Agregar
+				a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
 					i(class="material-icons") person_ad
 
 			li(class="bold")
-				a(href="./" class="waves-effect waves-red") Ganados
+				a(href="/persona/" class="waves-effect waves-red") Ganados
 					i(class="material-icons") people
 
 			li(class="bold")
-				a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+				a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
 					i(class="material-icons") equalizer
 
 
@@ -115,18 +115,11 @@ body(class="Oswald")
 
 							select(name="heredad" id="heredad")
 								option(value="" disabled selected) Selecciona la heredad
-								option(value="1") H1
-								option(value="2") H2
-								option(value="3") H3
-								option(value="4") H4
-								option(value="5") H5
-								option(value="6") H6
-								option(value="7") H7
-								option(value="8") H8
-								option(value="9") H9
-								option(value="10") H10
-								option(value="11") H11
-								option(value="12") H12
+
+								each campo in datos
+
+									option(value="#{campo.id}")= campo.nombre
+									
 
 
 							label Heredad

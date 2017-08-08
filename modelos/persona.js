@@ -11,6 +11,8 @@ const FaseGanar = require('../modelos/fase_ganar')
 //Conexion
 const conexionDB = db.getConecctionDb();
 
+//modelos
+const Heredad = require('./heredad')
 
 const Persona = conexionDB.define('personas', {
 
@@ -71,11 +73,21 @@ const Persona = conexionDB.define('personas', {
 		type: Sequelize.DATE,
 		defaultValue: Sequelize.NOW,
 	},
-	heredad: {
-		type: Sequelize.STRING,
-		set(val) {
-			this.setDataValue('heredad', val.toLowerCase());
-		}
+	heredad_id: {
+		type: Sequelize.INTEGER,
+	   /*Agrega un not null a este campo*/
+	   allowNull: false,
+
+	   references: {
+	     // This is a reference to another model
+	     model: Heredad,
+
+	     // This is the column name of the referenced model
+	     key: 'id',
+
+	     // This declares when to check the foreign key constraint. PostgreSQL only.
+	     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+	   }
 	},
 	//Este campo solo podra tener dos valores 'a' o 'i', 'a' si el registro esta acctivo e 'i' si esta inactivo
 	estado_personas: {

@@ -6,205 +6,198 @@ head
 	title SACOE
 	meta(charset='utf-8')
 	meta(name="viewport" content="width=device-width, initial-scale=1.0")
-	link(rel="stylesheet" href='../css/materialize.css')
-	link(rel="stylesheet" href='../css/main.css')
-	link(rel="stylesheet" href='../css/icon.css')
-	link(href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet")
-	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
-	script(type="text/javascript" src="../js/materialize.min.js")
+	link(rel="stylesheet" href='../../../css/materialize.css')
+	link(rel="stylesheet" href='../../../css/main.css')
+	link(rel="stylesheet" href='../../../css/icon.css')
+	link(rel="stylesheet" href='../../../css/fuente.css')
+	script(type="text/javascript" src="../../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../../js/materialize.min.js")
 	
 
 body(class="Oswald")
+	header
+		nav(class="indigo top-nav")
 
-	nav(class="indigo top-nav")
+			div(class="nav-wrapper")
+				ul
+					li(class="hide-on-large-only")
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
 
-		div(class="nav-wrapper")
-			ul
-				li
-					a(class="sideNav" data-activates="slide-out")
-						i(class="material-icons left") menu
+				a(href="../inicio" class="brand-logo Oswald center") SACOE
 
-			a(href="../inicio" class="brand-logo Oswald center") SACOE
+				ul(id="nav-mobile" class="right")
 
-			ul(id="nav-mobile" class="right")
+					li
+						a(href="/salida")
+							i(class="material-icons") exit_to_app
+	main
 
-				li
-					a(href="/salida")
-						i(class="material-icons") exit_to_app
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../../../img/cac.jpg")
 
-	ul(id="slide-out" class="side-nav")
-		
-		li(class="logo")
-			img(class="responsive-img" src="../img/cac.jpg")
+			li(class="search")
 
-		li(class="search")
+				div(class="row center")
+			
+				form(method="post" action="/buscar" class="col s12")
+
+					div(class="row")
+
+						div(class="col s1")
+
+						div(class="input-field col s10 card")
+
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+				
+						div(class="col s1")
+
+			li(class="bold")
+				a(href="/inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons") home
+
+				a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons") person_ad
+
+			li(class="bold")
+				a(href="/persona/" class="waves-effect waves-red") Ganados
+					i(class="material-icons") people
+
+			li(class="bold")
+				a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons") equalizer
+
+
+		h4.center Editar datos de #{persona.nombre} #{persona.apellido}
+
+		div(class="contenedor-form card-panel")
 
 			div(class="row center")
-		
-			form(method="post" action="/buscar" class="col s12")
 
-				div(class="row")
+				form(method="post" action="/persona/editar/editarSave" class="col s12")
 
-					div(class="col s1")
+					div(class="row")
 
-					div(class="input-field col s10 card")
+						div(class="input-field col s12 m4")
 
-						input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
-			
-					div(class="col s1")
+							input(id="fecha_contactado" type="text" value="#{personaGanar.fecha_contactado}" placeholder="Fecha al ser ganado" name="fecha_contactado" class="validate")
+							label(for="fecha_contactado") Fecha al ser ganado
 
-		li(class="bold")
-			a(href="../inicio" class="waves-effect waves-red") Inicio
-				i(class="material-icons") home
+						div(class="input-field col s12 m4")
+							
+							input(id="fecha_nacimiento" type="text" value="#{persona.fecha_nacimiento}" placeholder="Fecha de nacimiento" name="fecha_nacimiento" class="validate")
+							label(for="fecha_nacimiento") Fecha de nacimiento
+							
+						div(class="input-field col s12 m4")
 
-			a(href="../persona/nuevo" class="waves-effect waves-red") Agregar
-				i(class="material-icons") person_ad
+							input(id="nombre" type="text" value="#{persona.nombre}" name="nombre" class="validate")
+							label(for="nombre") Nombre
 
-		li(class="bold")
-			a(href="../persona/" class="waves-effect waves-red") Ganados
-				i(class="material-icons") people
+					div(class="row")
 
-		li(class="bold")
-			a(href="../persona/estadisticas" class="waves-effect waves-red") Estadisticas
-				i(class="material-icons") equalizer
+						div(class="input-field col s12 m4")
 
+							input(id="apellido" type="text" value="#{persona.apellido}" name="apellido" class="validate")
+							label(for="apellido") Apellido
 
-	h4.center Editar datos de #{persona.nombre} #{persona.apellido}
+						div(class="input-field col s12 m4")
+							select(name="sexo" id="sexo")
+								option(value="" disabled selected) Selecciona el sexo
+								option(value="m", selected=(persona.sexo == "m") ) Masculino
+								option(value="f", selected=(persona.sexo == "f")) Femenino
 
-	div(class="contenedor-form card-panel")
+						div(class="input-field col s12 m4")
 
-		div(class="row center")
+							select(name="heredad" id="heredad")
 
-			form(method="post" action="/editarSave" class="col s12")
-
-				div(class="row")
-
-					div(class="input-field col s12 m4")
-
-						input(id="fecha_contactado" type="text" value="#{personaGanar.fecha_contactado}" placeholder="Fecha al ser ganado" name="fecha_contactado" class="validate")
-						label(for="fecha_contactado") Fecha al ser ganado
-
-					div(class="input-field col s12 m4")
-						
-						input(id="fecha_nacimiento" type="text" value="#{persona.fecha_nacimiento}" placeholder="Fecha de nacimiento" name="fecha_nacimiento" class="validate")
-						label(for="fecha_nacimiento") Fecha de nacimiento
-						
-					div(class="input-field col s12 m4")
-
-						input(id="nombre" type="text" value="#{persona.nombre}" name="nombre" class="validate")
-						label(for="nombre") Nombre
-
-				div(class="row")
-
-					div(class="input-field col s12 m4")
-
-						input(id="apellido" type="text" value="#{persona.apellido}" name="apellido" class="validate")
-						label(for="apellido") Apellido
-
-					div(class="input-field col s12 m4")
-						select(name="sexo" id="sexo")
-							option(value="" disabled selected) Selecciona el sexo
-							option(value="m", selected=(persona.sexo == "m")) Masculino
-							option(value="f", selected=(persona.sexo == "f")) Femenino
-
-					div(class="input-field col s12 m4")
-
-						select(name="heredad" id="heredad")
-							option(value="" disabled selected) Selecciona la heredad
-							option(value="1", selected=(persona.heredad == "1")) H1
-							option(value="2", selected=(persona.heredad == "2")) H2
-							option(value="3", selected=(persona.heredad == "3")) H3
-							option(value="4", selected=(persona.heredad == "4")) H4
-							option(value="5", selected=(persona.heredad == "5")) H5
-							option(value="6", selected=(persona.heredad == "6")) H6
-							option(value="7", selected=(persona.heredad == "7")) H7
-							option(value="8", selected=(persona.heredad == "8")) H8
-							option(value="9", selected=(persona.heredad == "9")) H9
-							option(value="10", selected=(persona.heredad == "10")) H10
-							option(value="11", selected=(persona.heredad == "11")) H11
-							option(value="12", selected=(persona.heredad == "12")) H12
+								each campo in data_heredades
+									option(value="#{campo.codigo}", selected=(persona.heredad_id == campo.id))= campo.nombre
+								
 
 
-						label Heredad
+							label Heredad
 
-				div(class="row")
+					div(class="row")
 
-					div(class="input-field col s12 m4")
-						
-						select(name="nacionalidad" id="nacionalidad")
-							option(value="" disabled selected) Selecciona la nacionalidad
-							option(value="v", selected=(persona.nacionalidad == "v")) Venezolano
-							option(value="e", selected=(persona.nacionalidad == "e")) Extranjero
+						div(class="input-field col s12 m4")
+							
+							select(name="nacionalidad" id="nacionalidad")
+								option(value="" disabled selected) Selecciona la nacionalidad
+								option(value="v", selected=(persona.nacionalidad == "v")) Venezolano
+								option(value="e", selected=(persona.nacionalidad == "e")) Extranjero
 
 
-					div(class="input-field col s12 m4")
+						div(class="input-field col s12 m4")
+							
+
+							input(id="ocupacion" type="text" value="#{persona.ocupacion}" name="ocupacion" class="validate")
+							label(for="ocupacion") Ocupación
+							
+						div(class="input-field col s12 m4")
+
+							input(id="ciudad" type="text" value="#{persona.ciudad}" name="ciudad" class="validate")
+							label(for="ciudad") Ciudad
+
+					div(class="row")
+
+						div(class="input-field col s12 m4")
+
+							input(id="telefono" type="text" value="#{persona.telefono}" name="telefono" class="validate")
+							label(for="telefono") Telefono
+
+						div(class="input-field col s12 m4")
+							
+							input(id="invitado_por" type="text" value="#{personaGanar.invitado_por}" name="invitado_por" class="validate")
+							label(for="invitado_por") Invitado por
 						
 
-						input(id="ocupacion" type="text" value="#{persona.ocupacion}" name="ocupacion" class="validate")
-						label(for="ocupacion") Ocupación
-						
-					div(class="input-field col s12 m4")
+						div(class="input-field col s12 m4")
 
-						input(id="ciudad" type="text" value="#{persona.ciudad}" name="ciudad" class="validate")
-						label(for="ciudad") Ciudad
+							input(id="correo" type="email" value="#{persona.correo}" name="correo" class="validate")
+							label(for="correo") Correo
 
-				div(class="row")
+					div(class="row")
 
-					div(class="input-field col s12 m4")
+						div(class="input-field col s12")
 
-						input(id="telefono" type="text" value="#{persona.telefono}" name="telefono" class="validate")
-						label(for="telefono") Telefono
-
-					div(class="input-field col s12 m4")
-						
-						input(id="invitado_por" type="text" value="#{personaGanar.invitado_por}" name="invitado_por" class="validate")
-						label(for="invitado_por") Invitado por
+							input(id="fechaVisitar" type="text" value="#{personaGanar.fecha_visitar}" name="fecha_visitar" class="validate")
+							label(for="fechaVisitar") Dia y hora para visitar
 					
+					div(class="row")
+						
+						div(class="input-field col s12")
 
-					div(class="input-field col s12 m4")
+							input(id="direccion" type="text" value="#{persona.direccion}" name="direccion" class="validate")
+							label(for="direccion") Dirección
 
-						input(id="correo" type="email" value="#{persona.correo}" name="correo" class="validate")
-						label(for="correo") Correo
+					div(class="row")
+						
+						div(class="input-field col s12")
 
-				div(class="row")
+							input(id="celula_insertar" type="text" value="#{personaGanar.celula_insertar}" name="celula_insertar" class="validate")
+							label(for="celula_insertar") Celula a insertar
 
-					div(class="input-field col s12")
+					div(class="row")
+						
+						div(class="input-field col s12")
 
-						input(id="fechaVisitar" type="text" value="#{personaGanar.fecha_visitar}" name="fecha_visitar" class="validate")
-						label(for="fechaVisitar") Dia y hora para visitar
-				
-				div(class="row")
-					
-					div(class="input-field col s12")
+							input(id="peticion_oracion" type="text" value="#{personaGanar.peticion_oracion}" name="peticion_oracion" class="validate")
+							label(for="peticion_oracion") Peticion de oración
 
-						input(id="direccion" type="text" value="#{persona.direccion}" name="direccion" class="validate")
-						label(for="direccion") Dirección
+					div(class="row")
 
-				div(class="row")
-					
-					div(class="input-field col s12")
+						div(class="input-field col s12")
 
-						input(id="celula_insertar" type="text" value="#{personaGanar.celula_insertar}" name="celula_insertar" class="validate")
-						label(for="celula_insertar") Celula a insertar
+							input(id="lugar_contacto" type="text" value="#{personaGanar.lugar_contacto}" name="lugar_contacto" class="validate")
+							label(for="lugar_contacto") Lugar
 
-				div(class="row")
-					
-					div(class="input-field col s12")
+					div(class="row")
 
-						input(id="peticion_oracion" type="text" value="#{personaGanar.peticion_oracion}" name="peticion_oracion" class="validate")
-						label(for="peticion_oracion") Peticion de oración
+						div(class="col s12")
 
-				div(class="row")
+							button(class="btn waves-effect indigo waves-light col s12" type="submit" name="action") Guardar
+	footer
 
-					div(class="input-field col s12")
-
-						input(id="lugar_contacto" type="text" value="#{personaGanar.lugar_contacto}" name="lugar_contacto" class="validate")
-						label(for="lugar_contacto") Lugar
-
-				div(class="row")
-
-					div(class="col s12")
-
-						button(class="btn waves-effect indigo waves-light" type="submit" name="action") Guardar
-
-	script(type="text/javascript" src="../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../../js/componentsMaterialize.js")

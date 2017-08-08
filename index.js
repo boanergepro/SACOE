@@ -15,8 +15,8 @@ const db = require('./db')
 const conexionDB = db.getConecctionDb();
 
 const pg = require('pg')
-  , session = require('express-session')
-  , pgSession = require('connect-pg-simple')(session);
+const session = require('express-session')
+const pgSession = require('connect-pg-simple')(session);
  
 var pgPool = new pg.Pool({
 
@@ -26,7 +26,7 @@ var pgPool = new pg.Pool({
   	password: '123456',
   	max: 20,
   	idleTimeoutMillis: 30000,
-  	connectionTimeoutMillis: 2000, 
+  	connectionTimeoutMillis: 2000
 });
  
 app.use(session({
@@ -46,11 +46,11 @@ app.use(session({
 //modelos
 const Personas = require('./modelos/persona')
 const FaseGanar = require('./modelos/fase_ganar')
+const Usuario = require('./modelos/usuario')
 
 const Sequelize = require('sequelize')
 
 //middleware Transformar los datos a json
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -63,6 +63,7 @@ app.use(express.static('public'))
 //Controladores
 const Ctrlpersona = require('./controladores/persona')
 const CtrlMail = require('./controladores/mailCtrl')
+const usuarioCtrl = require('./controladores/usuario')
 
 //Enviando el email
 var nodemailer = require('nodemailer');
@@ -133,7 +134,29 @@ app.get('/', Ctrlpersona.verLogin)
 const varUser = "admin"
 const Varpass = "admin"
 
-app.post('/login', Ctrlpersona.inicioSecion)
+app.post('/login', Ctrlpersona.inicioSesion)
+
+//Registro usuarios
+app.post('/registro', (req,res) => {
+
+	dataUser = {
+		nombre: req.body.nombre,
+		apellido: req.body.apellido,
+		username: req.body.username,
+		password: req.body.password
+	}
+	
+	Usuario.create(dataUser).then((persona) => {
+		res.redirect('/')
+	})
+	
+
+})
+//Ver usuarios
+app.get('/usuarios', usuarioCtrl.usuarios)
+
+app.get('/usuario/editar/:id', usuarioCtrl.editarUsuario)
+app.post('/usuario/editar/:id', usuarioCtrl.saveEdicion)
 
 //Vista Inicio
 app.get('/inicio', Ctrlpersona.verInicio)
@@ -168,53 +191,39 @@ app.get('/persona/nuevo', Ctrlpersona.verFormReg)
 app.post('/nuevo', Ctrlpersona.agregarReg)
 
 //Vista personas(Todos los ganados)
-app.get('/todos', Ctrlpersona.verTodo)
+app.get('/persona/todos', Ctrlpersona.verTodo)
 
 //Vita ganados
 app.get('/persona/', Ctrlpersona.ganados)
 
 //Ver persona
-app.get('/ver/:id', Ctrlpersona.verRegById)
+app.get('/persona/ver/:id', Ctrlpersona.verRegById)
 
 
 
 //Ver por heredad--------------------------------------------------------------
 
-app.get('/heredad/:num', Ctrlpersona.verVistaHeredad)
+app.get('/persona/heredad/:num', Ctrlpersona.verVistaHeredad)
 
 
 //Redes
-app.get('/persona/redes', Ctrlpersona.verVistaRedes
-	/*
-	ver todos por heredad
-	Personas.findAll({
-		where: {
-			heredad: numHeredad
-		}	
-	}).then(doc => {
-		//res.send({heredad: doc})
-		res.send({peros: doc.getEdad()})
-	}).catch(err => {
-		if (err) return console.log(`Ha ocurrido el siguiente error al hacer la consulta ${err}`)
-	})
-	*/
-)
+app.get('/persona/heredad/:codigoHeredad/red', Ctrlpersona.verVistaRedes)
 
-app.get('/red/:red', Ctrlpersona.verVistaFiltrado)
+//app.get(`/persona/heredad/:codigoHeredad}/red/:red`, Ctrlpersona.verVistaFiltrado)
 
 //Todos filtrado
-app.get('/persona/verFiltrado', Ctrlpersona.verFitradoFinal)
+app.get('/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal)
 
 // Vista editar
-app.get('/editar/:id', Ctrlpersona.vistaEditar)
+app.get('/persona/editar/:id', Ctrlpersona.vistaEditar)
 
-app.post('/editarSave', Ctrlpersona.saveEditar)
+app.post('/persona/editar/editarSave', Ctrlpersona.saveEditar)
 
 //Borrar
-app.get('/borrar/:id', Ctrlpersona.borrarUno)
+app.get('/persona/borrar/:id', Ctrlpersona.borrarUno)
 
 //Vista estadisticas
-app.get('/persona/estadisticas', Ctrlpersona.vistaEstadisticas)
+app.get('/estadisticas', Ctrlpersona.vistaEstadisticas)
 
 //Vista cerrar secion
 app.get('/salida', Ctrlpersona.cerrarSecion)

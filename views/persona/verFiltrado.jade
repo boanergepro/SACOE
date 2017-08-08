@@ -6,12 +6,12 @@ head
 	title SACOE
 	meta(charset='utf-8')
 	meta(name="viewport" content="width=device-width, initial-scale=1.0")
-	link(rel="stylesheet" href='../css/materialize.css')
-	link(rel="stylesheet" href='../css/main.css')
-	link(rel="stylesheet" href='../css/icon.css')
-	link(rel="stylesheet" href='../css/fuente.css')
-	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
-	script(type="text/javascript" src="../js/materialize.min.js")
+	link(rel="stylesheet" href='../../../../../css/materialize.css')
+	link(rel="stylesheet" href='../../../../../css/main.css')
+	link(rel="stylesheet" href='../../../../../css/icon.css')
+	link(rel="stylesheet" href='../../../../../css/fuente.css')
+	script(type="text/javascript" src="../../../../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../../../../js/materialize.min.js")
 	
 
 body(class="Oswald")
@@ -38,7 +38,7 @@ body(class="Oswald")
 		ul(id="slide-out" class="side-nav fixed")
 			
 			li(class="logo")
-				img(class="responsive-img" src="../img/cac.jpg")
+				img(class="responsive-img" src="../../../../../img/cac.jpg")
 
 			li(class="search")
 
@@ -57,19 +57,19 @@ body(class="Oswald")
 						div(class="col s1")
 
 			li(class="bold")
-				a(href="../inicio" class="waves-effect waves-red") Inicio
+				a(href="/inicio" class="waves-effect waves-red") Inicio
 					i(class="material-icons") home
 
 			li(class="bold")
-				a(href="./nuevo" class="waves-effect waves-red") Agregar
+				a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
 					i(class="material-icons") person_add
 
 			li(class="bold")
-				a(href="./" class="waves-effect waves-red") Ganados
+				a(href="/persona/" class="waves-effect waves-red") Ganados
 					i(class="material-icons") people
 
 			li(class="bold")
-				a(href="./estadisticas" class="waves-effect waves-red") Estadisticas
+				a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
 					i(class="material-icons") equalizer
 
 		div(class="row center")
@@ -91,6 +91,7 @@ body(class="Oswald")
 							th.center Edad
 							th.center Direccion
 					tbody
+
 						each campo in persona
 							tr
 								td.center
@@ -173,7 +174,7 @@ body(class="Oswald")
 																tbody
 																	tr
 																		td.center= campo.invitado_por
-																		td.center= campo.heredad
+																		td.center= campo.nombre_heredad
 																		td.center= campo.correo
 																		td.center= campo.peticion_oracion
 															hr
@@ -207,11 +208,11 @@ body(class="Oswald")
 													div(class="row")
 									
 														div(class="col s6")
-															a(href="/borrar/#{campo.persona_id}" class="modal-action modal-close waves-effect waves-light btn green") Si
+															a(href="/persona/borrar/#{campo.persona_id}" class="modal-action modal-close waves-effect waves-light btn green") Si
 														div(class="col s6")
 															a(class="modal-action modal-close waves-effect waves-light btn red") No
 	footer
 
 
-	script(type="text/javascript" src="../js/componentsMaterialize.js")
-	script(type="text/javascript" src="../js/seleccionador.js")
+	script(type="text/javascript" src="../../../../../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../../../../js/seleccionador.js")

@@ -2,17 +2,23 @@
 
 const Persona = require('./modelos/persona')
 
-const Permiso = require('./modelos/permisos')
+const Permiso = require('./modelos/permiso')
 
-const Usuario = require('./modelos/usuarios')
+const Heredad = require('./modelos/heredad')
 
+const Fase = require('./modelos/fase')
+
+const Rol = require('./modelos/rol')
 
 /*
 	Tablas padres:
 		Persona
 		Permiso
-		Usuario
+		Heredad
+		Fase
+		Rol
 */
+
 
 
 Persona.sync({force: true}).then((x) => {
@@ -40,7 +46,7 @@ Permiso.sync({force: true}).then((x) => {
 	
 });
 
-Usuario.sync({force: true}).then((x) => {
+Heredad.sync({force: true}).then((x) => {
 
   // Table created
   console.log(x)
@@ -52,3 +58,26 @@ Usuario.sync({force: true}).then((x) => {
 	
 })
 
+Fase.sync({force: true}).then((x) => {
+
+  // Table created
+  console.log(x)
+
+})
+.catch((err) => {
+
+	console.log(err)
+	
+})
+
+Rol.sync({force: true}).then((x) => {
+
+  // Table created
+  console.log(x)
+
+})
+.catch((err) => {
+
+	console.log(err)
+	
+})

@@ -6,12 +6,12 @@ head
 	title SACOE
 	meta(charset='utf-8')
 	meta(name="viewport" content="width=device-width, initial-scale=1.0")
-	link(rel="stylesheet" href='../css/materialize.css')
-	link(rel="stylesheet" href='../css/main.css')
-	link(rel="stylesheet" href='../css/icon.css')
-	link(rel="stylesheet" href='../css/fuente.css')
-	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
-	script(type="text/javascript" src="../js/materialize.min.js")
+	link(rel="stylesheet" href='../../css/materialize.css')
+	link(rel="stylesheet" href='../../css/main.css')
+	link(rel="stylesheet" href='../../css/icon.css')
+	link(rel="stylesheet" href='../../css/fuente.css')
+	script(type="text/javascript" src="../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../js/materialize.min.js")
 	
 body(class="Oswald")
 
@@ -39,7 +39,7 @@ body(class="Oswald")
 		ul(id="slide-out" class="side-nav fixed")
 			
 			li(class="logo")
-				img(class="responsive-img" src="../img/cac.jpg")
+				img(class="responsive-img" src="../../img/cac.jpg")
 
 			li(class="search")
 
@@ -73,23 +73,33 @@ body(class="Oswald")
 					i(class="material-icons") equalizer
 
 
-
 		div(class="row center")
 			
 			div(class="col s12")
+				div.row
+					div(class="col s12 m2")
+					div(class="col s12 m8")
+						h4.center.margen-sup Usted esta por editar el rol de #{usuario.nombre} #{usuario.apellido}
+						div.row
+							div(class="col s12 margen-sup")
+								form(method="post" action=`/usuario/editar/${usuario.id}`)
 
-				h4.center.margen-sup Heredades
-					
+									div(class="row")
+										div(class="col s12")
+											select(name="rol" id="heredad")
+												each campo in roles
+													option(value="#{campo.id}", selected=(usuario.rol_id == campo.id))= campo.nombre
+									div(class="row")
 
-				div.row.margen-sup
-					
-					each campo in datos
-						div(class="col s12")
-							a(href="/persona/heredad/#{campo.dataValues.codigo}" class="btn-floating hoverable waves-effect waves-light btn-large black-text tooltipped" data-position="top" data-delay="50" data-tooltip="#{campo.dataValues.total } Personas")= campo.dataValues.nombre
+										div(class="col s6")
+
+											button(class="btn waves-effect indigo waves-light col s12" type="submit" name="action") Actulizar
+										div(class="col s6")
+
+											a(class="btn waves-effect red waves-light col s12" href="/usuarios") No actulizar
+
+					div(class="col s12 m2")		
 					
 	footer
 
-
-
-												
-	script(type="text/javascript" src="../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../js/componentsMaterialize.js")

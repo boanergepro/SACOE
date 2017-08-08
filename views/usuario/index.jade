@@ -3,7 +3,6 @@ doctype html
 html(lang='en')
 	
 head
-
 	title SACOE
 	meta(charset='utf-8')
 	meta(name="viewport" content="width=device-width, initial-scale=1.0")
@@ -11,7 +10,6 @@ head
 	link(rel="stylesheet" href='../css/main.css')
 	link(rel="stylesheet" href='../css/icon.css')
 	link(rel="stylesheet" href='../css/fuente.css')
-	link(rel="icon" type="image/png" href="../img/users.png")
 	script(type="text/javascript" src="../js/jquery-2.1.1.min.js")
 	script(type="text/javascript" src="../js/materialize.min.js")
 	
@@ -25,7 +23,6 @@ body(class="Oswald")
 
 				ul
 					li(class="hide-on-large-only")
-
 						a(class="sideNav" data-activates="slide-out")
 							i(class="material-icons left") menu
 
@@ -76,59 +73,39 @@ body(class="Oswald")
 					i(class="material-icons") equalizer
 
 
-		div.row
-			h4.center.margen-sup Estadisticas
 
-			div(class="col s12 m6 l3")
+		div(class="row center")
+			
+			div(class="col s12")
 
-				div(class="card")
-					div(class="card-content green white-text")
-						p(class="card-stats-title center") Total
+				h4.center.margen-sup Usuarios registrados
 
-						h4(class="card-stats-number center") 505
+				div#contenedor-boton-acciones
+					
+				table(class="bordered highlight")
 
-					div(class="card-action  green darken-2")
+					thead
+						tr
+							th.center Marcar
+							th.center Nombre
+							th.center Apellido
+							th.center Username
+							th.center Rol
+					tbody
 
-						div(id="clients-bar" class="center-align")
+						each campo in datos
+							tr
+								td.center
+									-// checked="checked"
+									input(type="checkbox" class="filled-in" id="checkId-#{campo.dataValues.usuario_id}" data-persona_id="#{campo.dataValues.usuario_id}")
+									label(for="checkId-#{campo.dataValues.usuario_id}")
 
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content purple white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 302
-
-					div(class="card-action  purple darken-2")
-
-						div(id="clients-bar" class="center-align")
-
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content red white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 9.200
-
-					div(class="card-action  red darken-2")
-
-						div(id="clients-bar" class="center-align")
-
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content teal white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 1.000
-
-					div(class="card-action  teal darken-2")
-
-						div(id="clients-bar" class="center-align")
-
-
-		
+								td.center= campo.dataValues.nombre
+								td.center= campo.dataValues.apellido
+								td.center= campo.dataValues.username
+								td.center= campo.dataValues.rol
+					
 	footer
-	
+
+	script(type="text/javascript" src="../js/seleccionadorUsuario.js")
 	script(type="text/javascript" src="../js/componentsMaterialize.js")

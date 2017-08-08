@@ -1,3 +1,10 @@
+
+/*Ocultar elemento*/
+
+.ocultar {
+	display: none;
+}
+
 /*Side Nav*/
 header, main, footer {
 	padding-left: 250px;
