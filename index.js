@@ -1,23 +1,50 @@
-//Servidor
+//Dependencias
 const express = require('express')
+const passport = require('passport')
+const Sequelize = require('sequelize')
+const bodyParser = require('body-parser')
+
 const app = express()
 
 //Archivo de configuracion
 const config = require('./config')
-
-//Para parsear los datos en el body de la solicitus
-const bodyParser = require('body-parser')
-
-
 const db = require('./db')
-
-//Conexion
+//Conexion con la base de datos
 const conexionDB = db.getConecctionDb();
 
-const pg = require('pg')
-const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session);
- 
+//modelos
+const Personas = require('./modelos/persona')
+const FaseGanar = require('./modelos/fase_ganar')
+const Usuario = require('./modelos/usuario')
+
+
+//Controladores
+const Ctrlpersona = require('./controladores/persona')
+const CtrlMail = require('./controladores/mailCtrl')
+const usuarioCtrl = require('./controladores/usuario')
+const authCtrl =  require('./controladores/auth')
+
+//middleware Transformar los datos a json
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
+//Vistas en jade
+app.set('view engine', 'jade')
+
+//Servir archivos staticos
+app.use(express.static('public'))
+
+app.use(require('cookie-parser')())
+app.use(require('express-session')({ secret: 'sdhfsdkjhfkdsjhfjkdsfkjdsfskd', resave: false, saveUninitialized: false }))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+//const pg = require('pg')
+
+//const pgSession = require('connect-pg-simple')(session);
+/*
 var pgPool = new pg.Pool({
 
     host: 'localhost',
@@ -36,44 +63,30 @@ app.use(session({
 	tableName : 'session'   // Use another table-name than the default "session" one 
 	}),
 	secret: 'sacoe-Evangelismo' || process.env.FOO_COOKIE_SECRET,
-	resave: false,
+	resave: true,
+	saveUninitialized: false,
 	cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
   
 }));
+*/
+
+//PASSPORT ESTARTEGIA
+passport.use(authCtrl.estrategia)
+
+//SERIALIZADOR
+passport.serializeUser(authCtrl.serializador)
+
+//DESERIALIZADOR
+passport.deserializeUser(authCtrl.desserializador)
 
 
-
-//modelos
-const Personas = require('./modelos/persona')
-const FaseGanar = require('./modelos/fase_ganar')
-const Usuario = require('./modelos/usuario')
-
-const Sequelize = require('sequelize')
-
-//middleware Transformar los datos a json
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-
-//Vistas
-app.set('view engine', 'jade')
-
-//Servir archivos staticos
-app.use(express.static('public'))
-
-//Controladores
-const Ctrlpersona = require('./controladores/persona')
-const CtrlMail = require('./controladores/mailCtrl')
-const usuarioCtrl = require('./controladores/usuario')
-
-//Enviando el email
-var nodemailer = require('nodemailer');
-
+//Enviar email
 app.get('/enviarMail', (req, res) => {
 
 	//Alternativa mailgun-js
-	var api_key = 'key-e18f9eb10b56bbcc49c2fa4b674b8dc9';
-	var domain = 'sandbox3365c16f5d71480b8835f07c0d9e28ad.mailgun.org';
-	var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+	var api_key = 'key-e18f9eb10b56bbcc49c2fa4b674b8dc9'
+	var domain = 'sandbox3365c16f5d71480b8835f07c0d9e28ad.mailgun.org'
+	var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain})
 	 
 	var data = {
 		//De quien
@@ -84,43 +97,11 @@ app.get('/enviarMail', (req, res) => {
 	  	subject: 'Hola sacoe',
 	  	//Contenido
 	  	text: 'Este es un mensaje envia por sacoe'
-	};
+	}
 	 
 	mailgun.messages().send(data, function (error, body) {
-	  console.log(body);
-	});
-
-
-
-	/* Alternativa node mailer
-	// Definimos el transporter
-	var transporte = nodemailer.createTransport({
-	    service: 'Gmail',
-	    auth: {
-	        user: 'boanergepro@gmail.com',
-	        pass: 'parangaturimicuaro'
-	    }
+	  console.log(body)
 	})
-
-	// Definimos el email
-	var mailOpciones = {
-	    from: 'Sistema sacoe',
-	    to: 'antonycarrizo96@gmail.com',
-	    subject: 'Sacoe mensaje',
-	    text: 'Este es un mensaje enviado desde sacoe ;)'
-	}
-
-	// Enviamos el email
-	transporte.sendMail(mailOpciones, function(error, info){
-	    if (error){
-	        console.log(error);
-	        res.send(500, error.message);
-	    } else {
-	        console.log("Email enviado");
-	        res.status(200).jsonp(req.body);
-	    }
-	})
-	*/
 })
 
 //Vista de error
@@ -131,27 +112,20 @@ app.get('/errores/vista403', (req, res) => {
 //Login
 app.get('/', Ctrlpersona.verLogin)
 
-const varUser = "admin"
-const Varpass = "admin"
-
-app.post('/login', Ctrlpersona.inicioSesion)
+//Inicio de secion
+app.post('/login', passport.authenticate('local', { failureRedirect: '/' }), 
+  	(req, res) => {
+    	res.redirect('/inicio')
+  	}
+)
+  
+app.get('/logout', (req, res) => {
+	req.logout();
+	res.redirect('/')
+})
 
 //Registro usuarios
-app.post('/registro', (req,res) => {
-
-	dataUser = {
-		nombre: req.body.nombre,
-		apellido: req.body.apellido,
-		username: req.body.username,
-		password: req.body.password
-	}
-	
-	Usuario.create(dataUser).then((persona) => {
-		res.redirect('/')
-	})
-	
-
-})
+app.post('/registro', usuarioCtrl.registro)
 //Ver usuarios
 app.get('/usuarios', usuarioCtrl.usuarios)
 
@@ -225,8 +199,6 @@ app.get('/persona/borrar/:id', Ctrlpersona.borrarUno)
 //Vista estadisticas
 app.get('/estadisticas', Ctrlpersona.vistaEstadisticas)
 
-//Vista cerrar secion
-app.get('/salida', Ctrlpersona.cerrarSecion)
 
 app.listen(config.port, () => {
     console.log(`Server corriendo en el puerto ${config.port}`)

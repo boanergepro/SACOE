@@ -1,25 +1,14 @@
 //Modelos
-
 const Persona = require('../modelos/persona')
 const Heredad = require('../modelos/heredad')
 const FaseGanar = require('../modelos/fase_ganar')
 const Usuario = require('../modelos/usuario')
-
 //Configuraciones
 const config = require('../config')
 
-const moment = require('moment')
-
-
 //Base de datos
 const db = require('../db')
-
 const conexionDB = db.getConecctionDb();
-
-const Sequelize = require('sequelize')
-
-//Variable bandera para ver si esta logeado el admin
-var auth = false
 
 //Renderizar login
 function verLogin (req, res) {
@@ -27,58 +16,29 @@ function verLogin (req, res) {
 	res.render('index')
 }
 
-function inicioSesion (req, res) {
-
-	console.log(req.session)
-
-	let user = req.body.nombre
-	let pass = req.body.password
-
-	Usuario.find({
-		where: {
-			username: user
-		}
-	}).then(usuario => {
-
-		if (usuario){
-
-			let datos_usuario ={
-				username: usuario.username,
-				rol_id: usuario.rol_id
-			}
-			if (usuario.password == pass){
-				req.session.datos_usuario = datos_usuario
-
-				res.redirect('/inicio')
-			}else{
-				
-				//Dotos incorrectos
-				res.redirect('/')
-
-			}
-		}
-
-		res.redirect('/')
-
-	})
-
-	
-}
-
 //Ver la vista inicio
 function verInicio (req, res) {
+
+	let data_user = req.user
+
+	console.log('ESTE ES EL ID DEL USUARIO LOGUEADO - ' + data_user.rol_id)
+
+	console.log("Estos son los datos de la sesion en el controlador inicio "+data_user.rol_id)
 	
-	res.render('inicio')
+	res.render('inicio', {rol_id: data_user.rol_id})
 	
 }
 
 //Vista del formulario para crear registros
 function verFormReg (req, res) {
 
+	let data_user = req.user
+	let rol_id = data_user.rol_id
+
 	//Consulta a la tabla heredad pra renderizar
 	Heredad.findAll().then(heredades => {
 
-		res.render('persona/nuevo', { datos: heredades })
+		res.render('persona/nuevo', { datos: heredades, rol_id: data_user.rol_id })
 
 	}).catch(err => {
 
@@ -140,39 +100,44 @@ function agregarReg(req, res) {
 
 //ver todas las personas  del base de datos sin heredad
 function verTodo (req, res) {
-	if(auth) {
+
+	let data_user = req.user
+
+	let rol_id = data_user.rol_id
+	
 		
-		Persona.findAll({
-			where: {
-				heredad: '',
-				estado_personas: 'a'
-			}
-		}).then(doc => {
-			//Si hay personas en la base de datos...
-			if (doc.length > 0) {
+	Persona.findAll({
+		where: {
+			heredad: '',
+			estado_personas: 'a'
+		}
+	}).then(doc => {
+		//Si hay personas en la base de datos...
+		if (doc.length > 0) {
 
-				res.render('persona/todos', { persona: doc})
-				console.log(doc)
+			res.render('persona/todos', { persona: doc, rol_id: data_user.rol_id})
+			console.log(doc)
+		
+		}
+		else if (doc.length < 1) {
+
+			res.send('No hay personas sin heredad asignada en la base de datos')
 			
-			}
-			else if (doc.length < 1) {
+		}
+		
+	}).catch(err => {
 
-				res.send('No hay personas sin heredad asignada en la base de datos')
-				
-			}
-			
-		}).catch(err => {
+		if (err) return console.log(`Ha ocurrido el siguiente error al hacer la consulta ${err}`)
 
-			if (err) return console.log(`Ha ocurrido el siguiente error al hacer la consulta ${err}`)
+	})
 
-		})
 
-	}else{
-		res.redirect('../errores/vista403')
-	}
 }
 
 function ganados (req, res) {
+
+	let data_user = req.user
+	let rol_id = data_user.rol_id
 
 	//Consultar la cantidad de personas en cada heredad
 	conexionDB.query(`SELECT
@@ -187,7 +152,7 @@ function ganados (req, res) {
 				{model: Persona}).then((results) => {
 
   					console.log(results)
-  					res.render('persona/', {datos: results})
+  					res.render('persona/', {datos: results, rol_id: data_user.rol_id})
   					
 				}).catch(err => {
 					if (err) return console.log(err)
@@ -195,11 +160,14 @@ function ganados (req, res) {
 }
 
 function verRegById (req, res) {
+	let data_user = req.user
+	let rol_id = data_user.rol_id
+
 	let id = req.params.id
 
 	Persona.findById(id).then(doc => {
 		
-		res.render('persona/ver', { persona: doc })
+		res.render('persona/ver', { persona: doc, rol_id: data_user.rol_id})
 
 	}).catch(err => {
 
@@ -218,6 +186,8 @@ function verVistaHeredad (req, res) {
 }
 
 function verVistaRedes (req, res) {
+	let data_user = req.user
+	let rol_id = data_user.rol_id
 
 	conexionDB.query(`SELECT
 
@@ -254,24 +224,19 @@ function verVistaRedes (req, res) {
 				{model: Persona}).then((results) => {
 
   					console.log(results[0].red_ninos)
-  					res.render('persona/redes', {dato: results[0], codigoHeredad})
+  					res.render('persona/redes', {dato: results[0], codigoHeredad, rol_id: data_user.rol_id})
   					
 				}).catch(err => {
 					if (err) return console.log(err)
 				})
 
 }
-/*
-function verVistaFiltrado (req, res) {
-
-	red = req.params.red
-	
-	//res.redirect('/persona/heredad/:codigoHeredad/red/:red/todos')
-
-}*/
 
 function verFitradoFinal (req, res) {
 	red = req.params.red
+
+	let data_user = req.user
+	
 	let min = 0
 	let max = 0
 	let sexo = null
@@ -307,7 +272,7 @@ function verFitradoFinal (req, res) {
 				{ replacements: { heredad: codigoHeredad, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
-  					res.render('persona/verFiltrado', {persona: personas})
+  					res.render('persona/verFiltrado', {persona: personas, rol_id: data_user.rol_id})
 		})
 	}
 
@@ -318,7 +283,7 @@ function verFitradoFinal (req, res) {
 				{ replacements: { heredad: codigoHeredad, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
-  					res.render('persona/verFiltrado', {persona: personas})
+  					res.render('persona/verFiltrado', {persona: personas, rol_id: data_user.rol_id})
 		})
 
 	}
@@ -329,7 +294,7 @@ function verFitradoFinal (req, res) {
 				{ replacements: { heredad: numHeredad, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
-  					res.render('persona/verFiltrado', {persona: personas})
+  					res.render('persona/verFiltrado', {persona: personas, rol_id: data_user.rol_id})
 		})
 	}
 	
@@ -339,6 +304,7 @@ let idEditar = ""
 
 //Vistar formulario editar Editar 
 function vistaEditar (req, res) {
+	let data_user = req.user
 
 	let id = req.params.id
 	console.log(id)
@@ -367,7 +333,7 @@ function vistaEditar (req, res) {
 
 			Heredad.findAll().then(heredades => {
 
-				res.render('persona/editar',{persona: datosPersona, personaGanar: datos_fase_ganar, data_heredades: heredades})
+				res.render('persona/editar',{persona: datosPersona, personaGanar: datos_fase_ganar, data_heredades: heredades, rol_id: data_user.rol_id})
 			})
 
 			
@@ -468,20 +434,16 @@ function saveEditar (req, res) {
  }
 
  function vistaEstadisticas (req, res) {
- 	res.render('persona/estadisticas')
+ 	let data_user = req.user
+
+ 	res.render('persona/estadisticas', {rol_id: data_user.rol_id})
  }
 
-//Cerrar secion
-function cerrarSecion (req, res) {
-	auth = false
-	res.redirect('/')
-}
 
 
 module.exports = {
 
 	verLogin,
-	inicioSesion,
 	verInicio,
 	verFormReg,
 	agregarReg,
@@ -490,13 +452,9 @@ module.exports = {
 	verRegById,
 	verVistaHeredad,
 	verVistaRedes,
-	//verVistaFiltrado,
 	verFitradoFinal,
 	vistaEditar,
 	saveEditar,
 	borrarUno,
-	vistaEstadisticas,
-
-
-	cerrarSecion
+	vistaEstadisticas
 }

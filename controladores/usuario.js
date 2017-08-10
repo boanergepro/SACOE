@@ -16,12 +16,26 @@ const conexionDB = db.getConecctionDb();
 
 const Sequelize = require('sequelize')
 
-function usuarios(req, res) {
+function registro(req, res) {
 
+	dataUser = {
+		nombre: req.body.nombre,
+		apellido: req.body.apellido,
+		username: req.body.username,
+		password: req.body.password
+	}
+	
+	Usuario.create(dataUser).then((persona) => {
+		res.redirect('/')
+	})
+}
+
+function usuarios(req, res) {
 
 	conexionDB.query(`
 
 		SELECT
+		
 			usuarios.id AS usuario_id,
 			usuarios.nombre,
 			usuarios.apellido,
@@ -38,7 +52,7 @@ function usuarios(req, res) {
 	).then((results) => {
 
 		console.log(results)
-		res.render('usuario/', {datos: results})
+		res.render('usuario/', {datos: results, rol_id: 1})
 
   					
 	}).catch(err => {
@@ -47,8 +61,8 @@ function usuarios(req, res) {
 }
 
 function editarUsuario(req, res) {
-	let usuario_id = req.params.id
 
+	let usuario_id = req.params.id
 
 	let datosUsuario = {}
 
@@ -61,7 +75,7 @@ function editarUsuario(req, res) {
 
 		Rol.findAll().then(rol => {
 
-			res.render('usuario/editar', {usuario: datosUsuario, roles: rol})
+			res.render('usuario/editar', {usuario: datosUsuario, roles: rol, rol_id: 1})
 
 		})
 
@@ -70,6 +84,7 @@ function editarUsuario(req, res) {
 }
 
 function saveEdicion(req, res) {
+
 	let usuario_id = req.params.id
 	//Id del rol
 	let rol = {
@@ -89,6 +104,7 @@ function saveEdicion(req, res) {
 
 module.exports = {
 
+	registro,
 	usuarios,
 	editarUsuario,
 	saveEdicion
