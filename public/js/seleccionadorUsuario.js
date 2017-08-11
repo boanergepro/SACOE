@@ -4,6 +4,7 @@ $("input[type='checkbox']").prop("checked", false)
 
 //Urls de las acciones
 let urlEditar = null
+let urlEliminar = null
 
 
 $("input[type='checkbox']").click(function(event){
@@ -15,18 +16,31 @@ $("input[type='checkbox']").click(function(event){
 	if(idPersona == null){
 
 		idPersona = valorAtributoId
-		urlEditar ="/usuario/editar/" + idPersona
+		urlEditar =  "/usuario/editar/" + idPersona
+		urlEliminar = "/usuario/eliminar/" + idPersona
 		
 	
 
 			$('#contenedor-boton-acciones').append(`
 
 		
-			<div id="remove" class="fixed-action-btn">
-			    <a class="btn-floating btn-large red" id="editar">
-			      <i class="material-icons">border_color</i>
-			    </a>
-			 </div>
+				<div id="remove" class="fixed-action-btn horizontal click-to-toggle">
+				    <a class="btn-floating btn-large red">
+				      <i class="material-icons">menu</i>
+				    </a>
+				    <ul>
+				      <li class="waves-effect waves-light">
+				      	<a id="editar"class="btn-floating yellow" >
+				      		<i class="material-icons">border_color</i>
+				      	</a>
+				      </li>
+
+				      <li class="waves-effect waves-light">
+				      	<a id="eliminar" class="btn-floating pink">
+				      		<i class="material-icons">delete_forever</i>
+				      	</a>
+				      </li>
+				 </div>
   		`)
 
 		
@@ -34,6 +48,9 @@ $("input[type='checkbox']").click(function(event){
 		//Agregar urls a los botones
 		$.each($("#editar"),function(){
 	    	$(this).attr("href", urlEditar)
+		})
+		$.each($("#eliminar"),function(){
+	    	$(this).attr("href", urlEliminar)
 		})
 
 		//Desabilitar todos los chek

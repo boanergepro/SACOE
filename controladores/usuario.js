@@ -2,6 +2,7 @@
 
 const Usuario =  require('../modelos/usuario')
 const Rol = require('../modelos/rol')
+const Notificacion = require('../modelos/notificacion')
 
 //Configuraciones
 const config = require('../config')
@@ -24,8 +25,16 @@ function registro(req, res) {
 		username: req.body.username,
 		password: req.body.password
 	}
+
+	dataNotificacion = {
+		descripcion: 'Se ah unido el usuario ' + req.body.nombre + " " + req.body.apellido,
+		categoria: 'fase_ganar'
+	}
+	Notificacion.create(dataNotificacion).then(notificacion => {
+		console.log('Notificacion creada')
+	})
 	
-	Usuario.create(dataUser).then((persona) => {
+	Usuario.create(dataUser).then(persona => {
 		res.redirect('/')
 	})
 }
@@ -100,6 +109,17 @@ function saveEdicion(req, res) {
 		res.redirect('/usuarios')
 	})
 }
+function eliminarUsuario (req,res) {
+	let usuario_id = req.params.id
+
+	Usuario.destroy({
+		where: {
+			id: usuario_id
+		}
+	}).then(() => {
+		res.redirect('/usuarios')
+	})
+}
 
 
 module.exports = {
@@ -107,5 +127,6 @@ module.exports = {
 	registro,
 	usuarios,
 	editarUsuario,
-	saveEdicion
+	saveEdicion,
+	eliminarUsuario
 }

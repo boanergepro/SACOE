@@ -5430,6 +5430,7 @@ button.btn-floating {
   display: block;
   line-height: 22px;
   padding: 14px 16px;
+  width: 100%;
 }
 
 .dropdown-content li > span > label {

@@ -3,8 +3,9 @@ const express = require('express')
 const passport = require('passport')
 const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
-
 const app = express()
+const e_ws = require('express-ws')(app) 
+
 
 //Archivo de configuracion
 const config = require('./config')
@@ -16,6 +17,7 @@ const conexionDB = db.getConecctionDb();
 const Personas = require('./modelos/persona')
 const FaseGanar = require('./modelos/fase_ganar')
 const Usuario = require('./modelos/usuario')
+const Notificacion = require('./modelos/notificacion')
 
 
 //Controladores
@@ -40,35 +42,54 @@ app.use(require('express-session')({ secret: 'sdhfsdkjhfkdsjhfjkdsfkjdsfskd', re
 app.use(passport.initialize())
 app.use(passport.session())
 
+//==================================================================================
+//SOCKET
 
-//const pg = require('pg')
+app.ws('/socket', (ws,req) => {
 
-//const pgSession = require('connect-pg-simple')(session);
-/*
-var pgPool = new pg.Pool({
+	ws.on('message',(ms) => {
 
-    host: 'localhost',
-    database:'sacoeDB',
-  	user: 'postgres',
-  	password: '123456',
-  	max: 20,
-  	idleTimeoutMillis: 30000,
-  	connectionTimeoutMillis: 2000
-});
- 
-app.use(session({
+		Notificacion.findAll({
 
-	store: new pgSession({
-	pool : pgPool,    // Connection pool 
-	tableName : 'session'   // Use another table-name than the default "session" one 
-	}),
-	secret: 'sacoe-Evangelismo' || process.env.FOO_COOKIE_SECRET,
-	resave: true,
-	saveUninitialized: false,
-	cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
-  
-}));
-*/
+			where: {
+				estado: 'a'
+			}
+
+		}).then(notificacion => {
+
+			let data = []
+
+			for(let i=0; i<notificacion.length; i++){
+				data.push(notificacion[i].dataValues)
+			}
+
+			console.log(JSON.stringify(data))
+
+			ws.send(JSON.stringify(data))
+
+		}).catch(err => {
+			if (err) consol.log(err)
+		})
+
+	})
+
+})
+//Marcar las notificaciones a leidads cambiando su estado de 'a' a 'i'
+app.get('/marcar_leidas', (req, res) =>{
+	Notificacion.update({
+		estado: 'i'
+	},{
+		where: {
+			estado: 'a'
+		}
+	}).then(() => {
+		res.redirect('/inicio')
+	}).catch(err => {
+		console.log(err)
+	})
+})
+//==================================================================================
+
 
 //PASSPORT ESTARTEGIA
 passport.use(authCtrl.estrategia)
@@ -120,8 +141,10 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
 )
   
 app.get('/logout', (req, res) => {
+
 	req.logout();
 	res.redirect('/')
+
 })
 
 //Registro usuarios
@@ -131,7 +154,7 @@ app.get('/usuarios', usuarioCtrl.usuarios)
 
 app.get('/usuario/editar/:id', usuarioCtrl.editarUsuario)
 app.post('/usuario/editar/:id', usuarioCtrl.saveEdicion)
-
+app.get('/usuario/eliminar/:id', usuarioCtrl.eliminarUsuario)
 //Vista Inicio
 app.get('/inicio', Ctrlpersona.verInicio)
 

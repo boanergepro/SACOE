@@ -1,3 +1,17 @@
+.num-notificaciones{
+	
+    /*right: 5px;*/
+    top: -40px;
+    position: relative;
+    color: #ffffff !important;
+    margin: 0 -.2%;
+    background-color: #f44336;
+    border-radius: 100%;
+    height: 10px !important;
+    width: 10px !important;
+
+}
+
 
 /*Ocultar elemento*/
 

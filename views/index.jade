@@ -16,26 +16,6 @@ head
 	
 	
 body(class="Oswald")
-
-	-//Modal para mostrar en caso de error en los datos
-	div(id="modal1" class="modal")
-		div.row
-			div.col.s12.center
-				i(class="material-icons large red-text") error
-
-		div.row
-			div.col.s12.center
-				h4 Error
-			
-		div.row
-			div.col.s12.center
-				h5 Etimado usuario, para ingresar al sistema debera proporcionar datos correctos.
-		
-		div.col.s12.center
-				div.row.center
-					.col.s3
-					a(href="#!" class="col s6 modal-action modal-close btn green large") Entendido
-					.col.s3
 			
 	-//Login
 	
@@ -89,23 +69,23 @@ body(class="Oswald")
 
 							div.row
 
-								div(class="input-field col s6")
+								div(class="input-field col s12 m6")
 									
 									input(id="nombre" type="text" name="nombre" class="validate")
 									label(for="nombre" ) Nombre
 									
-								div(class="input-field col s6")
+								div(class="input-field col s12 m6")
 									
 									input(id="apellido" type="text" name="apellido" class="validate")
 									label(for="apellido" ) Apellido
 							div.row
 
-								div(class="input-field col s6")
+								div(class="input-field col s12 m6")
 									
 									input(id="username" type="text" name="username" class="validate")
 									label(for="username" ) Usuario
 									
-								div(class="input-field col s6")
+								div(class="input-field col s12 m6")
 									
 									input(id="password" type="password" name="password" class="validate")
 									label(for="password" ) Contraseña

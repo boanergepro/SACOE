@@ -31,6 +31,22 @@ body(class="Oswald")
 
 				
 				ul(id="nav-mobile" class="right")
+					
+					if rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
+							
+
 
 					li
 						a(href="/logout")
@@ -138,10 +154,13 @@ body(class="Oswald")
 
 			div(class="row container")
 				
+				ul#notificacion
+
 				h2(class="header blue-text") Fase ganar
 				p(class="grey-text text-darken-3 lighten-3") Nuestro trabajo como primer peldaño de la escalera del exito la cual esta compuesta por las fases ganar, consolidar, discipular y enviar. Es conectar a esa alma que esta perdida, con el Amor de Dios el Amor Agape, ese amor incondicionla.Por eso te inivitamos a ser esa persona que conecte multitudes con ese Amor, es muuy sencillo conectar a uno mas, tan solo con  compartir tu experiencia podras unir a esa persona con el Amor de Dios.
 	footer  
 					
         
 
-	script(type="text/javascript" src="js/componentsMaterialize.js") 
+	script(type="text/javascript" src="js/componentsMaterialize.js")
+	script(type="text/javascript" src="js/socket.js")
