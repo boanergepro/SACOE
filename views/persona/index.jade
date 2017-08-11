@@ -26,9 +26,23 @@ body(class="Oswald")
 						a(class="sideNav" data-activates="slide-out")
 							i(class="material-icons left") menu
 
-				a(href="../inicio" class="brand-logo Oswald margen-dere") SACOE
+				a(href="/inicio" class="brand-logo Oswald margen-dere") SACOE
 
 				ul(id="nav-mobile" class="right")
+
+					if rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
 
 					li
 						a(href="/logout")
@@ -68,7 +82,7 @@ body(class="Oswald")
 					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
 						i(class="material-icons black-text") person_add
 
-				li(class="bold")
+				li(class="bold active")
 					a(href="/persona/" class="waves-effect waves-red") Ganados
 						i(class="material-icons black-text") wc
 
@@ -134,3 +148,4 @@ body(class="Oswald")
 
 												
 	script(type="text/javascript" src="../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../js/socket.js")

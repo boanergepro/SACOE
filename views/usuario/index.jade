@@ -30,6 +30,20 @@ body(class="Oswald")
 
 				ul(id="nav-mobile" class="right")
 
+					if rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
+
 					li
 						a(href="/logout")
 							i(class="material-icons") exit_to_app
@@ -150,3 +164,4 @@ body(class="Oswald")
 
 	script(type="text/javascript" src="../js/seleccionadorUsuario.js")
 	script(type="text/javascript" src="../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../js/socket.js")

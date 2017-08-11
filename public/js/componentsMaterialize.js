@@ -34,8 +34,18 @@ $(document).ready(function(){
       
 //Calendario
 $('.datepicker').pickadate({
+
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 300, // Creates a dropdown of 15 years to control year
+    monthsFull: [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ],
+    monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+    weekdaysFull: [ 'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado' ],
+    weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+    today: 'hoy',
+    clear: 'borrar',
+    close: 'cerrar',
+    showMonthsShort: undefined,
+    showWeekdaysFull: undefined,
     
     toString(data, format) {
     	return "19/09/1994";
