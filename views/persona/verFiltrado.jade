@@ -54,21 +54,14 @@ body(class="Oswald")
 			li(class="logo")
 				img(class="responsive-img" src="../../../../../img/cac.jpg")
 
-			li(class="search")
-
-				div(class="row center")
+			li
 			
-				form(method="post" action="/buscar" class="col s12")
+				form(method="post" action="/buscar")
 
-					div(class="row")
-
-						div(class="col s1")
-
-						div(class="input-field col s10 card")
-
-							input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
-				
-						div(class="col s1")
+					div(class="input-field col s12 card")
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
+						label(for="search")
+			li.divider
 
 			-// Administrador
 			if rol_id == 1

@@ -3,6 +3,9 @@ const Persona = require('../modelos/persona')
 const Heredad = require('../modelos/heredad')
 const FaseGanar = require('../modelos/fase_ganar')
 const Usuario = require('../modelos/usuario')
+const Notificacion = require('../modelos/notificacion')
+const Usuario_persona = require('../modelos/usuario_persona')
+
 //Configuraciones
 const config = require('../config')
 
@@ -80,17 +83,43 @@ function agregarReg(req, res) {
 		peticion_oracion: req.body.peticion_oracion,
 		estado_fase_ganar: 'a'
 	}
-	
+
+	let dataNotificacion = {
+		descripcion: 'Se an ganado ah ' + req.body.nombre + " " + req.body.apellido,
+		categoria: 'fase_ganar'
+	}
+
+	let dataUsuarioPersona = {
+
+	}
 
 	Persona.create(dataTablaPersona).then((persona) => {
-		Object.assign(dataTablaFaseGanar,{
+		//Aqui se le asigna el campo persona_id al odjeto dataTablaFaseGanar que se guardara en la tabla fase_ganar
+		Object.assign(dataTablaFaseGanar, {
+			
+			persona_id: persona.id
+		
+		})
+		
+		Object.assign(dataUsuarioPersona, {
+			usuario_id: req.user.id,
 			persona_id: persona.id
 		})
+
+		Usuario_persona.create(dataUsuarioPersona)
+		
 		FaseGanar.create(dataTablaFaseGanar).then(() => {
-			res.redirect('inicio')
+			
+			Notificacion.create(dataNotificacion).then(() => {
+
+				res.redirect('inicio')
+				
+			})
 
 		}).catch((err) => {
+
 			console.log(`No se pudo crear la persona porque: ${err}`)
+		
 		})
 	})
 

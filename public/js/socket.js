@@ -80,9 +80,6 @@ $(document).ready(() => {
 			
 		}
 		
-		//Acceder a la descripcion de la notificacion uno
-		console.log(data[0].descripcion)
-
 	}
 })
 

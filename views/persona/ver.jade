@@ -37,21 +37,14 @@ body(class="Oswald")
 		li(class="logo")
 			img(class="responsive-img" src="../img/cac.jpg")
 
-		li(class="search")
-
-			div(class="row center")
-		
-			form(method="post" action="/buscar" class="col s12")
-
-				div(class="row")
-
-					div(class="col s1")
-
-					div(class="input-field col s10 card")
-
-						input(id="search" placeholder="Buscar..." class="deleteBorder" type="text" name="search")
+		li
 			
-					div(class="col s1")
+				form(method="post" action="/buscar")
+
+					div(class="input-field col s12 card")
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
+						label(for="search")
+			li.divider
 
 		-// Administrador
 			if rol_id == 1
@@ -64,7 +57,7 @@ body(class="Oswald")
 					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
 						i(class="material-icons black-text") person_add
 
-				li(class="bold")
+				li(class="bold active")
 					a(href="/persona/" class="waves-effect waves-red") Ganados
 						i(class="material-icons black-text") wc
 

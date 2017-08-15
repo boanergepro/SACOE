@@ -12,6 +12,8 @@ const Rol = require('./modelos/rol')
 
 const Notificacion = require('./modelos/notificacion')
 
+const Usuario_persona = require('./modelos/usuario_persona')
+
 /*
 	Tablas padres:
 		Persona
@@ -20,6 +22,7 @@ const Notificacion = require('./modelos/notificacion')
 		Fase
 		Rol
 		Notificacion
+		Usuario_persona
 */
 
 
@@ -86,6 +89,18 @@ Rol.sync({force: true}).then((x) => {
 })
 
 Notificacion.sync({force: true}).then((x) => {
+
+  // Table created
+  console.log(x)
+
+})
+.catch((err) => {
+
+	console.log(err)
+	
+})
+
+Usuario_persona.sync({force: true}).then((x) => {
 
   // Table created
   console.log(x)
