@@ -3,6 +3,8 @@
 const Usuario =  require('../modelos/usuario')
 const Rol = require('../modelos/rol')
 const Notificacion = require('../modelos/notificacion')
+const CoordinadorHeredad = require('../modelos/coordinadores_heredades')
+const CoordinadoresFases = require('../modelos/coordinadores_fases')
 
 //Configuraciones
 const config = require('../config')
@@ -73,13 +75,16 @@ function editarUsuario(req, res) {
 
 	let usuario_id = req.params.id
 
-	let datosUsuario = {}
+	let datosUsuario = {  }
 
 	Usuario.find({
+
 		where: {
 			id: usuario_id
+
 		}
 	}).then(usuario => {
+		
 		datosUsuario = usuario
 
 		Rol.findAll().then(rol => {

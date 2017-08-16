@@ -31,7 +31,7 @@ body(class="Oswald")
 
 				ul(id="nav-mobile" class="right")
 
-					if rol_id == 1 
+					if user.rol_id == 1
 						li
 							a(class='dropdown-button' data-activates='dropdown1')
 								i(class="material-icons" id="active-notifi") notifications
@@ -65,7 +65,7 @@ body(class="Oswald")
 			li.divider
 
 			-// Administrador
-			if rol_id == 1
+			if user.rol_id == 1
 
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
@@ -87,7 +87,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") supervisor_account
 			
 			-//Coordinador
-			if rol_id == 2
+			if user.rol_id == 2
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home 
@@ -105,7 +105,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") equalizer
 
 			-//Analista - Lider de casa de paz
-			if rol_id == 3
+			if user.rol_id == 3
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home 
@@ -114,8 +114,12 @@ body(class="Oswald")
 					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
 						i(class="material-icons black-text") person_add
 
+				li(class="bold")
+					a(href=`/persona/${user.id}` class="waves-effect waves-red") Ganados
+						i(class="material-icons black-text") wc
+
 			-//Usuario
-			if rol_id == 4
+			if user.rol_id == 4
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home

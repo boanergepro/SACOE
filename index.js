@@ -140,12 +140,6 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   	}
 )
   
-app.get('/logout', (req, res) => {
-
-	req.logout();
-	res.redirect('/')
-
-})
 
 //Registro usuarios
 app.post('/registro', usuarioCtrl.registro)
@@ -153,8 +147,11 @@ app.post('/registro', usuarioCtrl.registro)
 app.get('/usuarios', usuarioCtrl.usuarios)
 
 app.get('/usuario/editar/:id', usuarioCtrl.editarUsuario)
+
 app.post('/usuario/editar/:id', usuarioCtrl.saveEdicion)
+
 app.get('/usuario/eliminar/:id', usuarioCtrl.eliminarUsuario)
+
 //Vista Inicio
 app.get('/inicio', Ctrlpersona.verInicio)
 
@@ -208,6 +205,9 @@ app.get('/persona/heredad/:codigoHeredad/red', Ctrlpersona.verVistaRedes)
 
 //app.get(`/persona/heredad/:codigoHeredad}/red/:red`, Ctrlpersona.verVistaFiltrado)
 
+//Mostar los ganados segun el id del usurio
+app.get('/persona/:id', Ctrlpersona.usuario_ganados)
+
 //Todos filtrado
 app.get('/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal)
 
@@ -222,6 +222,13 @@ app.get('/persona/borrar/:id', Ctrlpersona.borrarUno)
 //Vista estadisticas
 app.get('/estadisticas', Ctrlpersona.vistaEstadisticas)
 
+
+app.get('/logout', (req, res) => {
+
+	req.logout();
+	res.redirect('/')
+
+})
 
 app.listen(config.port, () => {
     console.log(`Server corriendo en el puerto ${config.port}`)

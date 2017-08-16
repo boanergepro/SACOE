@@ -25,10 +25,8 @@ function verInicio (req, res) {
 	let data_user = req.user
 
 	console.log('ESTE ES EL ID DEL USUARIO LOGUEADO - ' + data_user.rol_id)
-
-	console.log("Estos son los datos de la sesion en el controlador inicio "+data_user.rol_id)
 	
-	res.render('inicio', {rol_id: data_user.rol_id})
+	res.render('inicio', {user: req.user})
 	
 }
 
@@ -36,12 +34,10 @@ function verInicio (req, res) {
 function verFormReg (req, res) {
 
 	let data_user = req.user
-	let rol_id = data_user.rol_id
-
 	//Consulta a la tabla heredad pra renderizar
 	Heredad.findAll().then(heredades => {
 
-		res.render('persona/nuevo', { datos: heredades, rol_id: data_user.rol_id })
+		res.render('persona/nuevo', { datos: heredades, user: req.user })
 
 	}).catch(err => {
 
@@ -100,7 +96,7 @@ function agregarReg(req, res) {
 			persona_id: persona.id
 		
 		})
-		
+
 		Object.assign(dataUsuarioPersona, {
 			usuario_id: req.user.id,
 			persona_id: persona.id
@@ -159,6 +155,39 @@ function verTodo (req, res) {
 		if (err) return console.log(`Ha ocurrido el siguiente error al hacer la consulta ${err}`)
 
 	})
+
+
+}
+
+//Ver los ganados segun el id del usuario
+function usuario_ganados (req,res) {
+
+	//ID del usuario que esta logeado
+	let id_usuario = req.params.id
+
+	conexionDB.query(`
+			SELECT
+
+				*
+	
+			FROM usuarios_personas
+			INNER JOIN personas ON usuarios_personas.persona_id = personas.id
+			INNER JOIN fase_ganar ON usuarios_personas.persona_id = fase_ganar.persona_id
+			WHERE usuarios_personas.usuario_id = :id
+
+				`,
+			{ replacements: { id: id_usuario }, type: conexionDB.QueryTypes.SELECT},
+			{model: Usuario_persona}).then((results) => {
+
+				console.log(results)
+
+				res.render('persona/usuario_personas', { personas: results, user: req.user })
+  					
+			}).catch(err => {
+
+				if (err) return console.log(err)
+
+			})
 
 
 }
@@ -478,6 +507,7 @@ module.exports = {
 	agregarReg,
 	verTodo,
 	ganados,
+	usuario_ganados,
 	verRegById,
 	verVistaHeredad,
 	verVistaRedes,

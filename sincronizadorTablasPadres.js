@@ -14,6 +14,11 @@ const Notificacion = require('./modelos/notificacion')
 
 const Usuario_persona = require('./modelos/usuario_persona')
 
+const CoordinadorHeredad = require('./modelos/coordinadores_heredades')
+
+const CoordinadorFase = require('./modelos/coordinadores_fases')
+
+
 /*
 	Tablas padres:
 		Persona
@@ -22,7 +27,9 @@ const Usuario_persona = require('./modelos/usuario_persona')
 		Fase
 		Rol
 		Notificacion
-		Usuario_persona
+		Usuario_persona,
+		CoordinadorHeredad
+		CoordinadorFase
 */
 
 
@@ -101,6 +108,30 @@ Notificacion.sync({force: true}).then((x) => {
 })
 
 Usuario_persona.sync({force: true}).then((x) => {
+
+  // Table created
+  console.log(x)
+
+})
+.catch((err) => {
+
+	console.log(err)
+	
+})
+
+CoordinadorHeredad.sync({force: true}).then((x) => {
+
+  // Table created
+  console.log(x)
+
+})
+.catch((err) => {
+
+	console.log(err)
+	
+})
+
+CoordinadorFase.sync({force: true}).then((x) => {
 
   // Table created
   console.log(x)

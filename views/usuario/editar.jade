@@ -64,61 +64,25 @@ body(class="Oswald")
 						label(for="search")
 			li.divider
 
-			-// Administrador
-			if rol_id == 1
+			li(class="bold")
+				a(href="/inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons black-text") home
 
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
+			li(class="bold")
+				a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons black-text") person_add
 
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
+			li(class="bold")
+				a(href="/persona/" class="waves-effect waves-red") Ganados
+					i(class="material-icons black-text") wc
 
-				li(class="bold")
-					a(href="/persona/" class="waves-effect waves-red") Ganados
-						i(class="material-icons black-text") wc
+			li(class="bold")
+				a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons black-text") equalizer
 
-				li(class="bold")
-					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
-						i(class="material-icons black-text") equalizer
-				li(class="bold active")
-					a(href="/usuarios" class="waves-effect waves-red") Usuarios
-						i(class="material-icons black-text") supervisor_account
-			
-			-//Coordinador
-			if rol_id == 2
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
-
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
-
-				li(class="bold")
-					a(href="/persona/" class="waves-effect waves-red") Ganados
-						i(class="material-icons black-text") wc
-
-				li(class="bold")
-					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
-						i(class="material-icons black-text") equalizer
-
-			-//Analista - Lider de casa de paz
-			if rol_id == 3
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
-
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
-
-			-//Usuario
-			if rol_id == 4
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home
+			li(class="bold active")
+				a(href="/usuarios" class="waves-effect waves-red") Usuarios
+					i(class="material-icons black-text") supervisor_account
 
 
 		div(class="row center")
@@ -137,8 +101,10 @@ body(class="Oswald")
 											select(name="rol" id="heredad")
 												each campo in roles
 													option(value="#{campo.id}", selected=(usuario.rol_id == campo.id))= campo.nombre
-									div(class="row")
 
+									div(class="row" id="heredad")
+
+									div(class="row")
 										div(class="col s6")
 
 											button(class="btn waves-effect indigo waves-light col s12 btn-large" type="submit" name="action") Actulizar
