@@ -45,7 +45,16 @@ const CoordinadorHeredad = conexionDB.define('coordinadores_heredades', {
 	     // This declares when to check the foreign key constraint. PostgreSQL only.
 	     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
 	   }
+	},
+
+	//Para filtar consultas
+	estado:{
+		type: Sequelize.STRING,
+		set(val) {
+			this.setDataValue('estado', val.toLowerCase());
+		}
 	}
+		
 })
 
 

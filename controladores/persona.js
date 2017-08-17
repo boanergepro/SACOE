@@ -159,7 +159,7 @@ function verTodo (req, res) {
 
 }
 
-//Ver los ganados segun el id del usuario
+//Para que los lideres o analistas puedan ver los ganados segun el id del usuario
 function usuario_ganados (req,res) {
 
 	//ID del usuario que esta logeado
@@ -173,6 +173,7 @@ function usuario_ganados (req,res) {
 			FROM usuarios_personas
 			INNER JOIN personas ON usuarios_personas.persona_id = personas.id
 			INNER JOIN fase_ganar ON usuarios_personas.persona_id = fase_ganar.persona_id
+			INNER JOIN vista_datos_personas ON usuarios_personas.persona_id = vista_datos_personas.personas_id
 			WHERE usuarios_personas.usuario_id = :id
 
 				`,

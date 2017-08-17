@@ -156,22 +156,106 @@ function editarUsuario(req, res) {
 }
 //Guardar los cambios del rol del usuario
 function saveEdicion(req, res) {
-
+	//id el usuario que se esta editando
 	let usuario_id = req.params.id
-	//Id del rol
-	let rol = {
-		rol_id: req.body.rol
-	}
+	//id del rol seleccionado
+	let id_rol = req.body.rol
+	//id de la heredad seleccionada en caso de ser un coordinador
+	let id_heredad = req.body.heredad
+	//Sera igual a nul en caso de que el usuario editado no es un coordinador activo
+	let isCoordinador = null
 
-
-	Usuario.update(rol,{
+	//Saber si mi usuario es un coordinador o no
+	CoordinadorHeredad.find({
 		where: {
-			id: usuario_id
+			coordinador_id: usuario_id,
+			estado: 'a'
 		}
-	}).then(() => {
-		res.redirect('/usuarios')
+	}).then(persona => {
+
+		isCoordinador = persona
+
+		//Id del rol
+		let rol = {
+			rol_id: req.body.rol
+		}
+
+		if (id_heredad == undefined) {
+			
+			if (isCoordinador != null) {
+				CoordinadorHeredad.update({
+					//data
+					estado: 'i'
+				},{
+					//condicion
+					where: {
+						coordinador_id: usuario_id
+					}
+				}).then(() => {
+
+					Usuario.update(rol,{
+						where: {
+							id: usuario_id
+						}
+					}).then(() => {
+			
+						res.redirect('/usuarios')
+
+					}).catch(err => {
+						console.log(`Ha ocuarrido el siguiente error al actualizar el rol de este usuario: ${err}`)
+					})
+				})
+			
+			}else{
+
+				Usuario.update(rol,{
+					where: {
+						id: usuario_id
+					}
+				}).then(() => {
+		
+					res.redirect('/usuarios')
+
+				}).catch(err => {
+					console.log(`Ha ocuarrido el siguiente error al actualizar el rol de este usuario: ${err}`)
+				})
+			}
+
+			
+		}
+		//Este caso solo se ejecutara cuando el rol sea coordinador y deba seleccionar la heredad
+		if (id_heredad != undefined) {
+			
+			let dataCoordinadorHeredad = {
+				coordinador_id: usuario_id,
+				heredad_id: id_heredad,
+				estado: 'a'
+			}
+
+			Usuario.update(rol,{
+				where:{
+					id: usuario_id
+				}
+			}).then(() => {
+
+				CoordinadorHeredad.create(dataCoordinadorHeredad).then(() => {
+					
+					res.redirect('/usuarios')
+
+				}).catch(err => {
+					console.log(`Ha ocuarrido el siguiente error al actualizar el rol de este usuario: ${err}`)
+				})
+
+			}).catch(err => {
+				console.log(`Ha ocuarrido el siguiente error al actualizar el rol de este usuario: ${err}`)
+			})
+		}
+
 	})
+
 }
+
+//ELIMINAR USUARIO
 function eliminarUsuario (req,res) {
 	let usuario_id = req.params.id
 
@@ -182,6 +266,7 @@ function eliminarUsuario (req,res) {
 	}).then(() => {
 		res.redirect('/usuarios')
 	})
+
 }
 
 
