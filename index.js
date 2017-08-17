@@ -25,6 +25,7 @@ const Ctrlpersona = require('./controladores/persona')
 const CtrlMail = require('./controladores/mailCtrl')
 const usuarioCtrl = require('./controladores/usuario')
 const authCtrl =  require('./controladores/auth')
+const contactoCtrl = require('./controladores/contacto')
 
 //middleware Transformar los datos a json
 app.use(bodyParser.json())
@@ -211,13 +212,25 @@ app.get('/persona/:id', Ctrlpersona.usuario_ganados)
 //Todos filtrado
 app.get('/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal)
 
-// Vista editar
+// Vista editar persona
 app.get('/persona/editar/:id', Ctrlpersona.vistaEditar)
 
 app.post('/persona/editar/editarSave', Ctrlpersona.saveEditar)
 
-//Borrar
+//Borrar una persona
 app.get('/persona/borrar/:id', Ctrlpersona.borrarUno)
+
+//Ir a la llamda para agregar el resultado de la llamada
+app.get('/persona/contacto/llamada/:id', contactoCtrl.addResultLlamada)
+
+//Guardar el resultado de la llamada
+app.post('/persona/contacto/llamada/:id', contactoCtrl.saveResultLlamada)
+
+//Ir a la vista para agregar el resultado de la visita
+app.get('/persona/contacto/visita/:id', contactoCtrl.addResultVisita)
+
+//Guardar el resultado de la visita
+app.post('/persona/contacto/visita/:id', contactoCtrl.saveResultVisita)
 
 //Vista estadisticas
 app.get('/estadisticas', Ctrlpersona.vistaEstadisticas)

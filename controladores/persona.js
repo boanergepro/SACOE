@@ -162,10 +162,13 @@ function verTodo (req, res) {
 //Para que los lideres o analistas puedan ver los ganados segun el id del usuario
 function usuario_ganados (req,res) {
 
+	//
+
 	//ID del usuario que esta logeado
 	let id_usuario = req.params.id
 
 	conexionDB.query(`
+		
 			SELECT
 
 				*

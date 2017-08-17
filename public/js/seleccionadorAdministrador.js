@@ -6,7 +6,6 @@ $("input[type='checkbox']").prop("checked", false)
 let urlEditarAdministrador = null
 let urlEliminarAdministrador = null
 
-
 $("input[type='checkbox']").click(function(event){
 	//console.log($(this).attr('data-persona_id'))
 	let valorAtributoId = $(this).attr('data-persona_id')
@@ -19,8 +18,7 @@ $("input[type='checkbox']").click(function(event){
 		urlEditarAdministrador =  "/usuario/editar/" + idAdministrador
 		urlEliminarAdministrador = "/usuario/eliminar/" + idAdministrador
 		
-	
-
+		
 			$('#contenedor-boton-acciones-administrador').append(`
 
 		
