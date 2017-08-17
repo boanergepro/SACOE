@@ -1,10 +1,10 @@
-let idUsuario = null
+let idAdministrador= null
 //Quitar ckeck
 $("input[type='checkbox']").prop("checked", false)
 
 //Urls de las acciones
-let urlEditarUsuario = null
-let urlEliminarUsuario = null
+let urlEditarAdministrador = null
+let urlEliminarAdministrador = null
 
 
 $("input[type='checkbox']").click(function(event){
@@ -13,15 +13,15 @@ $("input[type='checkbox']").click(function(event){
 
 	console.log(valorAtributoId)
 
-	if(idUsuario == null){
+	if(idAdministrador== null){
 
-		idUsuario = valorAtributoId
-		urlEditarUsuario =  "/usuario/editar/" + idUsuario
-		urlEliminarUsuario = "/usuario/eliminar/" + idUsuario
+		idAdministrador= valorAtributoId
+		urlEditarAdministrador =  "/usuario/editar/" + idAdministrador
+		urlEliminarAdministrador = "/usuario/eliminar/" + idAdministrador
 		
 	
 
-			$('#contenedor-boton-acciones-usuario').append(`
+			$('#contenedor-boton-acciones-administrador').append(`
 
 		
 				<div id="remove" class="fixed-action-btn horizontal click-to-toggle">
@@ -30,13 +30,13 @@ $("input[type='checkbox']").click(function(event){
 				    </a>
 				    <ul>
 				      <li class="waves-effect waves-light">
-				      	<a id="editarUsuario"class="btn-floating yellow" >
+				      	<a id="editarAdministrador"class="btn-floating yellow" >
 				      		<i class="material-icons">border_color</i>
 				      	</a>
 				      </li>
 
 				      <li class="waves-effect waves-light">
-				      	<a id="eliminarUsuario" class="btn-floating pink">
+				      	<a id="eliminarAdministrador" class="btn-floating pink">
 				      		<i class="material-icons">delete_forever</i>
 				      	</a>
 				      </li>
@@ -46,11 +46,11 @@ $("input[type='checkbox']").click(function(event){
 		
 
 		//Agregar urls a los botones
-		$.each($("#editarUsuario"),function(){
-	    	$(this).attr("href", urlEditarUsuario)
+		$.each($("#editarAdministrador"),function(){
+	    	$(this).attr("href", urlEditarAdministrador)
 		})
-		$.each($("#eliminarUsuario"),function(){
-	    	$(this).attr("href", urlEliminarUsuario)
+		$.each($("#eliminarAdministrador"),function(){
+	    	$(this).attr("href", urlEliminarAdministrador)
 		})
 
 		//Desabilitar todos los chek
@@ -58,14 +58,14 @@ $("input[type='checkbox']").click(function(event){
 	    	$(this).attr("disabled","disabled")
 		})
 		//Habilitar solo el que tengo seleccionado
-		$.each($(`#checkId-${idUsuario}`),function(){
+		$.each($(`#checkId-${idAdministrador}`),function(){
 	    	$(this).removeAttr("disabled","disabled")
 		})
 
 	}
 
-	else if(idUsuario != null){
-		idUsuario = null
+	else if(idAdministrador!= null){
+		idAdministrador= null
 		//Quitar el boton de acciones
 		$('#remove').remove()
 

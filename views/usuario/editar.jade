@@ -98,11 +98,13 @@ body(class="Oswald")
 
 									div(class="row")
 										div(class="col s12")
-											select(name="rol" id="heredad")
+											select(name="rol" id="rol")
 												each campo in roles
 													option(value="#{campo.id}", selected=(usuario.rol_id == campo.id))= campo.nombre
 
-									div(class="row" id="heredad")
+									div(class="row")
+										div(class="col s12" id="select-heredad")
+										-//Aqui se renderizara un select para escoger la heredad, en caso de que el campo rol sea = coordinador.
 
 									div(class="row")
 										div(class="col s6")
@@ -117,4 +119,5 @@ body(class="Oswald")
 	footer
 
 	script(type="text/javascript" src="../../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../js/selectHeredadCoor.js")
 	script(type="text/javascript" src="../../js/socket.js")

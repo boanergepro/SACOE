@@ -1,5 +1,4 @@
 //Modelos
-
 const Usuario =  require('../modelos/usuario')
 const Rol = require('../modelos/rol')
 const Notificacion = require('../modelos/notificacion')
@@ -40,9 +39,65 @@ function registro(req, res) {
 		res.redirect('/')
 	})
 }
-
+//Mostar todos los usuarios independientemente de su rol
 function usuarios(req, res) {
 
+	let usuarios = null
+	let analistas = null
+	let coordinadores = null
+	let administradores = null
+
+	//Usuarios
+	Usuario.findAll({
+		where: {
+			rol_id: 4
+		}
+	}).then(results => {
+
+		usuarios = results
+
+		//Analistas
+		Usuario.findAll({
+			where: {
+				rol_id: 3
+			}
+		}).then(results => {
+			
+			analistas = results
+
+			//Coordinadores
+			Usuario.findAll({
+				where: {
+					rol_id: 2
+				}
+			}).then(results => {
+				coordinadores =  results
+
+				//Administradores
+
+				Usuario.findAll({
+					where: {
+						rol_id: 1
+					}
+				}).then(results => {
+				
+					administradores = results
+					res.render('usuario/', {usuarios, analistas, coordinadores, administradores, rol_id: 1})
+				
+				}).catch(err => {
+					console.log(`Ha ocuarrido un error al consultar los administradores ${err}`)
+				})
+			}).catch(err => {
+				console.log(`Ha ocuarrido un error al consultar los coordinadores ${err}`)
+			})
+		}).catch(err => {
+		console.log(`Ha ocuarrido un error al consultar los analistas ${err}`)
+		})
+
+	}).catch(err => {
+		console.log(`Ha ocuarrido un error al consultar los usuarios ${err}`)
+	})
+/*
 	conexionDB.query(`
 
 		SELECT
@@ -69,24 +124,27 @@ function usuarios(req, res) {
 	}).catch(err => {
 		if (err) return console.log(err)
 	})
+*/
 }
 
+//Editar usuario
 function editarUsuario(req, res) {
 
 	let usuario_id = req.params.id
 
 	let datosUsuario = {  }
-
+	//Consulta a la tabla usuarios para mostrale al administardor datos de la persona a la que esta editando
 	Usuario.find({
 
 		where: {
+
 			id: usuario_id
 
 		}
 	}).then(usuario => {
 		
 		datosUsuario = usuario
-
+		//Consualta a los roles para mostartle el selec con los roles que puede escojer
 		Rol.findAll().then(rol => {
 
 			res.render('usuario/editar', {usuario: datosUsuario, roles: rol, rol_id: 1})
@@ -96,7 +154,7 @@ function editarUsuario(req, res) {
 	})
 
 }
-
+//Guardar los cambios del rol del usuario
 function saveEdicion(req, res) {
 
 	let usuario_id = req.params.id
