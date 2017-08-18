@@ -17,7 +17,7 @@ body(class="Oswald")
 
 	header
 
-		nav(class="amber top-nav")
+		nav(class="indigo top-nav")
 
 			div(class="nav-wrapper")
 
@@ -26,7 +26,10 @@ body(class="Oswald")
 						a(class="sideNav" data-activates="slide-out")
 							i(class="material-icons left") menu
 
-				a(href="/inicio" class="brand-logo Oswald margen-dere") SACOE
+				-//Mostrar en pantallas grandes
+				a(href="/inicio" class="brand-logo Oswald margen-dere show-on-large hide-on-med-and-down") SACOE
+				-//Mostrar en pantallas medianas y pequeñas
+				a(href="/inicio" class="brand-logo Oswald show-on-medium-and-down hide-on-med-and-up") SACOE
 
 				ul(id="nav-mobile" class="right")
 
