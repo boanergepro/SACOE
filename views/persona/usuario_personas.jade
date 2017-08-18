@@ -222,33 +222,33 @@ body(class="Oswald")
 															a(class="modal-action modal-close waves-effect waves-light btn red") No
 								td.center
 									div.row
-
+										
 										if campo.llamado == false && campo.visitado == false
 											div.col.s6
 												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido llamado")
-													i(id ="llamada" class="material-icons red-text" data-exits-llamada="0l") perm_phone_msg
+													i(id ="llamada-#{campo.persona_id}" class="material-icons red-text" data-exits-llamada="#{campo.llamado}") perm_phone_msg
 
 											div.col.s6
 												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido visitado")
-													i(id="visita" class="material-icons red-text" data-exits-visita="0v") store
+													i(id="visita-#{campo.persona_id}" class="material-icons red-text" data-exits-visita="#{campo.visitado}") store
 
 										else if campo.llamado == true && campo.visitado == false
 											div.col.s6
 												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="Ya ha sido llamado")
-													i(id ="llamada" class="material-icons green-text" data-exits-llamada="1l") perm_phone_msg
+													i(id ="llamada-#{campo.persona_id}" class="material-icons green-text" data-exits-llamada="#{campo.llamado}") perm_phone_msg
 
 											div.col.s6
 												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido visitado")
-													i(id="visita" class="material-icons red-text" data-exits-visita="0v") store
+													i(id="visita-#{campo.persona_id}" class="material-icons red-text" data-exits-visita="#{campo.visitado}") store
 
 										else if campo.llamado == false && campo.visitado == true 
 											div.col.s6
 												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido llamado")
-													i(id ="llamada" class="material-icons red-text" data-exits-llamada="0l") perm_phone_msg
+													i(id ="llamada-#{campo.persona_id}" class="material-icons red-text" data-exits-llamada="#{campo.llamado}") perm_phone_msg
 
 											div.col.s6
 												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="Ya ha sido visitado")
-													i(id="visita" class="material-icons green-text" data-exits-visita="1v") store
+													i(id="visita-#{campo.persona_id}" class="material-icons green-text" data-exits-visita="#{campo.visitado}") store
 
 	footer
 
