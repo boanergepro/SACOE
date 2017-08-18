@@ -6,9 +6,25 @@ $("input[type='checkbox']").prop("checked", false)
 let urlLlamada = null
 let urlVisita = null
 
+let valorDataExitsLlamada = null
+let valorDataExitsVisita = 
 $("input[type='checkbox']").click(function(event){
 	//console.log($(this).attr('data-persona_id'))
 	let valorAtributoId = $(this).attr('data-persona_id')
+	/*
+		-valores del atributo data-exits-llamada:
+		0l = No ha sido llamado
+		1l = Ya fue llamado
+		
+		-valores del atributo data-exits-visita:
+		0v = NO ha sido visitao
+		1v = Ya fue visitado
+	*/ 
+	valorDataExitsLlamada = $('#llamada').attr('data-exits-llamada')
+	valorDataExitsVisita = $('#visita').attr('data-exits-visita')
+
+	console.log(`llamada: ${valorDataExitsLlamada} visita: ${valorDataExitsVisita}`)
+
 
 	console.log(valorAtributoId)
 
@@ -24,7 +40,7 @@ $("input[type='checkbox']").click(function(event){
 
 			<div id="remove" class="fixed-action-btn horizontal click-to-toggle">
 
-			    <a class="btn-floating btn-large red">
+			    <a class="btn-floating btn-large red pulse">
 			      <i class="material-icons">menu</i>
 			    </a>
 			    <ul>

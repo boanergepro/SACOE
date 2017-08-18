@@ -23,7 +23,7 @@ $("input[type='checkbox']").click(function(event){
 
 		
 				<div id="remove" class="fixed-action-btn horizontal click-to-toggle">
-				    <a class="btn-floating btn-large red">
+				    <a class="btn-floating btn-large red pulse">
 				      <i class="material-icons">menu</i>
 				    </a>
 				    <ul>

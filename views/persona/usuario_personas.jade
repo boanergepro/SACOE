@@ -58,7 +58,7 @@ body(class="Oswald")
 			
 				form(method="post" action="/buscar")
 
-					div(class="input-field col s12 card")
+					div(class="input-field col s12 card ")
 						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
 						label(for="search")
 			li.divider
@@ -86,7 +86,7 @@ body(class="Oswald")
 				
 				div#contenedor-boton-acciones
 				
-				table(class="bordered highlight")
+				table(class="bordered highlight responsive-table")
 
 					thead
 						tr
@@ -96,6 +96,7 @@ body(class="Oswald")
 							th.center Telefono
 							th.center Edad
 							th.center Direccion
+							th.center Estado de contacto
 					tbody
 
 						each campo in personas
@@ -110,6 +111,8 @@ body(class="Oswald")
 								td.center= campo.telefono
 								td.center= campo.edad
 								td.center= campo.direccion
+								
+
 
 					
 
@@ -217,6 +220,36 @@ body(class="Oswald")
 															a(href="/persona/borrar/#{campo.persona_id}" class="modal-action modal-close waves-effect waves-light btn green") Si
 														div(class="col s6")
 															a(class="modal-action modal-close waves-effect waves-light btn red") No
+								td.center
+									div.row
+
+										if campo.llamado == false && campo.visitado == false
+											div.col.s6
+												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido llamado")
+													i(id ="llamada" class="material-icons red-text" data-exits-llamada="0l") perm_phone_msg
+
+											div.col.s6
+												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido visitado")
+													i(id="visita" class="material-icons red-text" data-exits-visita="0v") store
+
+										else if campo.llamado == true && campo.visitado == false
+											div.col.s6
+												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="Ya ha sido llamado")
+													i(id ="llamada" class="material-icons green-text" data-exits-llamada="1l") perm_phone_msg
+
+											div.col.s6
+												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido visitado")
+													i(id="visita" class="material-icons red-text" data-exits-visita="0v") store
+
+										else if campo.llamado == false && campo.visitado == true 
+											div.col.s6
+												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="No ha sido llamado")
+													i(id ="llamada" class="material-icons red-text" data-exits-llamada="0l") perm_phone_msg
+
+											div.col.s6
+												a(class="tooltipped" data-position="top" data-delay="50" data-tooltip="Ya ha sido visitado")
+													i(id="visita" class="material-icons green-text" data-exits-visita="1v") store
+
 	footer
 
 

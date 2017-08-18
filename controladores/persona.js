@@ -166,18 +166,24 @@ function usuario_ganados (req,res) {
 
 	//ID del usuario que esta logeado
 	let id_usuario = req.params.id
-
+	//Traerme todos las personas que un usuario haya ganado y que les falte agregar el resultado de la llamada y la visita o alguno de los dos
 	conexionDB.query(`
-		
-			SELECT
+			
+			SELECT *,
 
-				*
-	
-			FROM usuarios_personas
-			INNER JOIN personas ON usuarios_personas.persona_id = personas.id
-			INNER JOIN fase_ganar ON usuarios_personas.persona_id = fase_ganar.persona_id
-			INNER JOIN vista_datos_personas ON usuarios_personas.persona_id = vista_datos_personas.personas_id
-			WHERE usuarios_personas.usuario_id = :id
+				(EXISTS(
+				SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = usuarios_personas.persona_id
+				)) AS llamado,
+				(EXISTS(
+				SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = usuarios_personas.persona_id
+				)) AS visitado
+				FROM usuarios_personas
+
+				INNER JOIN vista_datos_personas ON  usuarios_personas.persona_id = vista_datos_personas.personas_id 
+
+				WHERE usuarios_personas.usuario_id = :id AND (personas_id NOT IN (SELECT persona_id FROM fase_ganar_llamadas)
+				OR
+				personas_id NOT IN (SELECT persona_id FROM fase_ganar_visitas))
 
 				`,
 			{ replacements: { id: id_usuario }, type: conexionDB.QueryTypes.SELECT},
