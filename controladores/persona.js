@@ -5,6 +5,7 @@ const FaseGanar = require('../modelos/fase_ganar')
 const Usuario = require('../modelos/usuario')
 const Notificacion = require('../modelos/notificacion')
 const Usuario_persona = require('../modelos/usuario_persona')
+const CoordinadorHeredad = require('../modelos/coordinadores_heredades')
 
 //Configuraciones
 const config = require('../config')
@@ -24,8 +25,8 @@ function verInicio (req, res) {
 
 	let data_user = req.user
 
-	console.log('ESTE ES EL ID DEL USUARIO LOGUEADO - ' + data_user.rol_id)
-	
+	console.log(data_user)
+
 	res.render('inicio', {user: req.user})
 	
 }
@@ -192,13 +193,80 @@ function usuario_ganados (req,res) {
 				console.log(results)
 
 				res.render('persona/usuario_personas', { personas: results, user: req.user })
-  					
+						
 			}).catch(err => {
 
 				if (err) return console.log(err)
 
 			})
 
+
+}
+
+function coordinador_redes (req, res) {
+	let data_user = req.user
+	let id_usuario = req.params.id
+	let heredad_id = null
+
+	CoordinadorHeredad.find({
+		where: {
+			coordinador_id: id_usuario
+		}
+	}).then(results => {
+		heredad_id =  results.heredad_id
+		conexionDB.query(`
+			
+			SELECT
+
+			      sum( 
+				CASE WHEN (
+				  (edad BETWEEN 6 AND 12) AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
+				  ) THEN 1 ELSE 0 END
+				) as red_ninos,
+			      sum( 
+				CASE WHEN (
+				  (edad BETWEEN 13 AND 17) AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
+				  ) THEN 1 ELSE 0 END
+				) as red_prejovenes,
+			      sum( 
+				CASE WHEN (
+				  (edad BETWEEN 18 AND 24) AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
+				  ) THEN 1 ELSE 0 END
+				) as red_jovenes,
+			      sum( 
+				CASE WHEN (
+				  (edad BETWEEN 25 AND 100) AND (sexo = 'f') AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
+				  ) THEN 1 ELSE 0 END
+				) as red_mujeres,
+				sum( 
+				CASE WHEN (
+				  (edad BETWEEN 25 AND 100) AND (sexo = 'm') AND (estado_personas = 'a') AND (estado_fase_ganar = 'a')
+				  ) THEN 1 ELSE 0 END
+				) as red_hombres
+
+
+			FROM vista_datos_personas
+			INNER JOIN coordinadores_heredades ON vista_datos_personas.heredades_id = coordinadores_heredades.heredad_id 
+			WHERE heredades_id = :heredad AND coordinadores_heredades.coordinador_id = :id
+
+				`,
+			{ replacements: { id: id_usuario, heredad: results.heredad_id}, type: conexionDB.QueryTypes.SELECT},
+			{model: Usuario_persona}).then((results) => {
+
+				console.log(results)
+
+				res.render('persona/coordinador_redes', { dato: results[0], user: req.user, heredad_id})
+						
+			}).catch(err => {
+
+				if (err) return console.log(err)
+
+			})
+
+
+	}).catch(err => {
+		console.log(err)
+	})
 
 }
 
@@ -220,7 +288,7 @@ function ganados (req, res) {
 				{model: Persona}).then((results) => {
 
   					console.log(results)
-  					res.render('persona/', {datos: results, rol_id: data_user.rol_id})
+  					res.render('persona/', {datos: results, user: data_user})
   					
 				}).catch(err => {
 					if (err) return console.log(err)
@@ -300,6 +368,76 @@ function verVistaRedes (req, res) {
 
 }
 
+function coordinador_personas (req, res) {
+	let user = req.user
+	let id = req.params.id
+	let red = req.params.red
+
+	let min = 0
+	let max = 0
+	let sexo = null
+
+	if (red == "ninos") {
+		min = 6
+		max = 12
+		sexo = null
+	}
+	if (red == "pre-jovenes") {
+		min = 13
+		max = 17
+		sexo = null
+	}
+	if (red == "jovenes") {
+		min = 18
+		max = 24
+		sexo = null
+	}
+	if (red == "mujeres") {
+		min = 25
+		max = 100
+		sexo = "f"
+	}
+	if (red == "hombres") {
+		min = 25
+		max = 100
+		sexo = "m"
+	}
+	console.log(`min ${min} y max ${max}`)
+
+	if (red == "todos"){
+		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredades_id = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado', 
+				{ replacements: { heredad: id, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
+				{model: Persona}).then((personas) => {
+  					console.log(personas)
+  					res.render('persona/coordinador_personas', {persona: personas, user})
+  					
+		})
+	}
+
+	/*Si sexo = null la red seleccionada en ! hombres && mujeres*/
+	else if (sexo == null){
+
+		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredades_id = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado AND edad BETWEEN :min AND :max', 
+				{ replacements: { heredad: id, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
+				{model: Persona}).then((personas) => {
+  					console.log(personas)
+  					res.render('persona/coordinador_personas', {persona: personas,  user})
+		})
+
+	}
+
+	/*Si sexo != null entonces la red es = hombres || mujeres*/
+	else{
+		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredades_id = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
+				{ replacements: { heredad: id, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
+				{model: Persona}).then((personas) => {
+  					console.log(personas)
+  					res.render('persona/coordinador_personas', {persona: personas, user})
+  					
+		})
+	}
+
+}
 function verFitradoFinal (req, res) {
 	red = req.params.red
 
@@ -358,7 +496,7 @@ function verFitradoFinal (req, res) {
 
 	/*Si sexo != null entonces la red es = hombres || mujeres*/
 	else{
-		conexionDB.query('SELECT * FROM vista_datos_completos WHERE heredad = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
+		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredad = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
 				{ replacements: { heredad: numHeredad, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
@@ -456,7 +594,7 @@ function saveEditar (req, res) {
 				persona_id: idEditar
 			}
 		}).then(() => {
-			res.redirect('/persona/')
+			res.redirect('/inicio')
 
 		}).catch(err => {
 			if (err) return console.log(`Ha ocurrido este error al guardar los datos de la fase ganar: ${err}`)
@@ -494,7 +632,7 @@ function saveEditar (req, res) {
  			}
  		})
 
- 		res.redirect('/persona/')
+ 		res.redirect('/inicio')
 
  	}).catch(err => {
  		console.log(`Ha ocurrido el siguiente error al intentar borrar el registro: ${err}`)
@@ -502,9 +640,9 @@ function saveEditar (req, res) {
  }
 
  function vistaEstadisticas (req, res) {
- 	let data_user = req.user
+ 	
 
- 	res.render('persona/estadisticas', {rol_id: data_user.rol_id})
+ 	res.render('persona/estadisticas', {user: req.user})
  }
 
 
@@ -518,6 +656,8 @@ module.exports = {
 	verTodo,
 	ganados,
 	usuario_ganados,
+	coordinador_redes,
+	coordinador_personas,
 	verRegById,
 	verVistaHeredad,
 	verVistaRedes,

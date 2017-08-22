@@ -31,7 +31,7 @@ $(document).ready(() => {
 			//Mostar el numero de notificaciones
 			$('#num-notifi').append(`
 
-				<span class="new badge red right"> ${data.length}</span>
+				<span class="new badge red right" data-badge-caption="nuevo"> ${data.length}</span>
 		
 			`)
 			

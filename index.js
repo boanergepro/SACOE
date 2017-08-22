@@ -146,11 +146,11 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
 app.post('/registro', usuarioCtrl.registro)
 //Ver usuarios
 app.get('/usuarios', usuarioCtrl.usuarios)
-
+//Vista editar usuario
 app.get('/usuario/editar/:id', usuarioCtrl.editarUsuario)
-
+//Guardar la edicion del usuario
 app.post('/usuario/editar/:id', usuarioCtrl.saveEdicion)
-
+//Accion eliminar un usuario
 app.get('/usuario/eliminar/:id', usuarioCtrl.eliminarUsuario)
 
 //Vista Inicio
@@ -194,6 +194,10 @@ app.get('/persona/', Ctrlpersona.ganados)
 //Ver persona
 app.get('/persona/ver/:id', Ctrlpersona.verRegById)
 
+//Ver las redes de la heredad de un coordinador
+app.get('/persona/redes/:id', Ctrlpersona.coordinador_redes)
+//Ver todas las personas filtradas por heredad y por red
+app.get('/persona/heredad/:id/red/:red', Ctrlpersona.coordinador_personas)
 
 
 //Ver por heredad--------------------------------------------------------------

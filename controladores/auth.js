@@ -20,6 +20,7 @@ let estrategia = new Strategy(
 				return cb(null, false)
 			}
 
+
 			return cb(null, usuario)
 
 		}).catch((err) => {
@@ -31,6 +32,7 @@ let estrategia = new Strategy(
 function serializador(user, cb) {
 
 	cb(null, user.id)
+
 	
 }
 
@@ -42,7 +44,9 @@ function desserializador(id, cb) {
 		}
 	}).then(usuario => {
 		if (usuario) {
+			
 			cb(null, usuario);
+
 		}
 	}).catch(err => {
 		return cb(err)

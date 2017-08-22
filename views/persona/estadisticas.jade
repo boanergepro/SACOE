@@ -71,7 +71,7 @@ body(class="Oswald")
 			li.divider
 
 			-// Administrador
-			if rol_id == 1
+			if user.rol_id == 1
 
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
@@ -93,7 +93,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") supervisor_account
 			
 			-//Coordinador
-			if rol_id == 2
+			if user.rol_id == 2
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home 
@@ -103,7 +103,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") person_add
 
 				li(class="bold")
-					a(href="/persona/" class="waves-effect waves-red") Ganados
+					a(href=`/persona/redes/${user.id}` class="waves-effect waves-red") Ganados
 						i(class="material-icons black-text") wc
 
 				li(class="bold")
@@ -111,7 +111,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") equalizer
 
 			-//Analista - Lider de casa de paz
-			if rol_id == 3
+			if user.rol_id == 3
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home 
@@ -121,7 +121,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") person_add
 
 			-//Usuario
-			if rol_id == 4
+			if user.rol_id == 4
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home
