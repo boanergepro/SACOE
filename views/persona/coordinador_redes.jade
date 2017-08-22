@@ -1,0 +1,158 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../../../css/materialize.css')
+	link(rel="stylesheet" href='../../../css/main.css')
+	link(rel="stylesheet" href='../../../css/icon.css')
+	link(rel="stylesheet" href='../../../css/fuente.css')
+	script(type="text/javascript" src="../../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../../js/materialize.min.js")
+	
+
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+				ul
+					li(class="hide-on-large-only")
+
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				-//Mostrar en pantallas grandes
+				a(href="/inicio" class="brand-logo Oswald margen-dere show-on-large hide-on-med-and-down") SACOE
+				-//Mostrar en pantallas medianas y pequeñas
+				a(href="/inicio" class="brand-logo Oswald show-on-medium-and-down hide-on-med-and-up") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					if rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
+
+					li
+						a(href="/logout")
+							i(class="material-icons") exit_to_app
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../../../img/cac.jpg")
+
+			li
+			
+				form(method="post" action="/buscar")
+
+					div(class="input-field col s12 card")
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
+						label(for="search")
+			li.divider
+
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home 
+
+				li(class="bold")
+					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+						i(class="material-icons black-text") person_add
+
+				li(class="bold")
+					a(href=`/persona/redes/${user.id}` class="waves-effect waves-red") Ganados
+						i(class="material-icons black-text") wc
+
+				li(class="bold")
+					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+						i(class="material-icons black-text") equalizer
+		
+		div(class="row center")
+			
+			div(class="col s12 hide-on-small-and-down show-on-medium-and-up")-//Para mostrar en pantallas medianas o mas grandes
+
+				h4.center Redes
+
+				div.row
+
+					div(class="col s12 m6 margen-sup")
+						div(class="col s2")
+						a(href="/persona/heredad/#{heredad_id}/red/ninos" class="waves-effect hoverable waves-light btn-large light-green accent-3 black-text col s8 tooltipped" data-position="right" data-delay="50" data-tooltip="#{dato.red_ninos} Personas") Red de Niños
+
+					div(class="col s12 m6 margen-sup")
+						div(class="col s2")
+						a(href="/persona/heredad/#{heredad_id}/red/pre-jovenes" class="waves-effect hoverable waves-light btn-large red black-text col s8 tooltipped" data-position="left" data-delay="50" data-tooltip="#{dato.red_prejovenes} Personas") Red de Pre-joneves
+
+				div.row
+
+					div(class="col s12 m6 margen-sup")
+						div(class="col s2")
+						a(href="/persona/heredad/#{heredad_id}/red/jovenes" class="waves-effect hoverable waves-light btn-large orange black-text col s8 tooltipped" data-position="right" data-delay="50" data-tooltip="#{dato.red_jovenes} Personas") Red de Jovenes
+
+					div(class="col s12 m6 margen-sup")
+						div(class="col s2")
+						a(href="/persona/heredad/#{heredad_id}/red/mujeres" class="waves-effect hoverable white waves-light btn-large pink lighten-3 black-text col s8 tooltipped" data-position="left" data-delay="50" data-tooltip="#{dato.red_mujeres} Personas") Red de Mujeres
+				div.row
+					div(class="col s12 m6 margen-sup")
+						div(class="col s2")
+						a(href="/persona/heredad/#{heredad_id}/red/hombres" class="waves-effect hoverable  waves-light btn-large blue black-text col s8 tooltipped" data-position="right" data-delay="50" data-tooltip="#{dato.red_hombres} Personas") Red de Hombres
+
+					div(class="col s12 m6 margen-sup")
+						div(class="col s2")
+						a(href="/persona/heredad/#{heredad_id}/red/todos" class="waves-effect hoverable  waves-light btn-large black-text col s8") Todos
+
+		-///////////////////////////////////////////////////////////////////////////////////////////////
+
+			div(class="col s12 hide-on-med-and-up show-on-small")-//Para ver en pantallas mas pequeñas que la mediana
+
+				h4.center Redes
+
+					div.row
+
+						div(class="col s12 m6 margen-sup")
+							
+							a(href="/persona/heredad/#{heredad_id}/red/ninos" class="waves-effect hoverable waves-light btn-large light-green accent-3 black-text col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="#{dato.red_ninos} Personas") Red de Niños
+					div.row
+						div(class="col s12")
+							
+							a(href="/persona/heredad/#{heredad_id}/red/pre-jovenes" class="waves-effect hoverable waves-light btn-large red black-text col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="#{dato.red_prejovenes} Personas") Red de Pre-joneves
+					div.row
+						div(class="col s12")
+							a(href="/persona/heredad/#{heredad_id}/red/jovenes" class="waves-effect hoverable waves-light btn-large orange black-text col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="#{dato.red_jovenes} Personas") Red de Jovenes
+
+					div.row
+						div(class="col s12")
+						
+							a(href="/persona/heredad/#{heredad_id}/red/mujeres" class="waves-effect hoverable white waves-light btn-large pink lighten-3 black-text col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="#{dato.red_mujeres} Personas") Red de Mujeres
+
+					div.row
+						div(class="col s12")
+
+							a(href="/persona/heredad/#{heredad_id}/red/hombres" class="waves-effect hoverable  waves-light btn-large blue black-text col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="#{dato.red_hombres} Personas") Red de Hombres
+
+					div.row
+						div(class="col s12")
+							a(href="/persona/heredad/#{heredad_id}/red/todos" class="waves-effect hoverable  waves-light btn-large black-text col s12") Todos
+				
+
+	footer
+
+	script(type="text/javascript" src="../../../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../../js/socket.js")
+				

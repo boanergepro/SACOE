@@ -1,0 +1,269 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../../../../../css/materialize.css')
+	link(rel="stylesheet" href='../../../../../css/main.css')
+	link(rel="stylesheet" href='../../../../../css/icon.css')
+	link(rel="stylesheet" href='../../../../../css/fuente.css')
+	script(type="text/javascript" src="../../../../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../../../../js/materialize.min.js")
+	
+
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+				ul
+					li(class="hide-on-large-only")
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				-//Mostrar en pantallas grandes
+				a(href="/inicio" class="brand-logo Oswald margen-dere show-on-large hide-on-med-and-down") SACOE
+				-//Mostrar en pantallas medianas y pequeñas
+				a(href="/inicio" class="brand-logo Oswald show-on-medium-and-down hide-on-med-and-up") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					if user.rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
+
+					li
+						a(href="/logout")
+							i(class="material-icons") exit_to_app
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../../../../../img/cac.jpg")
+
+			li
+			
+				form(method="post" action="/buscar")
+
+					div(class="input-field col s12 card")
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
+						label(for="search")
+			li.divider
+
+			-// Administrador
+			if user.rol_id == 1
+
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home 
+
+				li(class="bold")
+					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+						i(class="material-icons black-text") person_add
+
+				li(class="bold active")
+					a(href="/persona/" class="waves-effect waves-red") Ganados
+						i(class="material-icons black-text") wc
+
+				li(class="bold")
+					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+						i(class="material-icons black-text") equalizer
+				li(class="bold")
+					a(href="/usuarios" class="waves-effect waves-red") Usuarios
+						i(class="material-icons black-text") supervisor_account
+			
+			-//Coordinador
+			if user.rol_id == 2
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home 
+
+				li(class="bold")
+					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+						i(class="material-icons black-text") person_add
+
+				li(class="bold")
+					a(href="/persona/" class="waves-effect waves-red") Ganados
+						i(class="material-icons black-text") wc
+
+				li(class="bold")
+					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+						i(class="material-icons black-text") equalizer
+
+			-//Analista - Lider de casa de paz
+			if user.rol_id == 3
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home 
+
+				li(class="bold")
+					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+						i(class="material-icons black-text") person_add
+
+			-//Usuario
+			if user.rol_id == 4
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home
+
+		div(class="row center")
+			
+			div(class="col s12")
+
+				h4.center Todos los ganados
+				
+				div#contenedor-boton-acciones
+				
+				table(class="bordered highlight")
+
+					thead
+						tr
+							th.center Marcar
+							th.center Nombre
+							th.center Apellido
+							th.center Telefono
+							th.center Edad
+							th.center Direccion
+					tbody
+
+						each campo in persona
+							tr
+								td.center
+									-// checked="checked"
+									input(type="checkbox" class="filled-in" id="checkId-#{campo.persona_id}" data-persona_id="#{campo.persona_id}")
+									label(for="checkId-#{campo.persona_id}")
+							
+								td.center= campo.nombre
+								td.center= campo.apellido
+								td.center= campo.telefono
+								td.center= campo.edad
+								td.center= campo.direccion
+
+					
+
+												-//Este es el modal de la vista ver
+												div(id="modals#{campo.persona_id}" class="modal")
+
+													div(class="modal-content")
+														h4.center.margen-sup Datos de #{campo.nombre} #{campo.apellido}
+
+														-//Tabla para el modal
+														div(class="col s12 sombra-arriba")
+															h6 Datos personales
+															table(class="centered")
+																thead
+																	tr
+																		th.center Nombre
+																		th.center Apellido
+																		th.center Edad
+																		th.center Telefono
+																tbody
+																	tr
+																		td.center= campo.nombre
+																		td.center= campo.apellido
+																		td.center= campo.edad
+																		td.center= campo.telefono
+															hr
+														div(class="col s12 margen-sup")
+															table(class="centered")
+																thead
+																	tr
+																		th.center Lugar 
+																		th.center Sexo
+																		th.center Nacionalidad
+																		th.center Ocupacion
+																tbody
+																	tr
+																		td.center= campo.lugar_contacto
+																		td.center= campo.sexo
+																		td.center= campo.nacionalidad
+																		td.center= campo.ocupacion
+															hr
+											
+														div(class="col s12 margen-sup")
+															h6 Fechas
+															table(class="centered")
+																thead
+																	tr
+																		th.center Fecha
+																		th.center Fecha de nacimiento
+																		th.center Fecha para visitar
+																		th.center Ciudad
+																tbody
+																	tr
+																		td.center= campo.fecha_nacimiento
+																		td.center= campo.fecha_nacimiento
+																		td.center= campo.fecha_visitar
+																		td.center= campo.ciudad
+															hr
+
+														div(class="col s12 margen-sup")
+															table(class="centered")
+																thead
+																	tr
+																		th.center invitado por 
+																		th.center Heredad
+																		th.center Correo
+																		th.center Peticion de Oracion
+																tbody
+																	tr
+																		td.center= campo.invitado_por
+																		td.center= campo.nombre_heredad
+																		td.center= campo.correo
+																		td.center= campo.peticion_oracion
+															hr
+
+														div(class="col s12 margen-sup sombra-abajo")
+															table(class="centered")
+																thead
+																	tr
+																		th.center Dirección
+																		th.center Celula a insersertar
+																		
+																tbody
+																	tr
+																		td.center= campo.direccion
+																		td.center= campo.celula_insertar
+														
+													div(class="row")
+									
+														div(class="col s6")
+														
+									
+
+											
+												-//Este es el modal para eliminar
+												div(id="modal#{campo.persona_id}" class="modal")
+
+													div(class="modal-content")
+														i(class="material-icons medium red-text") warning
+														h5 Esta seguro que desea eliminar a #{campo.nombre} #{campo.apellido}.
+														p Al presionar en el boton Si ya no podra recuperar los datos de esta persona.
+													div(class="row")
+									
+														div(class="col s6")
+															a(href="/persona/borrar/#{campo.persona_id}" class="modal-action modal-close waves-effect waves-light btn green") Si
+														div(class="col s6")
+															a(class="modal-action modal-close waves-effect waves-light btn red") No
+	footer
+
+
+	script(type="text/javascript" src="../../../../../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../../../../js/seleccionador.js")
+	script(type="text/javascript" src="../../../../../js/socket.js")
