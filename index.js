@@ -22,7 +22,6 @@ const Notificacion = require('./modelos/notificacion')
 
 //Controladores
 const Ctrlpersona = require('./controladores/persona')
-const CtrlMail = require('./controladores/mailCtrl')
 const usuarioCtrl = require('./controladores/usuario')
 const authCtrl =  require('./controladores/auth')
 const contactoCtrl = require('./controladores/contacto')
