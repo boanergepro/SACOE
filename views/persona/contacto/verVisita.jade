@@ -1,0 +1,140 @@
+doctype html
+
+html(lang='en')
+	
+head
+	title SACOE
+	meta(charset='utf-8')
+	meta(name="viewport" content="width=device-width, initial-scale=1.0")
+	link(rel="stylesheet" href='../../../../css/materialize.css')
+	link(rel="stylesheet" href='../../../../css/main.css')
+	link(rel="stylesheet" href='../../../../css/icon.css')
+	link(rel="stylesheet" href='../../../../css/fuente.css')
+	script(type="text/javascript" src="../../../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../../../js/materialize.min.js")
+	
+body(class="Oswald")
+
+	header
+
+		nav(class="indigo top-nav")
+
+			div(class="nav-wrapper")
+
+				ul
+					li(class="hide-on-large-only")
+						a(class="sideNav" data-activates="slide-out")
+							i(class="material-icons left") menu
+
+				-//Mostrar en pantallas grandes
+				a(href="/inicio" class="brand-logo Oswald margen-dere show-on-large hide-on-med-and-down") SACOE
+				-//Mostrar en pantallas medianas y pequeñas
+				a(href="/inicio" class="brand-logo Oswald show-on-medium-and-down hide-on-med-and-up") SACOE
+
+				ul(id="nav-mobile" class="right")
+
+					if user.rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
+
+					li
+						a(href="/logout")
+							i(class="material-icons") exit_to_app
+
+	main
+
+		ul(id="slide-out" class="side-nav fixed")
+			
+			li(class="logo")
+				img(class="responsive-img" src="../../../../img/cac.jpg")
+
+			li
+			
+				form(method="post" action="/buscar")
+
+					div(class="input-field col s12 card")
+						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
+						label(for="search")
+			li.divider
+			-// Administrador
+			if user.rol_id == 1
+
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home 
+
+				li(class="bold")
+					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+						i(class="material-icons black-text") person_add
+
+				li(class="bold active")
+					a(href="/persona/" class="waves-effect waves-red") Ganados
+						i(class="material-icons black-text") wc
+
+				li(class="bold")
+					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+						i(class="material-icons black-text") equalizer
+				li(class="bold")
+					a(href="/usuarios" class="waves-effect waves-red") Usuarios
+						i(class="material-icons black-text") supervisor_account
+			
+			-//Coordinador
+			if user.rol_id == 2
+				li(class="bold")
+					a(href="/inicio" class="waves-effect waves-red") Inicio
+						i(class="material-icons black-text") home 
+
+				li(class="bold")
+					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+						i(class="material-icons black-text") person_add
+
+				li(class="bold")
+					a(href=`/persona/redes/${user.id}` class="waves-effect waves-red") Ganados
+						i(class="material-icons black-text") wc
+
+				li(class="bold")
+					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+						i(class="material-icons black-text") equalizer
+
+
+
+		div(class="row center")
+			
+			div(class="col s12 m2")
+			div(class="col s12 m8")
+
+				h4.center.margen-sup Ver el resultado de la llamada realizada a #{persona.nombre} #{persona.apellido}
+					
+				div(class="col s12 margen-sup")
+			
+					ul(class="collapsible" data-collapsible="accordion")
+						li
+							div(class="collapsible-header") Descripcion
+									i(class="material-icons") assignment
+									
+
+							div(class="collapsible-body")
+								p= visita.descripcion
+
+						li
+							div(class="collapsible-header") Operador
+									i(class="material-icons") headset_mic
+									
+
+							div(class="collapsible-body")
+								p= visita.operador
+
+
+												
+	script(type="text/javascript" src="../../../../js/componentsMaterialize.js")
+	script(type="text/javascript" src="../../../../js/socket.js")

@@ -92,7 +92,7 @@ body(class="Oswald")
 				
 				div#contenedor-boton-acciones
 				
-				table(class="bordered highlight")
+				table(class="bordered highlight responsive-table")
 
 					thead
 						tr
@@ -102,6 +102,8 @@ body(class="Oswald")
 							th.center Telefono
 							th.center Edad
 							th.center Direccion
+							th.center Llamado
+							th.center Visitado
 					tbody
 
 						each campo in persona
@@ -237,6 +239,19 @@ body(class="Oswald")
 															a(href="/persona/borrar/#{campo.persona_id}" class="modal-action modal-close waves-effect waves-light btn green") Si
 														div(class="col s6")
 															a(class="modal-action modal-close waves-effect waves-light btn red") No
+
+								if campo.llamado == false && campo.visitado == false
+									td.center No
+									td.center No
+								else if campo.llamado == true && campo.visitado == true
+									td.center Si
+									td.center Si
+								else if campo.llamado == true && campo.visitado == false
+									td.center Si
+									td.center No
+								else if campo.llamado == false && campo.visitado == true
+									td.center No
+									td.center Si
 	footer
 
 

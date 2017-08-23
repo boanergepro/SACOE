@@ -116,8 +116,23 @@ body(class="Oswald")
 				h4.center.margen-sup Ver el resultado de la llamada realizada a #{persona.nombre} #{persona.apellido}
 					
 				div(class="col s12 margen-sup")
-					p= llamada.descripcion
-					p= llamada.operador
+			
+					ul(class="collapsible" data-collapsible="accordion")
+						li
+							div(class="collapsible-header") Descripcion
+									i(class="material-icons") assignment
+									
+
+							div(class="collapsible-body")
+								p= llamada.descripcion
+
+						li
+							div(class="collapsible-header") Operador
+									i(class="material-icons") headset_mic
+									
+
+							div(class="collapsible-body")
+								p= llamada.operador
 
 
 												
