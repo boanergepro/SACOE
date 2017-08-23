@@ -44,9 +44,32 @@ function saveResultLlamada (req, res) {
 	}
 
 	Llamadas.create(dataLlamada).then(() => {
-		res.redirect(`/persona/${id_user}`)
+		res.redirect('/inicio')
 	})
 	
+}
+
+function verLlamada (req, res) {
+	let id_persona  = req.params.id
+	Persona.find({
+		where:{
+			id: id_persona
+		}
+	}).then(persona => {
+
+		Llamadas.find({
+			where:{
+				persona_id: id_persona
+			}
+		}).then(resultado => {
+			res.render('persona/contacto/verLlamada',{ user: req.user, llamada: resultado, persona})
+		}).catch(err => {
+			console.log(err)
+		})
+
+	}).catch(err => {
+		console.log(err)
+	})
 }
 
 
@@ -85,7 +108,7 @@ function saveResultVisita (req, res) {
 	}
 
 	Visitas.create(dataVisita).then(() => {
-		res.redirect(`/persona/${id_user}`)
+		res.redirect('/inicio')
 	})
 
 }
@@ -93,6 +116,7 @@ function saveResultVisita (req, res) {
 module.exports = {
 	addResultLlamada,
 	saveResultLlamada,
+	verLlamada,
 	addResultVisita,
 	saveResultVisita
 }

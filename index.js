@@ -229,6 +229,8 @@ app.get('/persona/contacto/llamada/:id', contactoCtrl.addResultLlamada)
 
 //Guardar el resultado de la llamada
 app.post('/persona/contacto/llamada/:id', contactoCtrl.saveResultLlamada)
+//Ver el resultado de la llamada
+app.get('/persona/contacto/llamada/ver/:id',contactoCtrl.verLlamada)
 
 //Ir a la vista para agregar el resultado de la visita
 app.get('/persona/contacto/visita/:id', contactoCtrl.addResultVisita)

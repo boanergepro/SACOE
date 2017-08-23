@@ -66,62 +66,24 @@ body(class="Oswald")
 						label(for="search")
 			li.divider
 
-			-// Administrador
-			if user.rol_id == 1
+		
+			li(class="bold")
+				a(href="/inicio" class="waves-effect waves-red") Inicio
+					i(class="material-icons black-text") home 
 
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
+			li(class="bold")
+				a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+					i(class="material-icons black-text") person_add
 
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
+			li(class="bold")
+				a(href=`/persona/redes/${user.id}` class="waves-effect waves-red") Ganados
+					i(class="material-icons black-text") wc
 
-				li(class="bold active")
-					a(href="/persona/" class="waves-effect waves-red") Ganados
-						i(class="material-icons black-text") wc
+			li(class="bold")
+				a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+					i(class="material-icons black-text") equalizer
 
-				li(class="bold")
-					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
-						i(class="material-icons black-text") equalizer
-				li(class="bold")
-					a(href="/usuarios" class="waves-effect waves-red") Usuarios
-						i(class="material-icons black-text") supervisor_account
 			
-			-//Coordinador
-			if user.rol_id == 2
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
-
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
-
-				li(class="bold")
-					a(href="/persona/" class="waves-effect waves-red") Ganados
-						i(class="material-icons black-text") wc
-
-				li(class="bold")
-					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
-						i(class="material-icons black-text") equalizer
-
-			-//Analista - Lider de casa de paz
-			if user.rol_id == 3
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
-
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
-
-			-//Usuario
-			if user.rol_id == 4
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home
-
 		div(class="row center")
 			
 			div(class="col s12")
@@ -235,11 +197,25 @@ body(class="Oswald")
 																	tr
 																		th.center Dirección
 																		th.center Celula a insersertar
+																		th.center Llamado
+																		th.center Visitado
 																		
 																tbody
 																	tr
 																		td.center= campo.direccion
 																		td.center= campo.celula_insertar
+																		if campo.llamado == false && campo.visitado == false
+																			td(data-exits-llamada="#{campo.llamado}" id ="llamada-#{campo.persona_id}").center No
+																			td(data-exits-visita="#{campo.visitado}" id ="visita-#{campo.persona_id}").center No
+																		else if campo.llamado == true && campo.visitado == true
+																			td(data-exits-llamada="#{campo.llamado}" id ="llamada-#{campo.persona_id}").center Si
+																			td(data-exits-visita="#{campo.visitado}" id ="visita-#{campo.persona_id}").center Si
+																		else if campo.llamado == true && campo.visitado == false
+																			td(data-exits-llamada="#{campo.llamado}" id ="llamada-#{campo.persona_id}").center Si
+																			td(data-exits-visita="#{campo.visitado}" id ="visita-#{campo.persona_id}").center No
+																		else if campo.llamado == false && campo.visitado == true
+																			td(data-exits-llamada="#{campo.llamado}" id ="llamada-#{campo.persona_id}").center No
+																			td(data-exits-visita="#{campo.visitado}" id ="visita-#{campo.persona_id}").center Si
 														
 													div(class="row")
 									
@@ -265,5 +241,5 @@ body(class="Oswald")
 
 
 	script(type="text/javascript" src="../../../../../js/componentsMaterialize.js")
-	script(type="text/javascript" src="../../../../../js/seleccionador.js")
+	script(type="text/javascript" src="../../../../../js/seleccionadorCoordinadorPersona.js")
 	script(type="text/javascript" src="../../../../../js/socket.js")

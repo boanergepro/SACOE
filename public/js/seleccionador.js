@@ -114,13 +114,13 @@ $("input[type='checkbox']").click(function(event){
 				      </li>
 
 				      <li>
-				      	<a id="" class="btn-floating purple ">
+				      	<a id="" class="btn-floating purple">
 				      		<i class="material-icons">perm_phone_msg</i>
 				      	</a>
 				      </li>
 
 				      <li>
-				      	<a id="" class="btn-floating teal">
+				      	<a id="" class="btn-floating amber">
 				      		<i class="material-icons">store</i>
 				      	</a>
 				      </li>

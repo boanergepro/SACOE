@@ -163,8 +163,6 @@ function verTodo (req, res) {
 //Para que los lideres o analistas puedan ver los ganados segun el id del usuario
 function usuario_ganados (req,res) {
 
-	//
-
 	//ID del usuario que esta logeado
 	let id_usuario = req.params.id
 	//Traerme todos las personas que un usuario haya ganado y que les falte agregar el resultado de la llamada y la visita o alguno de los dos
@@ -405,7 +403,22 @@ function coordinador_personas (req, res) {
 	console.log(`min ${min} y max ${max}`)
 
 	if (red == "todos"){
-		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredades_id = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado', 
+		conexionDB.query(`
+
+						SELECT *,
+
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = vista_datos_personas.persona_id
+							)) AS llamado,
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = vista_datos_personas.persona_id
+							)) AS visitado
+							FROM vista_datos_personas
+							
+							WHERE heredad_id = :heredad AND estado_personas = 'a' AND estado_fase_ganar = 'a'
+
+
+						`, 
 				{ replacements: { heredad: id, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
@@ -417,8 +430,23 @@ function coordinador_personas (req, res) {
 	/*Si sexo = null la red seleccionada en ! hombres && mujeres*/
 	else if (sexo == null){
 
-		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredades_id = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado AND edad BETWEEN :min AND :max', 
-				{ replacements: { heredad: id, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
+		conexionDB.query(`
+
+						
+						SELECT *,
+
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = vista_datos_personas.persona_id
+							)) AS llamado,
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = vista_datos_personas.persona_id
+							)) AS visitado
+							FROM vista_datos_personas
+
+							WHERE heredad_id = :heredad AND edad BETWEEN :min AND :max AND estado_personas = 'a' AND estado_fase_ganar = 'a'
+
+						`, 
+				{ replacements: { heredad: id, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/coordinador_personas', {persona: personas,  user})
@@ -428,7 +456,22 @@ function coordinador_personas (req, res) {
 
 	/*Si sexo != null entonces la red es = hombres || mujeres*/
 	else{
-		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredades_id = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
+		conexionDB.query(`
+					
+					
+						SELECT *,
+
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = vista_datos_personas.persona_id
+							)) AS llamado,
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = vista_datos_personas.persona_id
+							)) AS visitado
+							FROM vista_datos_personas
+							
+							WHERE heredad_id = :heredad AND edad BETWEEN :min AND :max AND estado_personas = 'a' AND estado_fase_ganar = 'a' AND sexo = :sexo
+
+				`, 
 				{ replacements: { heredad: id, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
@@ -539,7 +582,7 @@ function vistaEditar (req, res) {
 
 			Heredad.findAll().then(heredades => {
 
-				res.render('persona/editar',{persona: datosPersona, personaGanar: datos_fase_ganar, data_heredades: heredades, rol_id: data_user.rol_id})
+				res.render('persona/editar',{persona: datosPersona, personaGanar: datos_fase_ganar, data_heredades: heredades, user: data_user})
 			})
 
 			
