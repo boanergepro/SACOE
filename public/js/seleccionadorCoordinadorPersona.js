@@ -11,6 +11,7 @@ let urlEliminar = null
 
 //Url para cuando ya la persona ue llamada
 let fueLlamado = null
+let fueVisitado = null
 
 //Valores por defecto
 let valorDataExitsLlamada = null
@@ -35,6 +36,7 @@ $("input[type='checkbox']").click(function(event){
 		urlEliminar = "#modal" + idPersona
 
 		fueLlamado = "/persona/contacto/llamada/ver/" + idPersona
+		fueVisitado = "/persona/contacto/visita/ver/" + idPersona
 
 		//Detectar el ancho de la pantalla
 
@@ -64,7 +66,7 @@ $("input[type='checkbox']").click(function(event){
 
 					      <li class="waves-effect waves-light">
 					      	<a id="fue_llamado">
-					      		<i class="material-icons green-text">perm_phone_msg</i>
+					      		<i class="material-icons">perm_phone_msg</i>
 					      	</a>
 					      </li>
 
@@ -135,8 +137,8 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a>
-					      		<i class="material-icons green-text">store</i>
+					      	<a id="fue_visitado">
+					      		<i class="material-icons">store</i>
 					      	</a>
 					      </li>
 
@@ -263,13 +265,13 @@ $("input[type='checkbox']").click(function(event){
 
 					      <li class="waves-effect waves-light">
 					      	<a id="fue_llamado">
-					      		<i class="material-icons green-text">perm_phone_msg</i>
+					      		<i class="material-icons">perm_phone_msg</i>
 					      	</a>
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a >
-					      		<i class="material-icons green-text">store</i>
+					      	<a id="fue_visitado">
+					      		<i class="material-icons">store</i>
 					      	</a>
 					      </li>
 
@@ -331,7 +333,7 @@ $("input[type='checkbox']").click(function(event){
 
 					      <li>
 					      	<a id="fue_llamado" class="btn-floating purple ">
-					      		<i class="material-icons green-text">perm_phone_msg</i>
+					      		<i class="material-icons">perm_phone_msg</i>
 					      	</a>
 					      </li>
 
@@ -400,8 +402,8 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a  class="btn-floating amber">
-					      		<i class="material-icons green-text">store</i>
+					      	<a id="fue_visitado" class="btn-floating amber">
+					      		<i class="material-icons">store</i>
 					      	</a>
 					      </li>
 
@@ -523,13 +525,13 @@ $("input[type='checkbox']").click(function(event){
 
 					      <li>
 					      	<a id="fue_llamado" class="btn-floating purple ">
-					      		<i class="material-icons green-text">perm_phone_msg</i>
+					      		<i class="material-icons">perm_phone_msg</i>
 					      	</a>
 					      </li>
 
 					      <li>
-					      	<a class="btn-floating amber">
-					      		<i class="material-icons green-text">store</i>
+					      	<a id="fue_visitado" class="btn-floating amber">
+					      		<i class="material-icons">store</i>
 					      	</a>
 					      </li>
 
@@ -564,8 +566,7 @@ $("input[type='checkbox']").click(function(event){
 					    </ul>
 					 </div>
 		  		`)
-			}	
-
+			}
 			
 		}
 
@@ -593,7 +594,9 @@ $("input[type='checkbox']").click(function(event){
 		$.each($("#fue_llamado"),function(){
 			$(this).attr("href", fueLlamado)
 		})
-
+		$.each($("#fue_visitado"),function(){
+			$(this).attr("href", fueVisitado)
+		})
 
 
 		//Desabilitar todos los chek
@@ -617,13 +620,5 @@ $("input[type='checkbox']").click(function(event){
 	    	$(this).removeAttr("disabled","disabled")
 		})
 	}
-
-
-	
-
-
-	//console.log(ids)
-
-	
 
 })

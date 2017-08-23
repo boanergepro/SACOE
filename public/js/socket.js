@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-	const con = new WebSocket('ws://localhost:3001/socket')
+	const con = new WebSocket(location.origin.replace(/^http/, 'ws') + '/socket')
 
 	con.onopen = () => {
 		

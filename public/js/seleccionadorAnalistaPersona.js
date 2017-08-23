@@ -42,13 +42,13 @@ $("input[type='checkbox']").click(function(event){
 				    </a>
 				    <ul>
 				      <li class="waves-effect waves-light">
-				      	<a id="llamada" class="btn-floating purple">
+				      	<a id="llamada" class="btn-floating purple disabled">
 				      		<i class="material-icons">perm_phone_msg</i>
 				      	</a>
 				      </li>
 
 				      <li class="waves-effect waves-light">
-				      	<a id="visita" class="btn-floating teal disabled">
+				      	<a id="visita" class="btn-floating teal">
 				      		<i class="material-icons">store</i>
 				      	</a>
 				      </li>
@@ -69,13 +69,13 @@ $("input[type='checkbox']").click(function(event){
 				    </a>
 				    <ul>
 				      <li class="waves-effect waves-light">
-				      	<a id="llamada" class="btn-floating purple disabled">
+				      	<a id="llamada" class="btn-floating purple">
 				      		<i class="material-icons">perm_phone_msg</i>
 				      	</a>
 				      </li>
 
 				      <li class="waves-effect waves-light">
-				      	<a id="visita" class="btn-floating teal">
+				      	<a id="visita" class="btn-floating teal disabled">
 				      		<i class="material-icons">store</i>
 				      	</a>
 				      </li>
