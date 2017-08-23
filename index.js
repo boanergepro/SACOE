@@ -235,6 +235,9 @@ app.get('/persona/contacto/llamada/ver/:id',contactoCtrl.verLlamada)
 //Ir a la vista para agregar el resultado de la visita
 app.get('/persona/contacto/visita/:id', contactoCtrl.addResultVisita)
 
+//Ver el resultado de la visita
+app.get('/persona/contacto/visita/ver/:id',contactoCtrl.verVisita)
+
 //Guardar el resultado de la visita
 app.post('/persona/contacto/visita/:id', contactoCtrl.saveResultVisita)
 
