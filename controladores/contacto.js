@@ -113,10 +113,34 @@ function saveResultVisita (req, res) {
 
 }
 
+function verVisita (req, res) {
+	let id_persona  = req.params.id
+	Persona.find({
+		where:{
+			id: id_persona
+		}
+	}).then(persona => {
+
+		Visitas.find({
+			where:{
+				persona_id: id_persona
+			}
+		}).then(resultado => {
+			res.render('persona/contacto/verVisita',{ user: req.user, visita: resultado, persona})
+		}).catch(err => {
+			console.log(err)
+		})
+
+	}).catch(err => {
+		console.log(err)
+	})
+}
+
 module.exports = {
 	addResultLlamada,
 	saveResultLlamada,
 	verLlamada,
 	addResultVisita,
-	saveResultVisita
+	saveResultVisita,
+	verVisita
 }
