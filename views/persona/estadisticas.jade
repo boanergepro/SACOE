@@ -55,132 +55,135 @@ body(class="Oswald")
 							i(class="material-icons") exit_to_app
 
 	main
+		div(style="height: 100%").row
 
-		ul(id="slide-out" class="side-nav fixed")
-			
-			li(class="logo")
-				img(class="responsive-img" src="../img/cac.jpg")
+			ul(id="slide-out" class="side-nav fixed")
+				
+				li(class="logo")
+					img(class="responsive-img" src="../img/cac.jpg")
 
-			li
-			
-				form(method="post" action="/buscar")
+				li
+				
+					form(method="post" action="/buscar")
 
-					div(class="input-field col s12 card")
-						input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
-						label(for="search")
-			li.divider
+						div(class="input-field col s12 card")
+							input(id="search" placeholder="Buscar..." class="deleteBorder" type="search" name="search")
+							label(for="search")
+				li.divider
 
-			-// Administrador
-			if user.rol_id == 1
+				-// Administrador
+				if user.rol_id == 1
 
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
+					li(class="bold")
+						a(href="/inicio" class="waves-effect waves-red") Inicio
+							i(class="material-icons black-text") home 
 
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
+					li(class="bold")
+						a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+							i(class="material-icons black-text") person_add
 
-				li(class="bold")
-					a(href="/persona/" class="waves-effect waves-red") Ganados
-						i(class="material-icons black-text") wc
+					li(class="bold")
+						a(href="/persona/" class="waves-effect waves-red") Ganados
+							i(class="material-icons black-text") wc
 
-				li(class="bold active")
-					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
-						i(class="material-icons black-text") equalizer
-				li(class="bold")
-					a(href="/usuarios" class="waves-effect waves-red") Usuarios
-						i(class="material-icons black-text") supervisor_account
-			
-			-//Coordinador
-			if user.rol_id == 2
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
+					li(class="bold active")
+						a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+							i(class="material-icons black-text") equalizer
+					li(class="bold")
+						a(href="/usuarios" class="waves-effect waves-red") Usuarios
+							i(class="material-icons black-text") supervisor_account
+				
+				-//Coordinador
+				if user.rol_id == 2
+					li(class="bold")
+						a(href="/inicio" class="waves-effect waves-red") Inicio
+							i(class="material-icons black-text") home 
 
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
+					li(class="bold")
+						a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+							i(class="material-icons black-text") person_add
 
-				li(class="bold")
-					a(href=`/persona/redes/${user.id}` class="waves-effect waves-red") Ganados
-						i(class="material-icons black-text") wc
+					li(class="bold")
+						a(href=`/persona/redes/${user.id}` class="waves-effect waves-red") Ganados
+							i(class="material-icons black-text") wc
 
-				li(class="bold")
-					a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
-						i(class="material-icons black-text") equalizer
+					li(class="bold")
+						a(href="/estadisticas" class="waves-effect waves-red") Estadisticas
+							i(class="material-icons black-text") equalizer
 
-			-//Analista - Lider de casa de paz
-			if user.rol_id == 3
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home 
+				-//Analista - Lider de casa de paz
+				if user.rol_id == 3
+					li(class="bold")
+						a(href="/inicio" class="waves-effect waves-red") Inicio
+							i(class="material-icons black-text") home 
 
-				li(class="bold")
-					a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
-						i(class="material-icons black-text") person_add
+					li(class="bold")
+						a(href="/persona/nuevo" class="waves-effect waves-red") Agregar
+							i(class="material-icons black-text") person_add
 
-			-//Usuario
-			if user.rol_id == 4
-				li(class="bold")
-					a(href="/inicio" class="waves-effect waves-red") Inicio
-						i(class="material-icons black-text") home
-
-
-		div.row
-			h4.center.margen-sup Estadisticas
-
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content green white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 505
-
-					div(class="card-action  green darken-2")
-
-						div(id="clients-bar" class="center-align")
-
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content purple white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 302
-
-					div(class="card-action  purple darken-2")
-
-						div(id="clients-bar" class="center-align")
-
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content red white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 9.200
-
-					div(class="card-action  red darken-2")
-
-						div(id="clients-bar" class="center-align")
-
-			div(class="col s12 m6 l3")
-
-				div(class="card")
-					div(class="card-content teal white-text")
-						p(class="card-stats-title center") Total
-
-						h4(class="card-stats-number center") 1.000
-
-					div(class="card-action  teal darken-2")
-
-						div(id="clients-bar" class="center-align")
+				-//Usuario
+				if user.rol_id == 4
+					li(class="bold")
+						a(href="/inicio" class="waves-effect waves-red") Inicio
+							i(class="material-icons black-text") home
 
 
-		
-	footer
+			div.row
+				h4.center.margen-sup Estadisticas
+
+				div(class="col s12 m6 l3")
+
+					div(class="card")
+						div(class="card-content green white-text")
+							p(class="card-stats-title center") Total
+
+							h4(class="card-stats-number center") 505
+
+						div(class="card-action  green darken-2")
+
+							div(id="clients-bar" class="center-align")
+
+				div(class="col s12 m6 l3")
+
+					div(class="card")
+						div(class="card-content purple white-text")
+							p(class="card-stats-title center") Total
+
+							h4(class="card-stats-number center") 302
+
+						div(class="card-action  purple darken-2")
+
+							div(id="clients-bar" class="center-align")
+
+				div(class="col s12 m6 l3")
+
+					div(class="card")
+						div(class="card-content red white-text")
+							p(class="card-stats-title center") Total
+
+							h4(class="card-stats-number center") 9.200
+
+						div(class="card-action  red darken-2")
+
+							div(id="clients-bar" class="center-align")
+
+				div(class="col s12 m6 l3")
+
+					div(class="card")
+						div(class="card-content teal white-text")
+							p(class="card-stats-title center") Total
+
+							h4(class="card-stats-number center") 1.000
+
+						div(class="card-action  teal darken-2")
+
+							div(id="clients-bar" class="center-align")
+	
+	footer(class="pagina-footer")
+		div.copyright
+			i(class="material-icons center" style="padding-left: 25%;") copyright
+			p(style="padding-left: 2%;").center 2017 Todos los derechos reservados Casa de Adoracion Cristiana
+	
 	
 	script(type="text/javascript" src="../js/componentsMaterialize.js")
 	script(type="text/javascript" src="../js/socket.js")
