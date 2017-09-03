@@ -199,21 +199,18 @@ app.get('/persona/redes/:id', Ctrlpersona.coordinador_redes)
 app.get('/persona/heredad/:id/red/:red', Ctrlpersona.coordinador_personas)
 
 
-//Ver por heredad--------------------------------------------------------------
-
-app.get('/persona/heredad/:num', Ctrlpersona.verVistaHeredad)
+//Adminstrador=======================================================================
 
 
 //Redes
 app.get('/persona/heredad/:codigoHeredad/red', Ctrlpersona.verVistaRedes)
 
-//app.get(`/persona/heredad/:codigoHeredad}/red/:red`, Ctrlpersona.verVistaFiltrado)
+//Todos filtrado
+app.get('/admin/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal)
 
+//==================================================================================
 //Mostar los ganados segun el id del usurio
 app.get('/persona/:id', Ctrlpersona.usuario_ganados)
-
-//Todos filtrado
-app.get('/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal)
 
 // Vista editar persona
 app.get('/persona/editar/:id', Ctrlpersona.vistaEditar)
