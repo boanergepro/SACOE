@@ -310,19 +310,11 @@ function verRegById (req, res) {
 	})
 }
 
-var codigoHeredad = ""
-var red = ""
-
-function verVistaHeredad (req, res) {
-	codigoHeredad = req.params.num
-	let url = `/persona/heredad/${codigoHeredad}/red`
-	res.redirect(url)
-}
-
 function verVistaRedes (req, res) {
 	let data_user = req.user
 	let rol_id = data_user.rol_id
-
+	let codigoHeredad = req.params.codigoHeredad
+	
 	conexionDB.query(`SELECT
 
 			              sum( 
@@ -482,10 +474,12 @@ function coordinador_personas (req, res) {
 
 }
 function verFitradoFinal (req, res) {
-	red = req.params.red
-
+	let red = req.params.red
+	let codigoHeredad = req.params.codigoHeredad
 	let data_user = req.user
-	
+
+	console.log('Codigo de la heredad ' + codigoHeredad + ' y la red ' + red)
+
 	let min = 0
 	let max = 0
 	let sexo = null
@@ -515,9 +509,24 @@ function verFitradoFinal (req, res) {
 		max = 100
 		sexo = "m"
 	}
-	console.log(`min ${min} y max ${max}`)
+	
 	if (red == "todos"){
-		conexionDB.query('SELECT * FROM vista_datos_personas WHERE codigo = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado', 
+		conexionDB.query(`
+
+						SELECT *,
+
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = vista_datos_personas.persona_id
+							)) AS llamado,
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = vista_datos_personas.persona_id
+							)) AS visitado
+							FROM vista_datos_personas
+							
+							WHERE codigo = :heredad AND estado_personas = 'a' AND estado_fase_ganar = 'a'
+
+
+						`, 
 				{ replacements: { heredad: codigoHeredad, estado: 'a' }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
@@ -528,7 +537,22 @@ function verFitradoFinal (req, res) {
 	/*Si sexo = null la red seleccionada en ! hombres && mujeres*/
 	else if (sexo == null){
 
-		conexionDB.query('SELECT * FROM vista_datos_personas WHERE codigo = :heredad AND estado_personas = :estado AND estado_fase_ganar = :estado AND edad BETWEEN :min AND :max', 
+		conexionDB.query(`
+
+						
+						SELECT *,
+
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = vista_datos_personas.persona_id
+							)) AS llamado,
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = vista_datos_personas.persona_id
+							)) AS visitado
+							FROM vista_datos_personas
+
+							WHERE codigo = :heredad AND edad BETWEEN :min AND :max AND estado_personas = 'a' AND estado_fase_ganar = 'a'
+
+						`, 
 				{ replacements: { heredad: codigoHeredad, estado: 'a', min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
@@ -539,8 +563,23 @@ function verFitradoFinal (req, res) {
 
 	/*Si sexo != null entonces la red es = hombres || mujeres*/
 	else{
-		conexionDB.query('SELECT * FROM vista_datos_personas WHERE heredad = :heredad AND sexo = :sexo AND edad BETWEEN :min AND :max', 
-				{ replacements: { heredad: numHeredad, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
+		conexionDB.query(`
+					
+					
+						SELECT *,
+
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_llamadas WHERE fase_ganar_llamadas.persona_id = vista_datos_personas.persona_id
+							)) AS llamado,
+							(EXISTS(
+							SELECT persona_id FROM fase_ganar_visitas WHERE fase_ganar_visitas.persona_id = vista_datos_personas.persona_id
+							)) AS visitado
+							FROM vista_datos_personas
+							
+							WHERE codigo = :heredad AND edad BETWEEN :min AND :max AND estado_personas = 'a' AND estado_fase_ganar = 'a' AND sexo = :sexo
+
+				`, 
+				{ replacements: { heredad: codigoHeredad, sexo: sexo, min: min, max: max }, type: conexionDB.QueryTypes.SELECT},
 				{model: Persona}).then((personas) => {
   					console.log(personas)
   					res.render('persona/verFiltrado', {persona: personas, rol_id: data_user.rol_id})
@@ -702,7 +741,6 @@ module.exports = {
 	coordinador_redes,
 	coordinador_personas,
 	verRegById,
-	verVistaHeredad,
 	verVistaRedes,
 	verFitradoFinal,
 	vistaEditar,
