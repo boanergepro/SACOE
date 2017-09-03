@@ -195,7 +195,7 @@ app.get('/persona/ver/:id', Ctrlpersona.verRegById)
 
 //Ver las redes de la heredad de un coordinador
 app.get('/persona/redes/:id', Ctrlpersona.coordinador_redes)
-//Ver todas las personas filtradas por heredad y por red
+//Ver todas las personas filtradas por heredad y por red - coordinador
 app.get('/persona/heredad/:id/red/:red', Ctrlpersona.coordinador_personas)
 
 
