@@ -264,9 +264,38 @@ body(class="Oswald")
 														
 									
 
-											
+												-//Este es el modal para enviar e correo
+												div(id="modalEnviarMail#{campo.persona_id}" class="modal")
+
+													div(class="modal-content")
+														i(class="material-icons medium green-text") send
+														h5 Esta a punto de enviar los datos de #{campo.nombre} #{campo.apellido}.
+													
+														form(action="/enviarMail/#{campo.persona_id}" method="post")
+															div(class="row")
+
+																div(class="input-field col s12")
+																	-//i(class="material-icons prefix") perm_identity
+																	input(id="asunto" type="text" name="asunto" class="validate")
+																	label(for="asunto") Asunto
+
+															div(class="row")
+
+																div(class="input-field col s12")
+																	-//i(class="material-icons prefix") vpn_key
+																	input(id="correo" type="email" name="correo" class="validate")
+																	label(for="correo") Correo
+															
+															div(class="row")
+															
+																button(class="btn waves-effect green waves-light btn-large col s6 left" type="submit" name="action") Enviar
+
+																a(class="btn waves-effect red modal-action modal-close waves-light btn-large col s6") No
+
+
+
 												-//Este es el modal para eliminar
-												div(id="modal#{campo.persona_id}" class="modal")
+												div(id="modalEliminar#{campo.persona_id}" class="modal")
 
 													div(class="modal-content")
 														i(class="material-icons medium red-text") warning
