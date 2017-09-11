@@ -102,27 +102,47 @@ passport.deserializeUser(authCtrl.desserializador)
 
 
 //Enviar email
-app.get('/enviarMail', (req, res) => {
+app.post('/enviarMail/:id', (req, res) => {
+	
+	let id = req.params.id
 
-	//Alternativa mailgun-js
-	var api_key = 'key-e18f9eb10b56bbcc49c2fa4b674b8dc9'
-	var domain = 'sandbox3365c16f5d71480b8835f07c0d9e28ad.mailgun.org'
-	var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain})
-	 
-	var data = {
-		//De quien
-	  	from: 'Sacoe <antonycarrizo96@gmail.com>',
-	  	//Para quien
-	  	to: 'antonycarrizo96@gmail.com',
-	  	//Asunto
-	  	subject: 'Hola sacoe',
-	  	//Contenido
-	  	text: 'Este es un mensaje envia por sacoe'
-	}
-	 
-	mailgun.messages().send(data, function (error, body) {
-	  console.log(body)
-	})
+	let asunto = req.body.asunto
+	let correo = req.body.correo
+	
+	//consulta de los datos de la persona
+
+	conexionDB.query('SELECT * FROM vista_datos_personas WHERE personas_id = :id',
+		{ replacements: { id: id }, type: conexionDB.QueryTypes.SELECT }).then(result => {
+
+			//mailgun-js
+			var api_key = 'key-e18f9eb10b56bbcc49c2fa4b674b8dc9'
+			var domain = 'sandbox3365c16f5d71480b8835f07c0d9e28ad.mailgun.org'
+			var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain})
+
+			var data = {
+				//De quien
+			  	from: 'SACOE',
+			  	//Para quien
+			  	to: correo,
+			  	//Asunto
+			  	subject: asunto,
+			  	//Contenido
+			  	text: result
+			  	
+			}
+			res.send({data: data})
+			
+			/*
+			//Enviar mensaje
+			mailgun.messages().send(data, function (error, body) {
+			  console.log(body)
+			})
+			*/
+
+		}).catch(err => {
+			console.log(err)
+		})
+
 })
 
 //Vista de error
@@ -156,27 +176,23 @@ app.get('/usuario/eliminar/:id', usuarioCtrl.eliminarUsuario)
 app.get('/inicio', Ctrlpersona.verInicio)
 
 
-
-/*
 //Buscar
 app.post('/buscar', (req, res) => {
 
 	let parametroBusqueda = req.body.search
+	console.log(parametroBusqueda)
+	
+	conexionDB.query('SELECT * FROM vista_datos_personas WHERE nombre = :parametro',
+		{ replacements: { parametro: parametroBusqueda }, type: conexionDB.QueryTypes.SELECT }).then(result => {
 
-	Personas.find({
-			$or : [ 
-				{ nombre : new RegExp(parametroBusqueda, "i") },
-				{ apellido : new RegExp(parametroBusqueda, "i") }
-			]
-		})	
-		.exec( (err,result) => {
+			res.render('persona/resultadosBusquedas',{persona: result, user: req.user})
 
-			///res.send({persona: result})
-			res.render('persona/resultadosBusquedas',{persona: result})
-
+		}).catch(err => {
+			console.log(err)
 		})
+
 })
-*/
+
 
 //Vista Nuevo
 app.get('/persona/nuevo', Ctrlpersona.verFormReg)

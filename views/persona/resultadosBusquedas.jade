@@ -33,6 +33,20 @@ body(class="Oswald")
 				a(href="/inicio" class="brand-logo Oswald show-on-medium-and-down hide-on-med-and-up") SACOE
 
 				ul(id="nav-mobile" class="right")
+					
+					if user.rol_id == 1 
+						li
+							a(class='dropdown-button' data-activates='dropdown1')
+								i(class="material-icons" id="active-notifi") notifications
+									-//Aqui se colocara el puntico rojo cuando haya notificaciones
+
+						
+							ul(id='dropdown1' class='dropdown-content')
+								li
+									a(id="num-notifi" href="#!" class="col s12  black-text left") NOTIFICACIONES
+										
+								li(class="divider")
+									-//Aqui se renderizaran las notificaciones
 
 					li
 						a(href="/logout")
@@ -53,7 +67,7 @@ body(class="Oswald")
 						label(for="search")
 			li.divider
 			-// Administrador
-			if rol_id == 1
+			if user.rol_id == 1
 
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
@@ -75,7 +89,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") supervisor_account
 			
 			-//Coordinador
-			if rol_id == 2
+			if user.rol_id == 2
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home 
@@ -93,7 +107,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") equalizer
 
 			-//Analista - Lider de casa de paz
-			if rol_id == 3
+			if user.rol_id == 3
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home 
@@ -103,7 +117,7 @@ body(class="Oswald")
 						i(class="material-icons black-text") person_add
 
 			-//Usuario
-			if rol_id == 4
+			if user.rol_id == 4
 				li(class="bold")
 					a(href="/inicio" class="waves-effect waves-red") Inicio
 						i(class="material-icons black-text") home
@@ -174,3 +188,4 @@ body(class="Oswald")
 
 	script(type="text/javascript" src="js/pace.js")
 	script(type="text/javascript" src="js/componentsMaterialize.js")
+	script(type="text/javascript" src="js/socket.js")
