@@ -7,6 +7,7 @@ let urlEditar = null
 let urlVer = null
 let urlLlamada = null
 let urlVisita = null
+let urlEnviarMail = null
 let urlEliminar = null
 
 //Url para cuando ya la persona ue llamada
@@ -33,10 +34,11 @@ $("input[type='checkbox']").click(function(event){
 		urlEditar ="/persona/editar/" + idPersona
 		urlLlamada ="/persona/contacto/llamada/" + idPersona
 		urlVisita = "/persona/contacto/visita/" + idPersona
-		urlEliminar = "#modal" + idPersona
-
 		fueLlamado = "/persona/contacto/llamada/ver/" + idPersona
 		fueVisitado = "/persona/contacto/visita/ver/" + idPersona
+		urlEnviarMail ="#modalEnviarMail" + idPersona
+		urlEliminar = "#modalEliminar" + idPersona
+
 
 		//Detectar el ancho de la pantalla
 
@@ -83,7 +85,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a id="" >
+					      	<a id="enviarMail" >
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -149,7 +151,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a id="" >
+					      	<a id="enviarMail" >
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -215,7 +217,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a id="" >
+					      	<a id="enviarMail" >
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -282,7 +284,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a id="" >
+					      	<a id="enviarMail" >
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -350,7 +352,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a id="" class="btn-floating blue">
+					      	<a id="enviarMail" class="btn-floating blue">
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -414,7 +416,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a id="" class="btn-floating blue">
+					      	<a id="enviarMail" class="btn-floating blue">
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -478,7 +480,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a id="" class="btn-floating blue">
+					      	<a id="enviarMail" class="btn-floating blue">
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -542,7 +544,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a id="" class="btn-floating blue">
+					      	<a id="enviarMail" class="btn-floating blue">
 					      		<i class="material-icons">email</i>
 					      	</a>
 					      </li>
@@ -580,13 +582,15 @@ $("input[type='checkbox']").click(function(event){
 		$.each($("#ver"),function(){
 	    	$(this).attr("href", urlVer)
 		})
+		$.each($("#enviarMail"),function(){
+	    	$(this).attr("href", urlEnviarMail)
+		})
 		$.each($("#eliminar"),function(){
 	    	$(this).attr("href", urlEliminar)
 		})
 		$.each($("#llamada"),function(){
 			$(this).attr("href", urlLlamada)
 		})
-
 		$.each($("#visita"),function(){
 			$(this).attr("href", urlVisita)
 		})
