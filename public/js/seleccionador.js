@@ -578,7 +578,6 @@ $("input[type='checkbox']").click(function(event){
 		$.each($("#editar"),function(){
 	    	$(this).attr("href", urlEditar)
 		})
-		
 		$.each($("#ver"),function(){
 	    	$(this).attr("href", urlVer)
 		})
