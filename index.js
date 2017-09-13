@@ -121,23 +121,46 @@ app.post('/enviarMail/:id', (req, res) => {
 
 			var data = {
 				//De quien
-			  	from: 'SACOE',
+			  	from: 'SACOE <antonyprogramacion96@gmail.com>',
 			  	//Para quien
 			  	to: correo,
 			  	//Asunto
 			  	subject: asunto,
 			  	//Contenido
-			  	text: result
-			  	
+			  	//text: result
+			  	html: `
+			  		<h1>Datos personales de ${result[0].nombre} ${result[0].apellido}</h1>
+					<h5> Nombre: ${result[0].nombre}</h5>
+					<h5> Apellido: ${result[0].apellido}</h5>
+					<h5> Sexo: ${result[0].sexo}</h5>
+					<h5> Edad: ${result[0].edad}</h5>
+					<h5> Nacionalidad: ${result[0].nacionalidad}</h5>
+					<h5> Ocupación: ${result[0].ocupacion}</h5>
+					<h5> Ciudad: ${result[0].ciudad}</h5>
+					<h5> Telefono: ${result[0].telefono}</h5>
+					<h5> Correo: ${result[0].correo}</h5>
+					<h5> Dirección: ${result[0].direccion}</h5>
+					<h5> Fecha de nacimiento: ${result[0].fecha_nacimiento}</h5>
+					<h5> Fecha ganado: ${result[0].fecha_contactado}</h5>
+					<h5> Lugar de contacto: ${result[0].lugar_contacto}</h5>
+					<h5> Invitado por: ${result[0].invitado_por}</h5>
+					<h5> Fecha para visitar: ${result[0].fecha_visitar}</h5>
+					<h5> Celula a insertar: ${result[0].celula_insertar}</h5>
+					<h5> Petición de oración: ${result[0].peticion_oracion}</h5>
+					<h5> Heredad: ${result[0].nombre_heredad}</h5>
+					<p>Enviados desde el Sistema Administrativo de la Coordinación de Evangelismo</p>
+					
+			  	`
 			}
-			res.send({data: data})
 			
-			/*
+			console.log(result[0].nombre)
+
 			//Enviar mensaje
 			mailgun.messages().send(data, function (error, body) {
 			  console.log(body)
 			})
-			*/
+			
+			res.render('inicio', {user: req.user})
 
 		}).catch(err => {
 			console.log(err)
