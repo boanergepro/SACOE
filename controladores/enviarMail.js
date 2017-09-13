@@ -22,7 +22,7 @@ function sendMail (req, res) {
 
 			var data = {
 				//De quien
-			  	from: 'SACOE <antonycarrizo96@gmail.com>',
+			  	from: 'SACOE <antonyprogramacion96@gmail.com>',
 			  	//Para quien
 			  	to: correo,
 			  	//Asunto
