@@ -101,9 +101,28 @@ passport.serializeUser(authCtrl.serializador)
 //DESERIALIZADOR
 passport.deserializeUser(authCtrl.desserializador)
 
+app.get('/persona/generarPDF', (req, res) => {
+	
+	const PDFDocument = require('pdfkit')
+	const doc = new PDFDocument()
 
-//Enviar email
-app.post('/persona/enviarMail/:id', enviarMailCtrl.sendMail)
+	let nomebreArchivo = "reporte"
+
+	nomebreArchivo = encodeURIComponent(nomebreArchivo) + '.pdf'
+	
+	//Dercargar el pdf
+	//res.setHeader('Content-disposition', 'attachment; nomebreArchivo="' + nomebreArchivo + '"')
+	//Mostrar el pdf en el navegador
+	res.setHeader('Content-type', 'application/pdf')
+	const content = "Contenido del reporte generado por sacoe"
+	doc.y = 300
+	doc.text(content, 50, 50)
+
+	doc.pipe(res)
+	doc.end()
+
+
+})
 
 //Vista de error
 app.get('/errores/vista403', (req, res) => {
@@ -120,6 +139,8 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   	}
 )
   
+//Enviar email
+app.post('/persona/enviarMail/:id', enviarMailCtrl.sendMail)
 
 //Registro usuarios
 app.post('/registro', usuarioCtrl.registro)
