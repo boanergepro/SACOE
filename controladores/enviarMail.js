@@ -31,24 +31,82 @@ function sendMail (req, res) {
 			  	//text: result
 			  	html: `
 			  		<h1>Datos personales de ${result[0].nombre} ${result[0].apellido}</h1>
-					<h5> Nombre: ${result[0].nombre}</h5>
-					<h5> Apellido: ${result[0].apellido}</h5>
-					<h5> Sexo: ${result[0].sexo}</h5>
-					<h5> Edad: ${result[0].edad}</h5>
-					<h5> Nacionalidad: ${result[0].nacionalidad}</h5>
-					<h5> Ocupación: ${result[0].ocupacion}</h5>
-					<h5> Ciudad: ${result[0].ciudad}</h5>
-					<h5> Telefono: ${result[0].telefono}</h5>
-					<h5> Correo: ${result[0].correo}</h5>
-					<h5> Dirección: ${result[0].direccion}</h5>
-					<h5> Fecha de nacimiento: ${result[0].fecha_nacimiento}</h5>
-					<h5> Fecha ganado: ${result[0].fecha_contactado}</h5>
-					<h5> Lugar de contacto: ${result[0].lugar_contacto}</h5>
-					<h5> Invitado por: ${result[0].invitado_por}</h5>
-					<h5> Fecha para visitar: ${result[0].fecha_visitar}</h5>
-					<h5> Celula a insertar: ${result[0].celula_insertar}</h5>
-					<h5> Petición de oración: ${result[0].peticion_oracion}</h5>
-					<h5> Heredad: ${result[0].nombre_heredad}</h5>
+					<table>
+						<tr>
+							<td>Nombre</td>
+							<td>${result[0].nombre}</td>
+						</tr>
+						<tr>
+							<td>Apellido</td>
+							<td>${result[0].apellido}</td>
+						</tr>
+						<tr>
+							<td>Sexo</td>
+							<td>${result[0].sexo}</td>
+						</tr>
+						<tr>
+							<td>Edad</td>
+							<td>${result[0].edad}</td>
+						</tr>
+						<tr>
+							<td>Nacionalidad</td>
+							<td>${result[0].nacionalidad}</td>
+						</tr>
+						<tr>
+							<td>Ocupación</td>
+							<td>${result[0].ocupacion}</td>
+						</tr>
+						<tr>
+							<td>Ciudad</td>
+							<td>${result[0].ciudad}</td>
+						</tr>
+						<tr>
+							<td>Telefono</td>
+							<td>${result[0].telefono}</td>
+						</tr>
+						<tr>
+							<td>Correo</td>
+							<td>${result[0].correo}</td>
+						</tr>
+						<tr>
+							<td>Dirección</td>
+							<td>${result[0].direccion}</td>
+						</tr>
+						<tr>
+							<td>Fecha de nacimiento</td>
+							<td>${result[0].fecha_nacimiento}</td>
+						</tr>
+						<tr>
+							<td>Fecha ganado</td>
+							<td>${result[0].fecha_contactado}</td>
+						</tr>
+						<tr>
+							<td>Lugar de contacto</td>
+							<td>${result[0].lugar_contacto}</td>
+						</tr>
+						<tr>
+							<td>Invitado por</td>
+							<td>${result[0].invitado_por}</td>
+						</tr>
+						<tr>
+							<td>Fecha para visitar</td>
+							<td>${result[0].fecha_visitar}</td>
+						</tr>
+						<tr>
+							<td>Celula a insertar</td>
+							<td>${result[0].celula_insertar}</td>
+						</tr>
+						<tr>
+							<td>Petición de oración</td>
+							<td>${result[0].peticion_oracion}</td>
+						</tr>
+						<tr>
+							<td>Heredad</td>
+							<td>${result[0].nombre_heredad}</td>
+						</tr>
+
+					</table>
+					
 					<p>Enviados desde el Sistema Administrativo de la Coordinación de Evangelismo</p>
 			  	`
 			}
