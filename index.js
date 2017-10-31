@@ -26,6 +26,7 @@ const usuarioCtrl = require('./controladores/usuario')
 const authCtrl =  require('./controladores/auth')
 const contactoCtrl = require('./controladores/contacto')
 const enviarMailCtrl = require('./controladores/enviarMail')
+const telegramBot = require('./controladores/telegramBot')
 
 //middleware Transformar los datos a json
 app.use(bodyParser.json())
@@ -141,6 +142,9 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   
 //Enviar email
 app.post('/persona/enviarMail/:id', enviarMailCtrl.sendMail)
+
+//Enviar telegram
+app.get('/persona/telegram', telegramBot.sendTelegram)
 
 //Registro usuarios
 app.post('/registro', usuarioCtrl.registro)
