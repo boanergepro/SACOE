@@ -4,14 +4,48 @@ const passport = require('passport')
 const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
 const app = express()
-const e_ws = require('express-ws')(app) 
-
+const e_ws = require('express-ws')(app)
 
 //Archivo de configuracion
 const config = require('./config')
 const db = require('./db')
 //Conexion con la base de datos
 const conexionDB = db.getConecctionDb();
+
+//==============================================================
+const telegramBot = require('node-telegram-bot-api')
+
+const token = config.token
+const url = config.url
+
+const bot = new telegramBot(token, {polling: true})
+
+bot.setWebHook(`${url}/bot${token}`)
+
+app.post(`/bot${token}`, (req, res) => {
+	bot.processUpdate(req.body);
+	res.sendStatus(200);
+})
+
+
+bot.onText(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi, (msg, match) => {
+	
+	bot.sendMessage(
+		290035299, 
+		`Exelente! Usted ha ingresado el correo ${match[1]} y actualmente esta siendo almacenado para futuras comunicaciones.`,
+		{
+			"reply_markup": {
+    			"keyboard": [['✔️','✖️']]
+    		}
+		})
+    
+	})
+
+bot.onText(/\/start/, (msg) => {
+	bot.sendMessage(290035299, 'Bienvenido al bot de SACOE para poder recivir informacion en algun momento de esta aplicacion debe proceder a introducir un correo válido.')
+})
+
+//==============================================================
 
 //modelos
 const Personas = require('./modelos/persona')
@@ -26,7 +60,7 @@ const usuarioCtrl = require('./controladores/usuario')
 const authCtrl =  require('./controladores/auth')
 const contactoCtrl = require('./controladores/contacto')
 const enviarMailCtrl = require('./controladores/enviarMail')
-const telegramBot = require('./controladores/telegramBot')
+//const telegramBot = require('./controladores/telegramBot')
 
 //middleware Transformar los datos a json
 app.use(bodyParser.json())
@@ -144,7 +178,7 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
 app.post('/persona/enviarMail/:id', enviarMailCtrl.sendMail)
 
 //Enviar telegram
-app.get('/persona/telegram', telegramBot.sendTelegram)
+//app.get('/persona/telegram', telegramBot.sendTelegram)
 
 //Registro usuarios
 app.post('/registro', usuarioCtrl.registro)
