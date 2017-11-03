@@ -24,7 +24,8 @@ function registro(req, res) {
 		nombre: req.body.nombre,
 		apellido: req.body.apellido,
 		username: req.body.username,
-		password: req.body.password
+		password: req.body.password,
+		email : req.body.email
 	}
 
 	dataNotificacion = {
@@ -132,7 +133,7 @@ function editarUsuario(req, res) {
 
 	let usuario_id = req.params.id
 
-	let datosUsuario = {  }
+	let datosUsuario = {}
 	//Consulta a la tabla usuarios para mostrale al administardor datos de la persona a la que esta editando
 	Usuario.find({
 
