@@ -26,6 +26,9 @@ const Usuario = conexionDB.define('usuarios', {
 	password: {
 		type: Sequelize.STRING,
 	},
+	email: {
+		type: Sequelize.STRING,
+	},
 	rol_id:{
 		type: Sequelize.INTEGER,
 		/*Agrega un not null a este campo*/
@@ -39,8 +42,8 @@ const Usuario = conexionDB.define('usuarios', {
 			// This is the column name of the referenced model
 			key: 'id',
 
-		// This declares when to check the foreign key constraint. PostgreSQL only.
-		deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+			// This declares when to check the foreign key constraint. PostgreSQL only.
+			deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
 	   }
 	}
 
