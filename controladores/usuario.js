@@ -51,7 +51,7 @@ function usuarios(req, res) {
 	//Usuarios
 	Usuario.findAll({
 		where: {
-			rol_id: 4
+			rol_id: 4 //rol: usuario
 		}
 	}).then(results => {
 
@@ -60,7 +60,7 @@ function usuarios(req, res) {
 		//Analistas
 		Usuario.findAll({
 			where: {
-				rol_id: 3
+				rol_id: 3 //rol: analista
 			}
 		}).then(results => {
 			
@@ -69,7 +69,7 @@ function usuarios(req, res) {
 			//Coordinadores
 			Usuario.findAll({
 				where: {
-					rol_id: 2
+					rol_id: 2 //rol : coordinador
 				}
 			}).then(results => {
 				coordinadores =  results
@@ -78,7 +78,7 @@ function usuarios(req, res) {
 
 				Usuario.findAll({
 					where: {
-						rol_id: 1
+						rol_id: 1 //rol: administrador
 					}
 				}).then(results => {
 				
