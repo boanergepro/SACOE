@@ -82,7 +82,12 @@ module.exports = {
                 set(val) {
                     this.setDataValue('estado_personas', val.toLowerCase());
                 }
-            }
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
 
         })
     

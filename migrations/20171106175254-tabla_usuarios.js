@@ -25,6 +25,11 @@ module.exports = {
             username: Sequelize.STRING,
             password: Sequelize.STRING,
             email: Sequelize.STRING,
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
 
         })
     

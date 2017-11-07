@@ -27,7 +27,12 @@ module.exports = {
                     model: 'personas',
                     key: 'id'
                 }
-            }
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
         })
     
     },

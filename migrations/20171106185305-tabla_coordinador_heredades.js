@@ -28,7 +28,12 @@ module.exports = {
                     key: 'id'
                 }
             },
-            estado: Sequelize.STRING
+            estado: Sequelize.STRING,
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
         })
     
     },

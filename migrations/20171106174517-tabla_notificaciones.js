@@ -20,7 +20,12 @@ module.exports = {
             estado:{
                 type: Sequelize.STRING,
                 defaultValue: 'a'
-            }
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
 
         })
     

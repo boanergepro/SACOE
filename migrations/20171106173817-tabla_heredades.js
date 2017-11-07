@@ -12,7 +12,12 @@ module.exports = {
                 allowNull: false
             },
             codigo: Sequelize.STRING(3),
-            nombre: Sequelize.STRING
+            nombre: Sequelize.STRING,
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
 
         })
     

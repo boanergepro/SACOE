@@ -22,7 +22,12 @@ module.exports = {
             telegram_id: {
                 //chat_id entre el usuario y el bot
                 type: Sequelize.STRING
-            }
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
 
         })
     

@@ -48,7 +48,12 @@ module.exports = {
                 set(val) {
                     this.setDataValue('estado_fase_ganar', val.toLowerCase());
                 }
-            }
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false
+            },
+            updatedAt: Sequelize.DATE
         })
     
     },
