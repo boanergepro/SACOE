@@ -4,7 +4,7 @@
   "description": "Sistema Admnistrativo de la coordinacion de Evangelismo",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon index.js"
   },
   "author": "boanergepro",
   "license": "MIT",
