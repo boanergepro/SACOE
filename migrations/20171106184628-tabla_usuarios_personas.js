@@ -16,16 +16,16 @@ module.exports = {
                 allowNull: false,
                 references: {
                     model: 'usuarios',
-                    key: 'id',
+                    key: 'id'
                 }
             },
             persona_id: {
                 //chat_id entre el usuario y el bot
-                type: Sequelize.STRING
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
                     model: 'personas',
-                    key: 'id',
+                    key: 'id'
                 }
             }
         })
