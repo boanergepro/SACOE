@@ -3,7 +3,7 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
    
-        return queryInterface.createTable('fase_ganar_llamadas', {
+        return queryInterface.createTable('fase_ganar_visitas', {
 
             id: {
                 type: Sequelize.INTEGER,
@@ -25,7 +25,7 @@ module.exports = {
             estado_fase_ganar_visitas: {
                 type: Sequelize.STRING,
                 set(val) {
-                    this.setDataValue('estado_fase_ganar_llamadas', val.toLowerCase());
+                    this.setDataValue('estado_fase_ganar_visitas', val.toLowerCase());
                 }
             },
             createdAt: {
@@ -39,7 +39,7 @@ module.exports = {
 
     down: (queryInterface, Sequelize) => {
     
-        return queryInterface.dropTable('fase_ganar_llamadas')
+        return queryInterface.dropTable('fase_ganar_visitas')
     
     }
 }
