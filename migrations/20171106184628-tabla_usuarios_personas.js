@@ -11,7 +11,7 @@ module.exports = {
                 autoIncrement: true,
                 allowNull: false
             },
-            user_id: {
+            usuario_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
