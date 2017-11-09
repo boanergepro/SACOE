@@ -35,6 +35,3 @@ SELECT
 	
 INNER JOIN fase_ganar ON personas.id = fase_ganar.persona_id
 INNER JOIN heredades ON heredades.id = personas.heredad_id
-
-
-SELECT * FROM vista_datos_personas
