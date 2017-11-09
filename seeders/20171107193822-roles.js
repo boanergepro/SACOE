@@ -5,14 +5,16 @@ module.exports = {
     
         return queryInterface.bulkInsert('roles', [{
             nombre: 'administrador',
-            createdAt: new Date()
+            createdAt: 'now()'
         },{
-            nombre: 'coordinador'
-
+            nombre: 'coordinador',
+            createdAt: 'now()'
         },{
-            nombre: 'analista'
+            nombre: 'analista',
+            createdAt: 'now()'
         },{
-            nombre: 'usuario'
+            nombre: 'usuario',
+            createdAt: 'now()'
         }], {});
     
   },
