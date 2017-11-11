@@ -25,6 +25,10 @@ module.exports = {
             username: Sequelize.STRING,
             password: Sequelize.STRING,
             email: Sequelize.STRING,
+            telegram_id: {
+                //chat_id entre el usuario y el bot
+                type: Sequelize.STRING
+            },
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false
