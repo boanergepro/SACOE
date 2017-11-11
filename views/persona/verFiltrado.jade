@@ -291,8 +291,12 @@ body(class="Oswald")
 																button(class="btn waves-effect green waves-light btn-large col s6 left" type="submit" name="action") Enviar
 
 																a(class="btn waves-effect red modal-action modal-close waves-light btn-large col s6") No
-
-
+												
+												-//Modal para enviar telegram
+												div(id="modalEnviarTelegram#{campo.persona_id}" class="modal")
+													div(class="modal-content")
+														i(class="material-icons medium green-text") send
+														h5 Esta a punto de enviar los datos de #{campo.nombre} #{campo.apellido}.
 
 												-//Este es el modal para eliminar
 												div(id="modalEliminar#{campo.persona_id}" class="modal")
