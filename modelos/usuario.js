@@ -45,7 +45,11 @@ const Usuario = conexionDB.define('usuarios', {
 			// This declares when to check the foreign key constraint. PostgreSQL only.
 			deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
 	   }
-	}
+	},
+	telegram_id: {
+        //chat_id entre el usuario y el bot
+        type: Sequelize.STRING
+    }
 
 })
 
