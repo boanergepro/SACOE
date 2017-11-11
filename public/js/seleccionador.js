@@ -8,6 +8,7 @@ let urlVer = null
 let urlLlamada = null
 let urlVisita = null
 let urlEnviarMail = null
+let urlEnviarTelegram = null
 let urlEliminar = null
 
 //Url para cuando ya la persona ue llamada
@@ -37,6 +38,7 @@ $("input[type='checkbox']").click(function(event){
 		fueLlamado = "/persona/contacto/llamada/ver/" + idPersona
 		fueVisitado = "/persona/contacto/visita/ver/" + idPersona
 		urlEnviarMail ="#modalEnviarMail" + idPersona
+		urlEnviarTelegram ="#modalEnviarTelegram" + idPersona
 		urlEliminar = "#modalEliminar" + idPersona
 
 
@@ -91,7 +93,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a >
+					      	<a id="enviarTelegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -157,7 +159,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a >
+					      	<a id="enviarTelegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -223,7 +225,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a >
+					      	<a id="enviarTelegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -290,7 +292,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li class="waves-effect waves-light">
-					      	<a >
+					      	<a id="enviarTelegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -358,7 +360,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a class="btn-floating azul-telegram">
+					      	<a id="enviarTelegram" class="btn-floating azul-telegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -422,7 +424,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a class="btn-floating azul-telegram">
+					      	<a id="enviarTelegram" class="btn-floating azul-telegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -486,7 +488,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a class="btn-floating azul-telegram">
+					      	<a id="enviarTelegram" class="btn-floating azul-telegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -550,7 +552,7 @@ $("input[type='checkbox']").click(function(event){
 					      </li>
 
 					      <li>
-					      	<a class="btn-floating azul-telegram">
+					      	<a id="enviarTelegram" class="btn-floating azul-telegram">
 					      		<i class="material-icons">
 									<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 		    							<path fill="#FFFFFF" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
@@ -583,6 +585,9 @@ $("input[type='checkbox']").click(function(event){
 		})
 		$.each($("#enviarMail"),function(){
 	    	$(this).attr("href", urlEnviarMail)
+		})
+		$.each($("#enviarTelegram"),function(){
+	    	$(this).attr("href", urlEnviarTelegram)
 		})
 		$.each($("#eliminar"),function(){
 	    	$(this).attr("href", urlEliminar)
