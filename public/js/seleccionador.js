@@ -41,6 +41,9 @@ $("input[type='checkbox']").click(function(event){
 		urlEnviarTelegram ="#modalEnviarTelegram" + idPersona
 		urlEliminar = "#modalEliminar" + idPersona
 
+		//Guardar el persona_id en local storage
+		localStorage.setItem("persona_id",idPersona)
+
 
 		//Detectar el ancho de la pantalla
 
