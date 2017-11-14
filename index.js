@@ -28,6 +28,7 @@ app.post(`/bot${token}`, (req, res) => {
 })
 
 
+/*
 bot.onText(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi, (msg, match) => {
 	
 	bot.sendMessage(
@@ -44,7 +45,7 @@ bot.onText(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi, (msg, match) 
 bot.onText(/\/start/, (msg) => {
 	bot.sendMessage(290035299, 'Bienvenido al bot de SACOE para poder recivir informacion en algun momento de esta aplicacion debe proceder a introducir un correo válido.')
 })
-
+*/
 //==============================================================
 
 //modelos
@@ -79,7 +80,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //==================================================================================
-//SOCKET
+//SOCKET NOTIFICACIONES
 
 app.ws('/socket', (ws,req) => {
 
@@ -110,6 +111,76 @@ app.ws('/socket', (ws,req) => {
 	})
 
 })
+//ver usuarios
+app.get('/directorio', (req, res) => {
+	Usuario.findAll().then(usuarios => {
+		res.send(usuarios)
+	})
+}),
+app.post('/enviarTelegram', (req, res) => {
+
+	let persona_id = req.body.persona_id
+	let telegram_id = req.body.telegram_id
+
+	//Consultar lod datos de la persona de la que se necesita enviar los dotos por telegram
+	conexionDB.query('SELECT * FROM vista_datos_personas WHERE personas_id = :id',{ 
+		replacements: { 
+			id: persona_id 
+		}, 
+		type: conexionDB.QueryTypes.SELECT }).then(result => {
+			data = {
+				nombre: result[0].nombre,
+				apellido: result[0].apellido,
+				sexo: result[0].sexo,
+				edad: result[0].edad,
+				nacionalidad: result[0].nacionalidad,
+				ocupacion: result[0].ocupacion,
+				ciudad: result[0].ciudad,
+				telefono: result[0].telefono,
+				correo: result[0].correo,
+				direccion: result[0].direccion,
+				fecha_nacimiento: result[0].fecha_nacimiento,
+				fecha_contactado: result[0].fecha_contactado,
+				lugar_contacto: result[0].lugar_contacto,
+				invitado_por: result[0].invitado_por,
+				fecha_visitar: result[0].fecha_visitar,
+				celula_insertar: result[0].celula_insertar,
+				peticion_oracion: result[0].peticion_oracion,
+				nombre_heredad: result[0].nombre_heredad
+			}
+			
+			bot.sendMessage(telegram_id, 
+				`
+					<i>Datos personales enviados desde la aplicacón SACOE</i>
+					
+				<strong>Nombre: </strong><em>${data.nombre}</em>
+				<strong>Apellido: </strong><em>${data.apellido}</em>
+				<strong>Sexo: </strong><em>${data.sexo}</em>
+				<strong>Edad: </strong><em>${data.edad}</em>
+				<strong>Nacionalidad: </strong><em>${data.nacionalidad}</em>
+				<strong>Ocupación: </strong><em>${data.ocupacion}</em>
+				<strong>Ciudad: </strong><em>${data.ciudad}</em>
+				<strong>Telefono: </strong><em>${data.telefono}</em>
+				<strong>Correo: </strong><em>${data.correo}</em>
+				<strong>Dirección: </strong><em>${data.direccion}</em>
+				<strong>Fecha de nacimiento: </strong><em>${data.fecha_nacimiento}</em>
+				<strong>Fecha de contacto: </strong><em>${data.fecha_contactado}</em>
+				<strong>Invitado por: </strong><em>${data.invitado_por}</em>
+				<strong>Fecha para visitar: </strong><em>${data.fecha_visitar}</em>
+				<strong>Celula para insertar: </strong><em>${data.celula_insertar}</em>
+				<strong>Peticion de oración: </strong><em>${data.peticion_oracion}</em>
+				<strong>Nombre de la heredad: </strong><em>${data.nombre_heredad}</em>
+				`, 
+				
+				{ parse_mode: "HTML" 
+			})
+		})
+	
+
+	res.send(true)
+	
+})
+
 //Marcar las notificaciones a leidads cambiando su estado de 'a' a 'i'
 app.get('/marcar_leidas', (req, res) =>{
 	Notificacion.update({
