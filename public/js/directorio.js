@@ -1,16 +1,5 @@
 $(document).ready(() => {
 
-/*
-	let url = `${location.origin}/directorio`,
-	let params = {
-		method: "GET"
-	}
-
-	fetch( url, params)
-	    .then( (response) => console.log(response) )
-	    .catch( e => alert("Los datos no han sido envidas") )
-
-*/
 	fetch(`${location.origin}/directorio`, {
 
 		method: 'get'
@@ -20,7 +9,6 @@ $(document).ready(() => {
 	})
 	.then((data) => {
 		
-
 		let datos = {}
 		for(let i = 0; i < data.length; i++){
 			if (data[i].telegram_id != null) {
