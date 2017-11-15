@@ -58,6 +58,13 @@ $(document).ready(() => {
 
 					fetch(url, params).then( (response) => {
 						console.log("Los datos para enviar el telegram han sido enviados")
+						swal({
+  							title: 'Mensaje enviado!',
+  							text: 'Presione Ok para continuar',
+  							confirmButtonColor: '#3f51b5',
+  							type: 'success',
+  							confirmButtonText: 'Ok'
+						})
 					}).catch( e => {
 						console.log("Los datos no han sido envidas") 
 					})
