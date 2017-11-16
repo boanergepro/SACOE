@@ -269,8 +269,15 @@ body(class="Oswald")
 												div(id="modalEnviarMail#{campo.persona_id}" class="modal")
 
 													div(class="modal-content")
-														i(class="material-icons medium green-text") send
-														h5 Esta a punto de enviar los datos de #{campo.nombre} #{campo.apellido}.
+														div.row
+															div(class="col s12")
+																div(class="col s4")
+																div(class="col s4")
+
+																	i(class="material-icons medium green-text center" style="margin-left: 25%;") send
+																	h5(class="center" style="margin-left:0%;") Enviar correo.
+
+																div(class="col s4")
 													
 														form(action="/persona/enviarMail/#{campo.persona_id}" method="post")
 															div(class="row")
@@ -288,16 +295,30 @@ body(class="Oswald")
 																	label(for="correo") Correo
 															
 															div(class="row")
-															
-																button(class="btn waves-effect green waves-light btn-large col s6 left" type="submit" name="action") Enviar
+																div(class="col s12")
 
-																a(class="btn waves-effect red modal-action modal-close waves-light btn-large col s6") No
+																	div(class="col s6")
+																		button(class="btn waves-effect green waves-light btn-large col s6 left" type="submit" name="action" style="margin-left: 35%;") Enviar
+
+																	div(class="col s6")
+																		a(class="btn waves-effect red modal-action modal-close waves-light btn-large col s6" style="margin-left: 35%;") No
 												
 												-//Modal para enviar telegram
 												div(id="modalEnviarTelegram#{campo.persona_id}" class="modal")
 													div(class="modal-content")
-														i(class="center material-icons medium green-text") send
-														h5.center Esta a punto de enviar los datos de #{campo.nombre} #{campo.apellido}.
+														div.row
+															div(class="col s12")
+																div(class="col s4")
+																div(class="col s4")
+																	i(class="center material-icons medium green-text" style="margin-left: 25%;") send
+																	h5(class="center" style="margin-left:0%;") Enviar telegram
+																div(class="col s4")
+														div.row
+															div(class="col s12")
+																div(class="col s2")
+																div(class="col s4")
+																	
+																div(class="col s2")
 
 														div.row
 															div(class="col s12")
@@ -307,10 +328,11 @@ body(class="Oswald")
 																		input(type="text" id="autocomplete-input" class="autocomplete" name="telegram_id")
 																		label(for="autocomplete-input") Ingrese un nombre
 																div(class="row")
-														
-																	button(class="btn waves-effect green waves-light btn-large col s6 left modal-close" type="submit" name="action") Enviar
+																	div(class="col s6")
+																		button(class="center btn waves-effect green waves-light btn-large col s6 left modal-close" type="submit" name="action" style="margin-left: 40%;") Enviar
+																	div(class="col s6")
+																		a(class="center btn waves-effect red modal-action modal-close waves-light btn-large col s6" style="margin-left: 40%;") No
 
-																	a(class="btn waves-effect red modal-action modal-close waves-light btn-large col s6") No	
 												-//Este es el modal para eliminar
 												div(id="modalEliminar#{campo.persona_id}" class="modal")
 
