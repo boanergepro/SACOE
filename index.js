@@ -111,6 +111,9 @@ app.ws('/socket', (ws,req) => {
 	})
 
 })
+
+//==================================================================================
+
 //ver usuarios
 app.get('/directorio', (req, res) => {
 	Usuario.findAll().then(usuarios => {
@@ -173,11 +176,18 @@ app.post('/enviarTelegram', (req, res) => {
 				`, 
 				
 				{ parse_mode: "HTML" 
+			}).then(() => {
+				res.send({'validacion': true})
+			}).catch(() => {
+				res.send({'validacion': false})
 			})
+
+		}).catch(err => {
+			console.log("No ha sido posible consultar los datos para enviarlos por telegram error")
 		})
 	
 
-	res.send(true)
+	
 	
 })
 
@@ -195,7 +205,6 @@ app.get('/marcar_leidas', (req, res) =>{
 		console.log(err)
 	})
 })
-//==================================================================================
 
 
 //PASSPORT ESTARTEGIA
