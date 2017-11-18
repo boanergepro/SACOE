@@ -44,17 +44,32 @@ $(document).ready(() => {
 						})
 					}
 
-					fetch(url, params).then( (response) => {
-						console.log("Los datos para enviar el telegram han sido enviados")
-						swal({
-  							title: 'Mensaje enviado!',
-  							text: 'Presione Ok para continuar',
-  							confirmButtonColor: '#3f51b5',
-  							type: 'success',
-  							confirmButtonText: 'Ok'
-						})
+					fetch(url, params).then( response => {
+					
+						return response.json()
+
+					}).then(res => {
+						if(res.validacion == true){
+							swal({
+  								title: 'Mensaje enviado!',
+  								text: 'Presione Ok para continuar',
+  								confirmButtonColor: '#3f51b5',
+  								type: 'success',
+  								confirmButtonText: 'Ok'
+							})
+						} else {
+							swal({
+  								title: 'Mensaje no enviado!',
+  								text: 'Presione Ok para continuar',
+  								confirmButtonColor: '#f44336',
+  								type: 'error',
+  								confirmButtonText: 'Ok'
+							})
+						}
+						console.log(res)
 					}).catch( e => {
-						console.log("Los datos no han sido envidas") 
+						console.log("El servidor no ha respondido al envio del mensaje por telegram") 
+						
 					})
 				})
 			},
