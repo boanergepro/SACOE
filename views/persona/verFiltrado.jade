@@ -6,12 +6,16 @@ head
 	title SACOE
 	meta(charset='utf-8')
 	meta(name="viewport" content="width=device-width, initial-scale=1.0")
-	link(rel="stylesheet" href='../../../../../css/pace_theme_flags.css')
 	link(rel="stylesheet" href='../../../../../css/materialize.css')
 	link(rel="stylesheet" href='../../../../../css/main.css')
+	link(rel="stylesheet" href="../../../../../css/datatables-materialize.css")
+	link(rel="stylesheet" href="../../../../../css/datatables.css")
+	link(rel="stylesheet" href='../../../../../css/pace_theme_flags.css')
 	link(rel="stylesheet" href='../../../../../css/icon.css')
 	link(rel="stylesheet" href='../../../../../css/fuente.css')
 	script(type="text/javascript" src="../../../../../js/jquery-2.1.1.min.js")
+	script(type="text/javascript" src="../../../../../js/jqueryDatatables.js")
+	script(type="text/javascript" src="../../../../../js/datatables.js")
 	script(type="text/javascript" src="../../../../../js/materialize.min.js")
 	script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.5/sweetalert2.all.min.js")
 	
@@ -131,9 +135,8 @@ body(class="Oswald")
 				h4.center Todos los ganados
 				
 				div#contenedor-boton-acciones
-				
-				table(class="responsive-table bordered highlight")
 
+				table(id="tabla" class="mdl-data-table" cellspacing="0" width="100%")
 					thead
 						tr
 							th.center Marcar
@@ -145,7 +148,6 @@ body(class="Oswald")
 							th.center Llamado
 							th.center Visitado
 					tbody
-
 						each campo in persona
 							tr
 								td.center
@@ -159,7 +161,18 @@ body(class="Oswald")
 								td.center= campo.edad
 								td.center= campo.direccion
 
-					
+								if campo.llamado == false && campo.visitado == false
+									td.center No
+									td.center No
+								else if campo.llamado == true && campo.visitado == true
+									td.center Si
+									td.center Si
+								else if campo.llamado == true && campo.visitado == false
+									td.center Si
+									td.center No
+								else if campo.llamado == false && campo.visitado == true
+									td.center No
+									td.center Si
 
 												-//Este es el modal de la vista ver
 												div(id="modals#{campo.persona_id}" class="modal")
@@ -348,22 +361,13 @@ body(class="Oswald")
 														div(class="col s6")
 															a(class="modal-action modal-close waves-effect waves-light btn red") No
 
-								if campo.llamado == false && campo.visitado == false
-									td.center No
-									td.center No
-								else if campo.llamado == true && campo.visitado == true
-									td.center Si
-									td.center Si
-								else if campo.llamado == true && campo.visitado == false
-									td.center Si
-									td.center No
-								else if campo.llamado == false && campo.visitado == true
-									td.center No
-									td.center Si
+	
 	footer
 		
 	script(type="text/javascript" src="../../../../../js/pace.js")
+	script(type="text/javascript" src="../../../../../js/initdatatables.js")
 	script(type="text/javascript" src="../../../../../js/componentsMaterialize.js")
 	script(type="text/javascript" src="../../../../../js/seleccionador.js")
 	script(type="text/javascript" src="../../../../../js/socket.js")
 	script(type="text/javascript" src="../../../../../js/directorio.js")
+		
