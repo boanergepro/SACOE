@@ -1,9 +1,3 @@
-//Pruebas
-/*
-$(document).ready(function(){
-    $('.slider').slider();
-});
-*/
 //NavBar
 $('.sideNav').sideNav({
 
@@ -23,7 +17,10 @@ $(document).ready(function() {
 //modals
 $(document).ready(function(){
     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-    $('.modal').modal();
+    $('.modal').modal({
+      
+    });
+
     $('.dropdown-button').dropdown({
       constrainWidth: false, // para permitir o no que cambie el tamaño
       hover: true, //Prar ejecutarlo con hover
