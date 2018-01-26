@@ -1,31 +1,31 @@
 //Dependencias
-const express = require('express')
-const passport = require('passport')
-const Sequelize = require('sequelize')
-const bodyParser = require('body-parser')
-const app = express()
-const e_ws = require('express-ws')(app)
+const express = require('express');
+const passport = require('passport');
+const Sequelize = require('sequelize');
+const bodyParser = require('body-parser');
+const app = express();
+const e_ws = require('express-ws')(app);
 
 //Archivo de configuracion
-const config = require('./config')
-const db = require('./db')
+const config = require('./config');
+const db = require('./db');
 //Conexion con la base de datos
 const conexionDB = db.getConecctionDb();
 
 //==============================================================
-const telegramBot = require('node-telegram-bot-api')
+const telegramBot = require('node-telegram-bot-api');
 
-const token = config.token
-const url = config.url
+const token = config.token;
+const url = config.url;
 
-const bot = new telegramBot(token, {polling: true})
+const bot = new telegramBot(token, {polling: true});
 
-bot.setWebHook(`${url}/bot${token}`)
+bot.setWebHook(`${url}/bot${token}`);
 
 app.post(`/bot${token}`, (req, res) => {
 	bot.processUpdate(req.body);
 	res.sendStatus(200);
-})
+});
 
 
 /*
@@ -49,35 +49,35 @@ bot.onText(/\/start/, (msg) => {
 //==============================================================
 
 //modelos
-const Personas = require('./modelos/persona')
-const FaseGanar = require('./modelos/fase_ganar')
-const Usuario = require('./modelos/usuario')
-const Notificacion = require('./modelos/notificacion')
+const Personas = require('./modelos/persona');
+const FaseGanar = require('./modelos/fase_ganar');
+const Usuario = require('./modelos/usuario');
+const Notificacion = require('./modelos/notificacion');
 
 
 //Controladores
-const Ctrlpersona = require('./controladores/persona')
-const usuarioCtrl = require('./controladores/usuario')
-const authCtrl =  require('./controladores/auth')
-const contactoCtrl = require('./controladores/contacto')
-const enviarMailCtrl = require('./controladores/enviarMail')
+const Ctrlpersona = require('./controladores/persona');
+const usuarioCtrl = require('./controladores/usuario');
+const authCtrl =  require('./controladores/auth');
+const contactoCtrl = require('./controladores/contacto');
+const enviarMailCtrl = require('./controladores/enviarMail');
 //const telegramBot = require('./controladores/telegramBot')
 
 //middleware Transformar los datos a json
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 //Vistas en jade
-app.set('view engine', 'jade')
+app.set('view engine', 'jade');
 
 //Servir archivos staticos
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-app.use(require('cookie-parser')())
-app.use(require('express-session')({ secret: 'sdhfsdkjhfkdsjhfjkdsfkjdsfskd', resave: false, saveUninitialized: false }))
+app.use(require('cookie-parser')());
+app.use(require('express-session')({ secret: 'sdhfsdkjhfkdsjhfjkdsfkjdsfskd', resave: false, saveUninitialized: false }));
 
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 
 //==================================================================================
 //SOCKET NOTIFICACIONES
@@ -94,13 +94,13 @@ app.ws('/socket', (ws,req) => {
 
 		}).then(notificacion => {
 
-			let data = []
+			let data = [];
 
 			for(let i=0; i<notificacion.length; i++){
 				data.push(notificacion[i].dataValues)
 			}
 
-			console.log(JSON.stringify(data))
+			console.log(JSON.stringify(data));
 
 			ws.send(JSON.stringify(data))
 
@@ -110,7 +110,7 @@ app.ws('/socket', (ws,req) => {
 
 	})
 
-})
+});
 
 //==================================================================================
 
@@ -119,11 +119,11 @@ app.get('/directorio', (req, res) => {
 	Usuario.findAll().then(usuarios => {
 		res.send(usuarios)
 	})
-}),
+});
 app.post('/enviarTelegram', (req, res) => {
 
-	let persona_id = req.body.persona_id
-	let telegram_id = req.body.telegram_id
+	let persona_id = req.body.persona_id;
+	let telegram_id = req.body.telegram_id;
 
 	//Consultar lod datos de la persona de la que se necesita enviar los dotos por telegram
 	conexionDB.query('SELECT * FROM vista_datos_personas WHERE personas_id = :id',{ 
@@ -150,7 +150,7 @@ app.post('/enviarTelegram', (req, res) => {
 				celula_insertar: result[0].celula_insertar,
 				peticion_oracion: result[0].peticion_oracion,
 				nombre_heredad: result[0].nombre_heredad
-			}
+			};
 			
 			bot.sendMessage(telegram_id, 
 				`
@@ -177,19 +177,16 @@ app.post('/enviarTelegram', (req, res) => {
 				
 				{ parse_mode: "HTML" 
 			}).then(() => {
-				res.send({'validacion': true})
+				res.send({'validacion': true});
 			}).catch(() => {
-				res.send({'validacion': false})
+				res.send({'validacion': false});
 			})
 
 		}).catch(err => {
-			console.log("No ha sido posible consultar los datos para enviarlos por telegram error")
+			console.log("No ha sido posible consultar los datos para enviarlos por telegram error");
 		})
 	
-
-	
-	
-})
+});
 
 //Marcar las notificaciones a leidads cambiando su estado de 'a' a 'i'
 app.get('/marcar_leidas', (req, res) =>{
@@ -200,169 +197,169 @@ app.get('/marcar_leidas', (req, res) =>{
 			estado: 'a'
 		}
 	}).then(() => {
-		res.redirect('/inicio')
+		res.redirect('/inicio');
 	}).catch(err => {
-		console.log(err)
+		console.log(err);
 	})
-})
+});
 
 
 //PASSPORT ESTARTEGIA
-passport.use(authCtrl.estrategia)
+passport.use(authCtrl.estrategia);
 
 //SERIALIZADOR
-passport.serializeUser(authCtrl.serializador)
+passport.serializeUser(authCtrl.serializador);
 
 //DESERIALIZADOR
-passport.deserializeUser(authCtrl.desserializador)
+passport.deserializeUser(authCtrl.desserializador);
 
 app.get('/persona/generarPDF', (req, res) => {
 	
-	const PDFDocument = require('pdfkit')
-	const doc = new PDFDocument()
+	const PDFDocument = require('pdfkit');
+	const doc = new PDFDocument();
 
-	let nomebreArchivo = "reporte"
+	let nomebreArchivo = "reporte";
 
-	nomebreArchivo = encodeURIComponent(nomebreArchivo) + '.pdf'
+	nomebreArchivo = encodeURIComponent(nomebreArchivo) + '.pdf';
 	
 	//Dercargar el pdf
 	//res.setHeader('Content-disposition', 'attachment; nomebreArchivo="' + nomebreArchivo + '"')
 	//Mostrar el pdf en el navegador
-	res.setHeader('Content-type', 'application/pdf')
-	const content = "Contenido del reporte generado por sacoe"
-	doc.y = 300
-	doc.text(content, 50, 50)
+	res.setHeader('Content-type', 'application/pdf');
+	const content = "Contenido del reporte generado por sacoe";
+	doc.y = 300;
+	doc.text(content, 50, 50);
 
-	doc.pipe(res)
-	doc.end()
+	doc.pipe(res);
+	doc.end();
 
 
-})
+});
 
 //Vista de error
 app.get('/errores/vista403', (req, res) => {
     res.render('errores/vista403')
-})
+});
 
 //Login
-app.get('/', Ctrlpersona.verLogin)
+app.get('/', Ctrlpersona.verLogin);
 
 //Inicio de secion
 app.post('/login', passport.authenticate('local', { failureRedirect: '/' }), 
   	(req, res) => {
-    	res.redirect('/inicio')
+    	res.redirect('/inicio');
   	}
-)
+);
   
 //Enviar email
-app.post('/persona/enviarMail/:id', enviarMailCtrl.sendMail)
+app.post('/persona/enviarMail/:id', enviarMailCtrl.sendMail);
 
 //Enviar telegram
 //app.get('/persona/telegram', telegramBot.sendTelegram)
 
 //Registro usuarios
-app.post('/registro', usuarioCtrl.registro)
+app.post('/registro', usuarioCtrl.registro);
 //Ver usuarios
-app.get('/usuarios', usuarioCtrl.usuarios)
+app.get('/usuarios', usuarioCtrl.usuarios);
 //Vista editar usuario
-app.get('/usuario/editar/:id', usuarioCtrl.editarUsuario)
+app.get('/usuario/editar/:id', usuarioCtrl.editarUsuario);
 //Guardar la edicion del usuario
-app.post('/usuario/editar/:id', usuarioCtrl.saveEdicion)
+app.post('/usuario/editar/:id', usuarioCtrl.saveEdicion);
 //Accion eliminar un usuario
-app.get('/usuario/eliminar/:id', usuarioCtrl.eliminarUsuario)
+app.get('/usuario/eliminar/:id', usuarioCtrl.eliminarUsuario);
 
 //Vista Inicio
-app.get('/inicio', Ctrlpersona.verInicio)
+app.get('/inicio', Ctrlpersona.verInicio);
 
 
 //Buscar
 app.post('/buscar', (req, res) => {
 
-	let parametroBusqueda = req.body.search
-	console.log(parametroBusqueda)
+	let parametroBusqueda = req.body.search;
+	console.log(parametroBusqueda);
 	
 	conexionDB.query('SELECT * FROM vista_datos_personas WHERE nombre = :parametro',
 		{ replacements: { parametro: parametroBusqueda }, type: conexionDB.QueryTypes.SELECT }).then(result => {
 
-			res.render('persona/resultadosBusquedas',{persona: result, user: req.user})
+			res.render('persona/resultadosBusquedas',{persona: result, user: req.user});
 
 		}).catch(err => {
-			console.log(err)
+			console.log(err);
 		})
 
-})
+});
 
 
 //Vista Nuevo
-app.get('/persona/nuevo', Ctrlpersona.verFormReg)
+app.get('/persona/nuevo', Ctrlpersona.verFormReg);
 
 //Agregar nueva persona
-app.post('/nuevo', Ctrlpersona.agregarReg)
+app.post('/nuevo', Ctrlpersona.agregarReg);
 
 //Vista personas(Todos los ganados)
-app.get('/persona/todos', Ctrlpersona.verTodo)
+app.get('/persona/todos', Ctrlpersona.verTodo);
 
 //Vita ganados
-app.get('/persona/', Ctrlpersona.ganados)
+app.get('/persona/', Ctrlpersona.ganados);
 
 //Ver persona
-app.get('/persona/ver/:id', Ctrlpersona.verRegById)
+app.get('/persona/ver/:id', Ctrlpersona.verRegById);
 
 //Ver las redes de la heredad de un coordinador
-app.get('/persona/redes/:id', Ctrlpersona.coordinador_redes)
+app.get('/persona/redes/:id', Ctrlpersona.coordinador_redes);
 //Ver todas las personas filtradas por heredad y por red - coordinador
-app.get('/persona/heredad/:id/red/:red', Ctrlpersona.coordinador_personas)
+app.get('/persona/heredad/:id/red/:red', Ctrlpersona.coordinador_personas);
 
 
 //Adminstrador=======================================================================
 
 
 //Redes
-app.get('/persona/heredad/:codigoHeredad/red', Ctrlpersona.verVistaRedes)
+app.get('/persona/heredad/:codigoHeredad/red', Ctrlpersona.verVistaRedes);
 
 //Todos filtrado
-app.get('/admin/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal)
+app.get('/admin/persona/heredad/:codigoHeredad/red/:red', Ctrlpersona.verFitradoFinal);
 
 //==================================================================================
 //Mostar los ganados segun el id del usurio
-app.get('/persona/:id', Ctrlpersona.usuario_ganados)
+app.get('/persona/:id', Ctrlpersona.usuario_ganados);
 
 // Vista editar persona
-app.get('/persona/editar/:id', Ctrlpersona.vistaEditar)
+app.get('/persona/editar/:id', Ctrlpersona.vistaEditar);
 
-app.post('/persona/editar/editarSave', Ctrlpersona.saveEditar)
+app.post('/persona/editar/editarSave', Ctrlpersona.saveEditar);
 
 //Borrar una persona
-app.get('/persona/borrar/:id', Ctrlpersona.borrarUno)
+app.get('/persona/borrar/:id', Ctrlpersona.borrarUno);
 
 //Ir a la llamda para agregar el resultado de la llamada
-app.get('/persona/contacto/llamada/:id', contactoCtrl.addResultLlamada)
+app.get('/persona/contacto/llamada/:id', contactoCtrl.addResultLlamada);
 
 //Guardar el resultado de la llamada
-app.post('/persona/contacto/llamada/:id', contactoCtrl.saveResultLlamada)
+app.post('/persona/contacto/llamada/:id', contactoCtrl.saveResultLlamada);
 //Ver el resultado de la llamada
-app.get('/persona/contacto/llamada/ver/:id',contactoCtrl.verLlamada)
+app.get('/persona/contacto/llamada/ver/:id',contactoCtrl.verLlamada);
 
 //Ir a la vista para agregar el resultado de la visita
-app.get('/persona/contacto/visita/:id', contactoCtrl.addResultVisita)
+app.get('/persona/contacto/visita/:id', contactoCtrl.addResultVisita);
 
 //Ver el resultado de la visita
-app.get('/persona/contacto/visita/ver/:id',contactoCtrl.verVisita)
+app.get('/persona/contacto/visita/ver/:id',contactoCtrl.verVisita);
 
 //Guardar el resultado de la visita
-app.post('/persona/contacto/visita/:id', contactoCtrl.saveResultVisita)
+app.post('/persona/contacto/visita/:id', contactoCtrl.saveResultVisita);
 
 //Vista estadisticas
-app.get('/estadisticas', Ctrlpersona.vistaEstadisticas)
+app.get('/estadisticas', Ctrlpersona.vistaEstadisticas);
 
 
 app.get('/logout', (req, res) => {
 
 	req.logout();
-	res.redirect('/')
+	res.redirect('/');
 
-})
+});
 
 app.listen(config.port, () => {
-    console.log(`Server corriendo en el puerto ${config.port}`)
-})
+    console.log(`Server corriendo en el puerto ${config.port}`);
+});

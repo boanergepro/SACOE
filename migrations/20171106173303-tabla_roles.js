@@ -17,7 +17,7 @@ module.exports = {
                 allowNull: false
             },
             updatedAt: Sequelize.DATE
-            })
+        })
             
 
     },
