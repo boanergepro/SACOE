@@ -14,6 +14,10 @@ git clone https://github.com/boanergepro/SACOE.git
 ```
 
 ```bash
+cd SACOE
+```
+
+```bash
 npm install
 ```
 
@@ -23,4 +27,8 @@ node_modules/.bin/sequelize db:migrate --url 'postgres://postgres:parangaturimic
 
 ```bash
 node_modules/.bin/sequelize db:seed:all --url 'postgres://postgres:parangaturimicuaro@localhost:5432/sacoeDB'
+```
+
+```bash
+npm start
 ```
